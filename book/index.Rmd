@@ -1,0 +1,18 @@
+---
+title: "Fundamentals of Computational Biology"
+author: "Daniel Lundin, Diego Brambilla and course participants"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: LNUc-EEMiS/compbio-fundamentals
+description: 'Work in progress book accompanying the Linnaeus University/EEMiS PhD student course "Fundamentals in Computational Biology".'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preface
