@@ -8,13 +8,16 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="54.024765cm"
-   height="14.349939cm"
-   viewBox="117 119 1058.6281 268.23348"
+   width="64.490219cm"
+   height="15.308542cm"
+   viewBox="117 119 1263.7011 286.15198"
    version="1.1"
    id="svg2070"
    sodipodi:docname="computational_workflow.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="/home/daluab/dev/compbio-fundamentals/book/img/computational_workflow.png"
+   inkscape:export-xdpi="99"
+   inkscape:export-ydpi="99">
   <metadata
      id="metadata2076">
     <rdf:RDF>
@@ -133,8 +136,8 @@
      fit-margin-right="1"
      fit-margin-bottom="1"
      inkscape:zoom="0.45781698"
-     inkscape:cx="1112.4662"
-     inkscape:cy="245.51293"
+     inkscape:cx="2197.2286"
+     inkscape:cy="258.17968"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -142,12 +145,26 @@
     <inkscape:grid
        type="xygrid"
        id="grid2215"
-       originx="17.595238"
-       originy="13.582434" />
+       originx="17.595236"
+       originy="19.846994" />
   </sodipodi:namedview>
+  <rect
+     y="132.12762"
+     x="1173.1046"
+     height="259.89673"
+     width="187.58063"
+     id="rect2373"
+     style="opacity:1;fill:#fff6d5;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.84123981;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.52371933, 2.52371933;stroke-dashoffset:0;stroke-opacity:1" />
+  <rect
+     style="opacity:1;fill:#fff6d5;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:1.555372;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2338"
+     width="642.88708"
+     height="259.22867"
+     x="507.88452"
+     y="132.46165" />
   <g
      id="g2037"
-     transform="translate(17.595238,12.213813)">
+     transform="translate(17.595237,24.430686)">
     <line
        id="line2033"
        y2="239.772"
@@ -162,7 +179,7 @@
   </g>
   <g
      id="g2043"
-     transform="translate(17.595238,12.213813)">
+     transform="translate(17.595237,24.430686)">
     <line
        id="line2039"
        y2="240"
@@ -177,7 +194,7 @@
   </g>
   <g
      id="g2067"
-     transform="translate(216.68288,12.213813)">
+     transform="translate(216.68288,24.430686)">
     <line
        id="line2063"
        y2="241.30299"
@@ -192,7 +209,7 @@
   </g>
   <g
      id="g2208"
-     transform="translate(17.595238,12.213813)">
+     transform="translate(17.595237,24.430686)">
     <rect
        id="rect2025"
        ry="0"
@@ -216,7 +233,7 @@
   </g>
   <g
      id="g2213"
-     transform="translate(17.595238,12.213813)">
+     transform="translate(17.595237,24.430686)">
     <path
        inkscape:connector-curvature="0"
        id="path2015"
@@ -236,7 +253,7 @@
   </g>
   <g
      id="g2203"
-     transform="translate(17.595238,12.213813)">
+     transform="translate(17.595237,24.430686)">
     <g
        transform="translate(381.58465)"
        id="g2125">
@@ -261,12 +278,12 @@
   <circle
      style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-opacity:1"
      cx="836.48267"
-     cy="252.21382"
+     cy="264.43069"
      id="ellipse2045"
      r="120" />
   <g
      id="g2332"
-     transform="rotate(40.285342,812.63891,272.0404)">
+     transform="matrix(0.85902847,0.72813138,-0.72813138,0.85902847,309.6334,-538.64103)">
     <path
        id="path2217"
        transform="matrix(0.51845733,0,0,0.51845733,117,113.13095)"
@@ -295,22 +312,27 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.35573959px;line-height:125%;font-family:FreeSerif;-inkscape-font-specification:FreeSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51845735px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="836.86987"
-     y="244.62636"
+     x="836.8988"
+     y="244.74591"
      id="text2170"><tspan
        sodipodi:role="line"
-       x="836.86987"
-       y="244.62636"
+       x="836.8988"
+       y="244.74591"
        style="text-align:center;text-anchor:middle;stroke-width:0.51845735px"
-       id="tspan2172">Analyses: summary tables,</tspan><tspan
+       id="tspan2172">Biological analyses:</tspan><tspan
        sodipodi:role="line"
-       x="836.86987"
-       y="268.82101"
+       x="836.8988"
+       y="268.94058"
+       style="text-align:center;text-anchor:middle;stroke-width:0.51845735px"
+       id="tspan2375">summary tables,</tspan><tspan
+       sodipodi:role="line"
+       x="836.8988"
+       y="293.13525"
        style="text-align:center;text-anchor:middle;stroke-width:0.51845735px"
        id="tspan2176">plots, statistics</tspan></text>
   <g
      id="g2191"
-     transform="translate(30.038208,12.213813)">
+     transform="translate(214.01474,24.430686)">
     <path
        inkscape:connector-curvature="0"
        id="path2053"
@@ -330,7 +352,7 @@
   </g>
   <g
      id="g2186"
-     transform="translate(216.68293,12.213813)">
+     transform="translate(216.68293,24.430686)">
     <line
        style="fill:none;stroke:#000000;stroke-width:2;stroke-opacity:1"
        x1="440.95001"
@@ -342,5 +364,53 @@
        style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-opacity:1"
        points="497.764,240 487.764,245 490.264,240 487.764,235 "
        id="polygon2184" />
+  </g>
+  <g
+     id="g2365"
+     transform="translate(-1.1287044e-6,12.216873)">
+    <g
+       id="g2346"
+       transform="translate(697.68319,12.213813)">
+      <rect
+         id="rect2340"
+         ry="0"
+         rx="0"
+         height="80"
+         width="120.95"
+         y="200"
+         x="320"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.35573959px;line-height:125%;font-family:FreeSerif;-inkscape-font-specification:FreeSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51845735px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="1078.2568"
+       y="244.62636"
+       id="text2354"><tspan
+         sodipodi:role="line"
+         x="1078.2568"
+         y="244.62636"
+         style="text-align:center;text-anchor:middle;stroke-width:0.51845735px"
+         id="tspan2352">Final figures</tspan><tspan
+         id="tspan2358"
+         sodipodi:role="line"
+         x="1078.2568"
+         y="268.82104"
+         style="text-align:center;text-anchor:middle;stroke-width:0.51845735px">and analyses</tspan></text>
+  </g>
+  <g
+     transform="translate(399.6591,24.430686)"
+     id="g2371">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-opacity:1"
+       x1="740"
+       y1="240"
+       x2="790.26703"
+       y2="241.30299"
+       id="line2367" />
+    <polygon
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-opacity:1"
+       points="790.267,241.303 787.898,236.24 797.765,241.498 787.638,246.237 "
+       id="polygon2369" />
   </g>
 </svg>

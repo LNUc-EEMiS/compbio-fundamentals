@@ -1,0 +1,11 @@
+# Working with data {#working-with-data}
+
+In many biological projects where large amounts of data from e.g. sequencing are involved, the
+project can be divided up into three phases: "annotation", analyses and preparation of final
+figures. The quotes around annotation signifies that the term should be understood in a very wide
+sense as any kind of processing required before raw data can be turned into a format useful for
+the true biological analysis, usually tables but also e.g. sequence files or phylogenies.
+
+![**Overall workflow in computational biology.** The yellow boxes indicates parts that are useful to keep under version control, e.g. Git. The manuscript is common to keep under a different kind of source control, i.e. the "tracked changes" functionality in word processors.](img/computational_workflow.png)
+
+## Organizing your work {#organizing-work}

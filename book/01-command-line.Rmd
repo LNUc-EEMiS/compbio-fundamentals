@@ -1,0 +1,36 @@
+# Controlling a computer from the command line
+
+## Connecting to other computers with `ssh` {#ssh}
+
+### Public key authentication {#public-key-authentication}
+
+## Files and file systems {#files-and-filesystems}
+
+## Using the Linux command line {#linux-cli}
+
+The Linux command line is a program called the *shell*, and exists in different versions. The most
+popular is probably `bash` (short for *B*ourne *a*gain *sh*ell) a derivative of the original *Bourne
+shell* `sh`. Together with *Korn shell*, `sh` and `bash` forms a family with similar syntax. A
+second family started with *C shell* `csh`, which aimed at being more similar in syntax to the *C*
+programming language. In this book, we're going to focus solely on `bash`.
+
+The shell is both a way of interacting interactively with the computer and a programming language, a
+*scripting* language. When you use the shell interactively you execute commands and programs and a
+shell script is nothing else than a set of commands saved for later, though often generalized with
+variables etc. to be more useful.
+
+### The environment {#bash-environment}
+
+#### Variables {#bash-variables}
+
+#### Configuration files {#bash-config-files}
+
+### Pipelines {#pipelines}
+
+### Job control {#job-control}
+
+`&`, `bg`, `fg`, `jobs` and &lt;ctrl&gt;-Z.
+
+## Screen {#screen}
+
+## Source control with Git {#git}

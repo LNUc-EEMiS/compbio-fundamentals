@@ -1,0 +1,11 @@
+# Introduction to data science with R/Tidyverse {#tidyverse-intro}
+
+## Good habits {#r-good-habits}
+
+- Dont use `setwd()` in your scripts
+
+- Define as few tables as possible
+
+- Don't write intermediate tables to file
+
+## RMarkdown/Rnotebooks {#rmarkdown}

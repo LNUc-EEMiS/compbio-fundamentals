@@ -1,0 +1,26 @@
+# (APPENDIX) Appendix {-}
+
+# Appendix: Alphabetical list of Bash commands
+
+- `&`: Place after a command to direct it to background execution.
+
+- &lt;ctrl&gt;-Z: Background a running program.
+
+- `bg`: Background a stopped program; see also `fg` and `jobs`.
+
+- `cd`: Change directory
+
+- `fg`: Foreground a running program.
+
+- `jobs`: List programs with their state.
+
+- `ls`: List directory, often used with the `-l`(ong) flag (common alias: `ll`)
+
+- `mkdir`: Make directory, often used with the `-p`(arents) flag which can
+  create any non-existing parent directories
+
+- `popd`: 
+  Move back one directory by removing the top directory in the stack; see also `pushd`.
+  
+- `pushd`:
+  Move to a directory and place it in a *stack* of directories; see also `popd`. 
