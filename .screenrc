@@ -1,0 +1,11 @@
+sessionname compbio-fundamentals
+setenv ROOT $PWD
+# __INSERTPOINT__ This line allows a script to insert new configuration lines here.
+chdir doc
+screen -t doc
+chdir $ROOT/img
+screen -t img
+chdir $ROOT
+screen -t rstudio
+screen -t man
+screen -t root
