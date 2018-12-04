@@ -22,6 +22,10 @@
 - `mkdir`: Make directory, often used with the `-p`(arents) flag which can
   create any non-existing parent directories
 
+- `mv`: Move a file; includes changing the name. Moving between directories within a file system is
+  just renaming the file, moving between file systems actually moves data and hence takes much
+  longer.
+
 - `popd`: Move back one directory by removing the top directory in the stack; see also `pushd`.
   
 - `pushd`: Move to a directory and place it in a *stack* of directories; see also `popd`. 

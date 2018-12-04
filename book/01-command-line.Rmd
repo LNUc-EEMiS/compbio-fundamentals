@@ -18,8 +18,8 @@ A *link* is a name of a file and is created with the `ln` command. Links can be 
 *symbolic* (*symlinks*) and a file can have many. The "normal" name you see for a file is a hard
 link.
 
-Links are created with the `ln` command (with the `-s` flag for symlinks) and removed with the `rm`
-command.
+Links are created with the `ln` command (with the `-s` flag for symlinks), removed with the `rm`
+command and moved, including name changed, with `mv`.
 
 #### Hard links {#hard-links}
 
