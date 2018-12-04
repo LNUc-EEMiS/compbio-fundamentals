@@ -94,6 +94,18 @@ variables etc. to be more useful.
 
 ## Source control with Git {#git}
 
+## Installing programs with Conda {#conda}
+
+Intro.
+
+### How to install Conda {#installing-conda}
+
+Describe both Miniconda and Anaconda.
+
+### How to work with Conda {#working-with-conda}
+
+Short description with links to full documentation.
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
