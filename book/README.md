@@ -1,7 +1,7 @@
 # Working on the book
 
-Read the first few chapters of the [Bookdown book](https://bookdown.org) unless you already know
-Bookdown.
+Read the first few chapters of the [Bookdown book](https://bookdown.org/yihui/bookdown/) unless 
+you already know Bookdown.
 
 Use 100 characters as text width in files (in vi/vim: `:set tw=100`).
 
