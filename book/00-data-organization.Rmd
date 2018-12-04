@@ -8,4 +8,16 @@ the true biological analysis, usually tables but also e.g. sequence files or phy
 
 ![**Overall workflow in computational biology.** The yellow boxes indicates parts that are useful to keep under version control, e.g. Git. The manuscript is common to keep under a different kind of source control, i.e. the "tracked changes" functionality in word processors.](img/computational_workflow.png)
 
+The annotation part, although unknown territory when you're new to computational biology, is usually
+easier to master than the biological analysis. However, the latter is likely to take much more time
+as it's an open-ended exercise without strict roadmap. In other words, you don't know exactly which
+analyses to perform and you don't know when you're finished. During this step you are looking for
+the "story" that you will eventually tell in the manuscript.
+
+The "Final figures and analyses" is not as separated from the rest of the biological analysis as the
+figure above might indicate. In most analyses, you work on the figures and statistical analyses and
+with time decide to keep some but not some other. If you work with RMarkdown (see \@ref(rmarkdown))
+it is, however, a good practice to create a separate document with the final figures and tables that
+will go into the manuscript, including any supplemental material.
+
 ## Organizing your work {#organizing-work}
