@@ -4,7 +4,66 @@
 
 ### Public key authentication {#public-key-authentication}
 
-## Files and file systems {#files-and-filesystems}
+## Files, directories and file systems {#files-and-filesystems}
+
+### File systems {#filesystems}
+
+#### Absolute and relative paths {#paths}
+
+### Links {#links}
+
+A *link* is a name of a file and is created with the `ln` command. Links can be either *hard* or
+*symbolic* (*symlinks*) and a file can have many. The "normal" name you see for a file is a hard
+link.
+
+Links are created with the `ln` command (with the `-s` flag for symlinks) and removed with the `rm`
+command.
+
+#### Hard links {#hard-links}
+
+Every file must have at least one hard link, but can have many, all of them equivalent. This means
+that a file can have many indistinguishable names. They must all reside on the same file system (see
+\@ref(filesystems)). A file is not removed until you have removed all links. You can see this
+behaviour with the following example:
+
+```
+pushd /tmp      # cd to /tmp, but remember where I came from
+touch l0        # Create an empty file
+for i in {1..9}; do ln l0 l${i}; done   # Create 9 more hard links/names
+ls -li l[0-9]   # -l is for long and -i shows the inode number
+rm l0           # Remove the first created link
+ls -li l[0-9]
+rm l[0-9]
+ls -li l[0-9]
+popd            # cd back to where you were before pushd
+```
+
+Note that the first column of the file listing above, the *inode number*, is the same for all,
+indicating that they point to the same *inode* and that third column of the first listing has a 10:
+the number of links. After the first `rm` the number of links goes down to 9. The file does not
+disappear until all links have been removed. In actual fact the *inode* remains until the space is
+needed, when it can be removed.
+
+#### Symbolic links -- *symlinks* {#symlinks}
+
+A *symlink* can be thought of as a "shortcut" to a hard link. Symlinks can reside on another file
+system than the hard link it points to and removing one will never remove the file. For all other
+purposes, symlinks are equivalent to hard links and can be very useful.
+
+```
+pushd /tmp
+touch a_file            # Create an empty file
+ln -s a_file a_symlink  # Create a symlink pointing to it
+ls -l a_file a_symlink  # List the two
+rm a_file a_symlink     # Remove them
+popd
+```
+
+Note in the row for `a_symlink` in the file listing, that there's an `l` in the first column of the
+first field (the permissions) indicating this is a symlink, which is also shown at the end of the
+line as `a_symlink -> a_file`.
+
+### Timestamps {#timestamps}
 
 ## Using the Linux command line {#linux-cli}
 

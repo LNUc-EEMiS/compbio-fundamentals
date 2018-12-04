@@ -2,25 +2,32 @@
 
 # Appendix: Alphabetical list of Bash commands
 
-- `&`: Place after a command to direct it to background execution.
+- `&`: Place after a command to direct it to background execution. See \@ref(job-control).
 
-- &lt;ctrl&gt;-Z: Background a running program.
+- &lt;ctrl&gt;-Z: Background a running program. See \@ref(job-control).
 
-- `bg`: Background a stopped program; see also `fg` and `jobs`.
+- `bg`: Background a stopped program; see also `fg` and `jobs`. See \@ref(job-control).
 
 - `cd`: Change directory
 
-- `fg`: Foreground a running program.
+- `fg`: Foreground a running program. See \@ref(job-control).
 
-- `jobs`: List programs with their state.
+- `jobs`: List programs with their state. See \@ref(job-control).
+
+- `ln`: Creates links, almost exclusively used with the `-s`(ymbolic) flag, which creates a
+  *symlink*. See \@ref(links).
 
 - `ls`: List directory, often used with the `-l`(ong) flag (common alias: `ll`)
 
 - `mkdir`: Make directory, often used with the `-p`(arents) flag which can
   create any non-existing parent directories
 
-- `popd`: 
-  Move back one directory by removing the top directory in the stack; see also `pushd`.
+- `popd`: Move back one directory by removing the top directory in the stack; see also `pushd`.
   
-- `pushd`:
-  Move to a directory and place it in a *stack* of directories; see also `popd`. 
+- `pushd`: Move to a directory and place it in a *stack* of directories; see also `popd`. 
+
+- `rm`: Remove a file, or, to be strict, a link (see \@ref(links)). The last hard link to be
+  removed, removes the file.
+
+- `touch`: Change any timestamp of a file, in most cases the *modified* timestamp (see
+  \@ref(timestamps)). `touch` is commonly used to create an empty file: `$touch empty_file`.
