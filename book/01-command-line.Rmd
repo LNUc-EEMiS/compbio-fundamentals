@@ -4,7 +4,9 @@
 
 ### Public key authentication {#public-key-authentication}
 
-## Files, directories and file systems {#files-and-filesystems}
+## Users, files, directories and file systems {#users-files-and-filesystems}
+
+### Users, groups and permissions {#users-groups-permissions}
 
 ### File systems {#filesystems}
 
