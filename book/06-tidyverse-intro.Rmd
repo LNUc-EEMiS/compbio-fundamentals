@@ -8,4 +8,7 @@
 
 - Don't write intermediate tables to file
 
+- Write scripts for heavy analyses that need not be rerun; work with figures and tables in RMarkdown
+  documents (see \@ref(rmarkdown)).
+
 ## RMarkdown/Rnotebooks {#rmarkdown}
