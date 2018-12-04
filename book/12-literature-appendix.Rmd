@@ -1,0 +1,7 @@
+# Literature
+
+- [Bash Guide for Beginners](http://www.tldp.org/LDP/Bash-Beginners-Guide/html/)
+
+```{r include=FALSE}
+# vim:tw=100
+```
