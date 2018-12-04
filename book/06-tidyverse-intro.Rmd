@@ -12,3 +12,7 @@
   documents (see \@ref(rmarkdown)).
 
 ## RMarkdown/Rnotebooks {#rmarkdown}
+
+```{r include=FALSE}
+# vim:tw=100
+```

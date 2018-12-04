@@ -1,1 +1,5 @@
 # Automation with Snakemake {#snakemake}
+
+```{r include=FALSE}
+# vim:tw=100
+```

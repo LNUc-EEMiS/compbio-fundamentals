@@ -1,1 +1,5 @@
 # Notes on "annotation" of various biological data {#annotation}
+
+```{r include=FALSE}
+# vim:tw=100
+```

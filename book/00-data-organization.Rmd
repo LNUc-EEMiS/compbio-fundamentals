@@ -21,3 +21,7 @@ it is, however, a good practice to create a separate document with the final fig
 will go into the manuscript, including any supplemental material.
 
 ## Organizing your work {#organizing-work}
+
+```{r include=FALSE}
+# vim:tw=100
+```

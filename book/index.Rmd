@@ -24,3 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This book is a work in progress, aiming to document the PhD student course "Fundamentals in Computational Biology"
 given December 2018 - May/June 2019 at the Linnaeus University in Kalmar.
+
+```{r include=FALSE}
+# vim:tw=100
+```

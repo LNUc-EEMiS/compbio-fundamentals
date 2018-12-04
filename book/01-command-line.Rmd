@@ -93,3 +93,7 @@ variables etc. to be more useful.
 ## Screen {#screen}
 
 ## Source control with Git {#git}
+
+```{r include=FALSE}
+# vim:tw=100
+```

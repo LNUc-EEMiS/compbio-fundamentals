@@ -1,3 +1,7 @@
 # Working in the UPPMAX clusters
 
 ## Job submission with SLURM {#slurm}
+
+```{r include=FALSE}
+# vim:tw=100
+```
