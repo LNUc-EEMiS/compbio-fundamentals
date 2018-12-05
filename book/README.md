@@ -24,7 +24,7 @@ group with the same name. Contact Daniel Lundin if you want access.
 If you add something to the Zotero group, you need to export it to BibTex with the name
 `eemis-compbio.bib` and place it in this directory.
 
-Refering to literature is done like this: `@garrels_bash_2008`.
+Refering to literature is done like this: `@garrels_bash_2008` (get the name from the bib file).
 
 ## Building the book
 
