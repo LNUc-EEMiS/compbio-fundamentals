@@ -98,6 +98,43 @@ of the two commands.
 
 ### Pipelines {#pipelines}
 
+The word "pipeline" can mean slightly different things in computing. The most original meaning comes
+from the UNIX shell, where it means that you literaly connect the output of one command as input to
+the next in a chain^[When the word "pipeline" is used in computational biology, it's usually used
+symbolicaly and means that in order to produce a certain output you need to run several programs in
+succession.]. 
+
+To truly understand what's going on, you need to know about the three different channels that each
+UNIX command has: standard input (STDIN), standard output (STDOUT) and standard error (STDERR). By
+default, STDIN is connected to your keyboard and the other two to your screen. The difference
+between STDOUT and STDERR is that the latter is reserved for error messages from a program, whereas
+the former is used for expected output. The channels can be redirected to files which is done with
+`<` for STDIN, `>` for STDOUT and `2>` for STDERR. In principle, a command hence looks like this:
+
+```
+cat < input_file > output_file 2> error_message_file
+```
+
+The above reads `input_file` and sends that to `output_file`; if an error occurs, messages will be
+written to `error_message_file`. (The example is a bit constructed, because if you don't redirect
+STDIN, `cat` actually reads one or more files on the command line, e.g.: `cat file1 file2 file3 >
+concatenated_file`.)
+
+The pipe character `|` connects STDOUT from one command, to STDIN for the next, which makes it
+possible to modify the output of one command and form a *pipeline*. A very common example is to
+place `more` as the last output of a command that produces a lot of output, so you can read the
+output line by line.
+
+```
+# Find all files ending with `.tsv` and check output page by page with `more`.
+find . -name "*.tsv" | more
+```
+
+Pipelines can be arbitrarily long and often contain programs like `grep` (scans for text patterns),
+`sed` or `awk` (modifies text), `tail -f` (follow output when it's being produced). This is in line
+with the *UNIX philosophy* that programs should do one thing and do it well, leaving other things
+for other programs.
+
 ### Job control {#job-control}
 
 `&`, `bg`, `fg`, `jobs` and &lt;ctrl&gt;-Z.
@@ -164,6 +201,7 @@ first field (the permissions) indicating this is a symlink, which is also shown 
 line as `a_symlink -> a_file`.
 
 ### Timestamps {#timestamps}
+
 ## Screen {#screen}
 
 ## Source control with Git {#git}
