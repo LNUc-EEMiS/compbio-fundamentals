@@ -1,7 +1,45 @@
 # Using UNIX-like computers and mastering the command shell {#unix-and-shell}
 
 Most programs in bioinformatics are written for UNIX-like operating systems like Linux. Moreover,
-they are usually controlled from the command (CLI) line and not from a graphical interface (GUI).
+they are usually controlled from the command line (CLI) and not from a graphical interface (GUI).
+
+UNIX and it's derivatives have a long history as an operating system by programmers for programmers.
+This makes UNIX different from commercial operating systems and there is a clear philosophy behind
+many aspects of behaviour of a computer running UNIX. That being said, a modern UNIX-like operating
+system like Linux is in many ways similar to e.g. Apple's OS X or Windows, but behind the shiny
+graphical interface the tools many long-time users have come to love still remain. In fact, Apple's
+OS X is a UNIX at its core, with a proprietary graphical interface. 
+
+## Interacting with UNIX-like operating systems from commercial operating systems {#interacting-with-unix}
+
+In scientific computing, the most common way to connect to a computing cluster running Linux, is to
+use Secure Shell (ssh). 
+
+### Connecting from a UNIX-like computer (Linux or Mac OS X) {#connecting-from-unix}
+
+SSH is a command-line tool available in all Linux distributions and in OS X. You connect like this:
+
+```
+ssh user@rackham.uppmax.uu.se
+```
+
+And your local command-line session is exchanged for one at the cluster.
+
+### Connecting from a Windows computer {#connecting-from-windows}
+
+It's a little bit more complicated with Windows computers, because there's no ssh program directly
+available. There are some options though. At UPPMAX they recommend the
+[MobaXterm](http://mobaxterm.mobatek.net/) program (see [UPPMAX
+documentation](http://www.uppmax.uu.se/support/user-guides/guide--first-login-to-uppmax/)). Another
+popular program is [PuTTY](https://putty.org/).
+
+There are also bash implementations for Windows, e.g. [Cygwin](https://www.cygwin.com/) and the
+command line interface that comes with [Git for Windows](https://git-scm.com/download/win).
+
+(I also came across a [blog post describing Windows 10's inbuilt Bash
+shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).)
+
+### Public key authentication {#public-key-authentication}
 
 ## Using the Linux command line {#linux-cli}
 
@@ -63,10 +101,6 @@ of the two commands.
 ### Job control {#job-control}
 
 `&`, `bg`, `fg`, `jobs` and &lt;ctrl&gt;-Z.
-
-## Connecting to other computers with `ssh` {#ssh}
-
-### Public key authentication {#public-key-authentication}
 
 ## Users, files, directories and file systems {#users-files-and-filesystems}
 
