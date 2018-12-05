@@ -80,9 +80,9 @@ The shell is both a way of interacting interactively with the computer and a pro
 shell script is nothing else than a set of commands saved for later, though often generalized with
 variables etc. to be more useful.
 
-There are many free sources of information available, one of them the classic
-[Bash Guide for Beginners](http://www.tldp.org/LDP/Bash-Beginners-Guide/html/) from "The Linux
-Documentation Project" (tldp).
+There are many free sources of information available, one of them the classic [Bash Guide for
+Beginners](http://www.tldp.org/LDP/Bash-Beginners-Guide/html/) [@garrels_bash_2008] from "The
+Linux Documentation Project" (tldp).
 
 ### The environment {#bash-environment}
 

@@ -1,5 +1,10 @@
 # Introduction to data science with R/Tidyverse {#tidyverse-intro}
 
+There's an excellent book describing the Tidyverse written by Hadley Wickham, the author of the
+Tidyverse, together with Garrett Grolemund: [R for Data Science](https://r4ds.had.co.nz/)
+[@wickham_r_2017]. When you're done with that and want more, there is: [Advanced
+R](https://adv-r.hadley.nz/index.html) [@wickham_advanced_2019], also by Hadley Wickham.
+
 ## Good habits {#r-good-habits}
 
 - Dont use `setwd()` in your scripts

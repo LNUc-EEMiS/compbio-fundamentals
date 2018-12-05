@@ -9,7 +9,7 @@ output:
   bookdown::pdf_book:
     keep_tex: yes
 documentclass: book
-bibliography: [book.bib, packages.bib]
+bibliography: [eemis-compbio.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: LNUc-EEMiS/compbio-fundamentals
