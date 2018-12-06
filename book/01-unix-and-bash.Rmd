@@ -6,9 +6,11 @@ they are usually controlled from the command line (CLI) and not from a graphical
 UNIX and it's derivatives have a long history as an operating system by programmers for programmers.
 This makes UNIX different from commercial operating systems and there is a clear philosophy behind
 many aspects of behaviour of a computer running UNIX. That being said, a modern UNIX-like operating
-system like Linux is in many ways similar to e.g. Apple's OS X or Windows, but behind the shiny
-graphical interface the tools many long-time users have come to love still remain. In fact, Apple's
-OS X is a UNIX at its core, with a proprietary graphical interface. 
+system like Linux is in many ways similar to e.g. Apple's OS X or Windows and is fully controllable
+via a graphical interface. However, behind the graphical interface the tools many long-time users
+have come to love still remain. Apple's OS X is in this way similar to e.g. Linux by being a UNIX at
+its core, with a proprietary graphical interface although in this case a commercial, non-free
+program. 
 
 ## Interacting with UNIX-like operating systems from commercial operating systems {#interacting-with-unix}
 
@@ -102,7 +104,7 @@ The word "pipeline" can mean slightly different things in computing. The most or
 from the UNIX shell, where it means that you literaly connect the output of one command as input to
 the next in a chain^[When the word "pipeline" is used in computational biology, it's usually used
 symbolicaly and means that in order to produce a certain output you need to run several programs in
-succession.]. 
+succession. A better term for this is *workflow*.]. 
 
 To truly understand what's going on, you need to know about the three different channels that each
 UNIX command has: standard input (STDIN), standard output (STDOUT) and standard error (STDERR). By
