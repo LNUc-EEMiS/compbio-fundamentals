@@ -1,0 +1,74 @@
+Fundamentals of computational biology, instalment 1
+========================================================
+author: Daniel Lundin
+date: 2018-12-12
+autosize: true
+
+Today's schedule
+========================================================
+
+- 9.00 - 10.00: Lecture/discussion
+
+- 10.00 - 11.00: Linux practical
+
+- 11.00 - 13.00: Group discussion and lunch
+
+- 13.00 - 14.00: Group presentations
+
+- 14.00 - 15.00: Introduction to R/Tidyverse, RStudio and RMarkdown
+
+What's this course about?
+========================================================
+
+- Lectures: Key concepts and methods
+
+- Practicals: Application of the above
+
+- Data analysis: R/Tidyverse for biology
+
+- Mentorship
+
+- Writing a book
+
+Conceptual work flow
+========================================================
+
+[Data flow](../book/img/computational_workflow.png)
+
+UNIX
+========================================================
+
+Connecting to computers: SSH
+========================================================
+
+SSH: Key pair authentication
+========================================================
+
+- `ssh-keygen`, `ssh-agent`
+
+- Port and key forwarding
+
+Files and filesystems
+========================================================
+
+- Organization of UNIX file systems
+
+- Absolute and relative paths
+
+- Commands
+
+- Symlinks
+
+UPPMAX: Submitting jobs
+========================================================
+
+Screen
+========================================================
+
+Git and GitHub
+========================================================
+
+Organizing data
+========================================================
+
+- Group discussion
