@@ -7,6 +7,8 @@ chdir $ROOT/img
 screen -t img
 chdir $ROOT/2018-19_course
 screen -t course
+chdir $ROOT/data
+screen -t data
 chdir $ROOT
 screen -t rstudio
 screen -t man
