@@ -25,6 +25,14 @@ will go into the manuscript, including any supplemental material.
 
 ## Organizing your work {#organizing-work}
 
+A common way to organize data, code, tables and figures is through spreadsheets. In my mind, this is
+very close to *not* organizing.
+
+![**Spreadsheet chaos.** Using spreadsheets often feels convenient, but soon leads to overwhelming
+complexity.](img/lucidmanager.20181211.SpreadsheetChaos.jpeg)
+
+(Figure from [The Lucid Manager Blog](https://lucidmanager.org/spreadsheets-for-data-science/).)
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
