@@ -1,0 +1,21 @@
+Introduction to R/Tidyverse
+========================================================
+author: Daniel Lundin
+date: 2018-12-12
+autosize: true
+
+What is the Tidyverse?
+========================================================
+
+Books
+========================================================
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+- [Advanced R](https://adv-r.hadley.nz/index.html
+
+RStudio and RMarkdown
+========================================================
+
+Demo: Plot sequencing depth per sample
+========================================================
