@@ -17,5 +17,20 @@ Books
 RStudio and RMarkdown
 ========================================================
 
+Good habits
+========================================================
+
+- No `setwd()` and *relative* paths
+
+- Define as *few* tables as possible
+
+- Don't write intermediate tables to file
+
+- *Scripts* (not RMarkdown) for heavy analyses
+
+- RMarkdown for figures and tables with comments
+
+- (Advanced: Use Make to run scripts that create data files)
+
 Demo: Plot sequencing depth per sample
 ========================================================
