@@ -28,10 +28,10 @@
 - `ls`: List directory, often used with the `-l`(ong) flag (common alias: `ll`)
 
 - `man`: Read a manual ("man") page. The only required argument is the name of the command or
-  program, e.g. `man find`. See \@ref(getting-help).
+  program, e.g. `man find`. See \@ref(cli-getting-help).
 
 - `more`: Command that lets you read output page by page. The only required argument is the name of
-  a file; often used in pipelines (see \@ref(pipelins)). `less` is similar.
+  a file; often used in pipelines (see \@ref(pipelines)). `less` is similar.
 
 - `mkdir`: Make directory, often used with the `-p`(arents) flag which can
   create any non-existing parent directories
