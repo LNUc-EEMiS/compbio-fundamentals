@@ -17,14 +17,14 @@ Today's schedule
 
 - 14.00 - 15.00: Introduction to R/Tidyverse, RStudio and RMarkdown
 
-What's this course about?
+What is this course about?
 ========================================================
 
 - Lectures: Key concepts and methods
 
-- Practicals: Application of the above
-
 - Data analysis: R/Tidyverse for biology
+
+- Practicals: Application of the above
 
 - Mentorship
 
@@ -33,7 +33,7 @@ What's this course about?
 Conceptual work flow
 ========================================================
 
-[Data flow](../book/img/computational_workflow.png)
+![Data flow](../book/img/computational_workflow.png)
 
 UNIX
 ========================================================
@@ -53,17 +53,36 @@ Files and filesystems
 
 - Organization of UNIX file systems
 
+- Users, groups and rights
+
 - Absolute and relative paths
 
-- Commands
+- Commands: `ls`, (`ll`), `mkdir`, `cd`, `pwd`
 
 - Symlinks
+
+Environment
+========================================================
+
+- Config files: `.bash_profile` and `.bashrc`
+
+- Variables and environment variables
+
+- The `PATH` variable
+
+Streams and pipelines
+========================================================
+
+- Each command has 3 streams: STDIN, STDOUT and STDERR
+
+- Redirected with `<`, `>` and `2>`
+
+- Pipeline: STDOUT connected to STDIN with `|`
 
 UPPMAX: Submitting jobs
 ========================================================
 
-Screen
-========================================================
+[SLURM](http://www.uppmax.uu.se/support/user-guides/slurm-user-guide/)
 
 Git and GitHub
 ========================================================
@@ -71,4 +90,10 @@ Git and GitHub
 Organizing data
 ========================================================
 
-- Group discussion
+- Group discussion:
+
+  - Which parts of my project are "annotation" and which are "analysis"?
+  
+  - Where to put which files?
+  
+  - Create directory structures for new project *or* modify for existing
