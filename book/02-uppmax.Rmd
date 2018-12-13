@@ -1,6 +1,54 @@
 # Working in the UPPMAX clusters
+## Terminology
+1.**nodes**: any object on a network, i.e. computers. Supercomputers like UPPMAX are essentially **networks**, with nodes that communicate with each other to solve a larger problem than any singular computer could not in a reasonable amount of time. UPPMAX  contains several types of nodes; _compute_ _nodes_ are the work-horses of the system, _storage_ _nodes_ place data in several locations (home, project ecc.).
+1.**CPU** (Central Processing Unit): the part of a computer which executes software programs. 
+1.**core**: the smallest unity of a computer, i.e. node, which actually executes programs. cores among same node share the same RAM.
+1.**RAM** (Random Access Memory): form of data storage that allows to read data by cores at the same time irrespective of the physical location of data inside the memory. 
+
+##UPPMAX clusters
+
+UPPMAX is a high-performance computing (HPC) facility hosted by Uppsala University and is a part of the Swedish National Infrastructure for Computing (SNIC). Any member of Swedish academia can apply to use SNIC resources. UPPMAX stores their [resources](https://www.uppmax.uu.se/resources/) on HPC clusters. The SNIC resource at UPPMAX are Rackham and Snowy HPC clusters. Access to HPC systems is ensured by connecting remotely to an UPPMAX account, and all the login nodes have an identical environment architecture that can be reached with Secure Shell (SSH) protocol.
+1.Rackham provides 334 dual CPU Intel Xeon E5-2630 nodes. Each node has 10 cores and a default memory configuration of 128 Gigabyte, for a total of 6080 CPU cores in compute nodes. Only 32 of these nodes have 256 Gigabytes of memory. More on Rackham in [this User Guide](http://uppmax.uu.se/support/user-guides/rackham-user-guide/).
+1. Snowy consists of 228 nodes, each consisting of two 8-core Xeon E5-2660 processors running at 2.2 GHz. A network of 198 nodes with 128 GB memory, 13 nodes with 256 GB and 17 nodes with 512 GB is provided. In total Snowy offers 3548 CPU cores in compute node. More on [Snowy user guide](http://uppmax.uu.se/support/user-guides/snowy-user-guide/).
+
+An overview of the clusters file systems can be found [here](http://www.uppmax.uu.se/support/user-guides/disk-storage-guide/).
+
+##First access
+
+A step-by-step guide on how to set the access to UPPMAX for all the main operative systems can be found [here](http://www.uppmax.uu.se/support/user-guides/guide--first-login-to-uppmax/)
 
 ## Job submission with SLURM {#slurm}
+
+UPPMAX computational power is handled by a batch system called SLURM. SLURM is an open source cluster management and job scheduling system for Linux clusters. In SLURM, jobs that require considerable computing resources are typically submitted in form of scripts in queues with the sbatch command. Such tasks are run in the backgroud (**batch mode**) by the available computing resources.
+A batch job is a script under UNIX containing all the operations to be executed in batch
+mode, it also requires directives which specify the characteristics, also known as attributes,
+of the job, and resource requirements (e.g. number of processors and CPU time) needed for
+the job. Once the requested resources are available and assigned to the job, its execution
+starts and is performed on compute nodes of the cluster. Here is an example of your average sbatch command:
+```
+sbatch -A projname -p core -n 1 -t 12:00:00 -J some_job_name --wrap"bash my_job_script_file.sh"
+
+```
+The required parameters are the name of your SNIC project (-A flag), the walltime (-t flag), the partition (-p flag),which is a choice between core and node, and the number of cores you want to use (-n flag ). When --wrap is used, sbatch will wrap the specified command string in a simple "sh" shell script, and submit that script to the slurm controller. [Slurm user guide](http://www.uppmax.uu.se/support/user-guides/slurm-user-guide/) covers all the mentioned parameters and more. 
+
+An overview of starting, executing, and waiting works is provided by the following command:
+```
+jobinfo -u username
+```
+You can cancel anytime a running job by typing:
+```
+scancel jobname
+```
+software are provided in a system of [modules](http://www.uppmax.uu.se/resources/software/module-system/) that can be looked for and loaded.
+You can search for a module like this:
+```
+module spider modulename
+```
+and once you have found the software name and version you were looking for, this is the way to load it:
+```
+module load modulename/moduleversion
+```
+```module list``` is the command that displays all the modules loaded on your account. Note that some tools may require ```module load bioinfo-tools``` before being used, otherwise you will likely receive the following error message:``` Lmod has detected the following error: These module(s) exist but cannot be loaded as requested:"modulename"```
 
 ```{r include=FALSE}
 # vim:tw=100
