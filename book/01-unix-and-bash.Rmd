@@ -105,7 +105,6 @@ from the UNIX shell, where it means that you literaly connect the output of one 
 the next in a chain^[When the word "pipeline" is used in computational biology, it's usually used
 symbolicaly and means that in order to produce a certain output you need to run several programs in
 succession. A better term for this is *workflow*.]. 
-A workflow is in essence a series of independent, repeatable tasks, each with well-defined inputs, parameters, and outputs. This help users perform a complex work by organizing a series of steps, so that files become available for more than one step at a time.
 
 To truly understand what's going on, you need to know about the three different channels that each
 UNIX command has: standard input (STDIN), standard output (STDOUT) and standard error (STDERR). By
@@ -148,10 +147,6 @@ for other programs.
 
 ### File systems {#filesystems}
 
-The first and most important thing to do in a data analysis is to organize data. It is good practice
-to gather all the data into a single folder, henceforth called root directory. The root directory
-should be linked to all the other tools that will help in data management, like Screen, Git and Make.
-
 #### Absolute and relative paths {#paths}
 
 ### Links {#links}
@@ -190,18 +185,22 @@ needed, when it can be removed.
 
 #### Symbolic links -- *symlinks* {#symlinks}
 
-A *symlink* is a file that contains a text string that is automatically interpreted by
-the operating system as a path to another file or directory. Simply put,it can be thought of as a "shortcut" to a hard link. Symlinks can reside on another file
-system than the hard link it points to and removing one will never remove the file. For all other
-purposes, symlinks are equivalent to hard links and can be very useful.
+A *symlink* can be thought of as a "shortcut" to a hard link, i.e. a file. Symlinks can reside on
+another file system than the hard link it points to and removing one will never remove the file. For
+all other purposes, symlinks are equivalent to hard links and can be very useful.
+
 Why using symlinks instead of actual file copies?
-1. Unlike file copies symlinks are mere labels, so that a consideable amount of disk memory can be saved.
+
+1. Unlike file copies symlinks are mere labels, so that a consideable amount of disk memory can be
+   saved.
+
 1. They are a safety measure: in case you accidentally overwrite them the original file remains
-unaffected, thus preventing from losing valuable information. Commands which read or write file
-contents will access the contents of the target file. The rm (delete file) and mv (move) commands,
-however, affect the link itself, not the target file.
+   unaffected, thus preventing from losing valuable information. Commands which read or write file
+   contents will access the contents of the target file. The rm (delete file) and mv (move)
+   commands, however, affect the link itself, not the target file.
+
 1. Symbolic links operate transparently: programs accept symlinks as input files, as long as they
-redirect to existing files, and they will behave as if operating directly on the target file.
+   redirect to existing files, and they will behave as if operating directly on the target file.
 
 ```
 pushd /tmp
@@ -225,48 +224,69 @@ line as `a_symlink -> a_file`.
 ## Installing programs with Conda {#conda}
 
 Software installation varies according to the software, this is where package managers come in aid.
-**Conda** is a python-based manager that handles software installation and update. Python
-knowledge is not required in order to use it. With Conda you can:
+*Conda* is a python-based manager that handles software installation and update. Python knowledge is
+not required in order to use it. With Conda you can:
 
-1.Readily upload a software and all its required dependencies at once.
+1.Readily install a software and all its required dependencies at once.
+
 1.Easily update the installed softwares.
-1.store different versions of programs in different environments, because Conda is also an environment manager.
+
+1.store different versions of programs in different environments, because Conda is also an
+environment manager.
 
 ### How to install Conda {#installing-conda}
 
-**Anaconda** is a science data platform based on the compiling language Python. Namely, **Conda** is a system for the distribution of Python and also for the collection of more than one thousand open-source packages therein present.
-The quickest way to have Conda is to install **Miniconda**, a reduced version of Anaconda that includes only Conda and its dependencies.
-First, check the System Requirements [here](https://conda.io/docs/user-guide/install/index.html#system-requirements).
-if one or more of the requirements are missing, you can install these packages by evoking the python wrapper apt:
-```
-apt install packagename
-```
-Once you will have fulfilled all the system requirements you can download and install Miniconda
-from [here](https://conda.io/miniconda.html).You need to choose a Miniconda installers suitable for your operative system.
-miniconda executive files contain the conda package manager and a Python version between 3.6
-(miniconda3) and 2.7 (Miniconda). It is advisable to choose Miniconda3 as most of the bioinformatics
-tools in use are compiled in Python 3 and are not correctly interpreted by one of the versions of
-Python 2. Regardless, it is possible to have both Pyhton 3 and Python 2 in the same operative system
-by creating separate environments with conda, as shown in the next chapter.
-For example, in order to get Miniconda3 for a LINUX environment of 64 bit, type:
-```
-bash Miniconda3-latest-Linux-x86_64.sh
-```
-you can know if conda has been correctly installed, and the number of the conda version, by typing:
-```
-conda --version
-```
-The following command updates the version of conda in use to the latest version released:
-```
-conda update conda
+*NOTE:* This is a bit long.
+
+*Anaconda* is a science data platform based on the compiling language Python. Namely, *Conda* is
+a system for the distribution of Python and also for the collection of more than one thousand
+open-source packages therein present.  The quickest way to have Conda is to install *Miniconda*, a
+reduced version of Anaconda that includes only Conda and its dependencies.  First, check the System
+Requirements [here](https://conda.io/docs/user-guide/install/index.html#system-requirements).  if
+one or more of the requirements are missing, you can install these packages by evoking the python
+wrapper apt: 
+
+``` 
+apt install packagename 
+``` 
+
+Once you will have fulfilled all the system requirements you can download and install Miniconda from
+[here](https://conda.io/miniconda.html).You need to choose a Miniconda installers suitable for your
+operative system.  miniconda executive files contain the conda package manager and a Python version
+between 3.6 (miniconda3) and 2.7 (Miniconda).  It is advisable to choose Miniconda3 as most of the
+bioinformatics tools in use are compiled in Python 3 and are not correctly interpreted by one of the
+versions of Python 2. Regardless, it is possible to have both Pyhton 3 and Python 2 in the same
+operative system by creating separate environments with conda, as shown in the next chapter.  For
+example, in order to get Miniconda3 for a LINUX environment of 64 bit, type: 
+
+``` 
+bash Miniconda3-latest-Linux-x86_64.sh 
+``` 
+
+you can know if conda has been correctly installed, and the number of the conda version, by typing: 
+
+``` 
+conda --version 
+``` 
+
+The following command updates the version of conda in use to the latest version
+released: 
+
+``` 
+conda update conda 
 ```
 
 ### How to work with Conda {#working-with-conda}
 
 Conda can install and manage the thousand packages and repositories that are collected in the
 Anaconda database. 
+
 The all-purpose command for installing programs with conda is:
-``` conda install -c namechannel namepackage ```
+
+``` 
+conda install -c namechannel namepackage 
+```
+
 where the -c flag specifies the channel (e.g. namechannel) that contains said package
 (e.g. namepackage). You can look for the channel that contains the package of interest in the [Anaconda Cloud](https://anaconda.org/).
 A [tutorial](https://conda.io/docs/user-guide/tutorials/index.html) about how to set Conda and run it has been made available online.
@@ -277,18 +297,25 @@ environment that stores a specific version of a software (e.g. Python).
 Suppose we have installed Miniconda3 and are interested in having both Python 2.7 and Python 3.6
 available in the same account. The following command line creates a conda environment named pyton2.7
 with Python version 2.7 installed in it:
-```conda create --name python2.7 python=2.7```
-An environment (i.e. environmentname) can be activated by typing ```source activate environmentname```
-Conversely, ```source deactivate environmentname``` deactivate an environment
-Check the name and number of stored environments:
+
+```
+conda create --name python2.7 python=2.7
+```
+
+An environment (i.e. environmentname) can be activated by typing `source activate environmentname`
+Conversely, `source deactivate environmentname` deactivate an environment.  Check the name and
+number of stored environments:
 
 ```
 conda info --envs
 ```
+
 To see which packages are installed in your current conda environment and their version numbers, run:
+
 ```
 conda list
 ```
+
 Note that conda will mark with an asterisk the currently active environment.
 
 A list of the most useful commands can be found in the [Conda cheatsheet](https://conda.io/docs/user-guide/cheatsheet.html).

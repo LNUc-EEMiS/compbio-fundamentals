@@ -33,6 +33,10 @@ complexity.](img/lucidmanager.20181211.SpreadsheetChaos.jpeg)
 
 (Figure from [The Lucid Manager Blog](https://lucidmanager.org/spreadsheets-for-data-science/).)
 
+The first and most important thing to do in a data analysis is to organize data. It is good practice
+to gather all the data into a single folder, henceforth called root directory. The root directory
+should be linked to all the other tools that will help in data management, like Screen, Git and Make.
+
 ```{r include=FALSE}
 # vim:tw=100
 ```

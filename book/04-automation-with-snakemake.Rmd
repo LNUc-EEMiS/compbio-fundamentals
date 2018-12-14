@@ -1,5 +1,11 @@
 # Automation with Snakemake {#snakemake}
 
+## Intro to workflows
+
+A workflow is in essence a series of independent, repeatable tasks, each with well-defined inputs,
+parameters, and outputs. This help users perform a complex work by organizing a series of steps, so
+that files become available for more than one step at a time.
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
