@@ -1,0 +1,99 @@
+Fundamentals of computational biology, instalment 1
+========================================================
+author: Daniel Lundin
+date: 2018-12-12
+autosize: true
+
+Today's schedule
+========================================================
+
+- 9.00 - 10.00: Lecture/discussion
+
+- 10.00 - 11.00: Linux practical
+
+- 11.00 - 13.00: Group discussion and lunch
+
+- 13.00 - 14.00: Group presentations
+
+- 14.00 - 15.00: Introduction to R/Tidyverse, RStudio and RMarkdown
+
+What is this course about?
+========================================================
+
+- Lectures: Key concepts and methods
+
+- Data analysis: R/Tidyverse for biology
+
+- Practicals: Application of the above
+
+- Mentorship
+
+- Writing a book
+
+Conceptual work flow
+========================================================
+
+![Data flow](../book/img/computational_workflow.png)
+
+UNIX
+========================================================
+
+Connecting to computers: SSH
+========================================================
+
+SSH: Key pair authentication
+========================================================
+
+- `ssh-keygen`, `ssh-agent`
+
+- Port and key forwarding
+
+Files and filesystems
+========================================================
+
+- Organization of UNIX file systems
+
+- Users, groups and rights
+
+- Absolute and relative paths
+
+- Commands: `ls`, (`ll`), `mkdir`, `cd`, `pwd`
+
+- Symlinks
+
+Environment
+========================================================
+
+- Config files: `.bash_profile` and `.bashrc`
+
+- Variables and environment variables
+
+- The `PATH` variable
+
+Streams and pipelines
+========================================================
+
+- Each command has 3 streams: STDIN, STDOUT and STDERR
+
+- Redirected with `<`, `>` and `2>`
+
+- Pipeline: STDOUT connected to STDIN with `|`
+
+UPPMAX: Submitting jobs
+========================================================
+
+[SLURM](http://www.uppmax.uu.se/support/user-guides/slurm-user-guide/)
+
+Git and GitHub
+========================================================
+
+Organizing data
+========================================================
+
+- Group discussion:
+
+  - Which parts of my project are "annotation" and which are "analysis"?
+  
+  - Where to put which files?
+  
+  - Create directory structures for new project *or* modify for existing

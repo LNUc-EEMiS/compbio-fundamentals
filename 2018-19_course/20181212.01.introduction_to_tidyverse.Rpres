@@ -1,0 +1,36 @@
+Introduction to R/Tidyverse
+========================================================
+author: Daniel Lundin
+date: 2018-12-12
+autosize: true
+
+What is the Tidyverse?
+========================================================
+
+Books
+========================================================
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+- [Advanced R](https://adv-r.hadley.nz/index.html
+
+RStudio and RMarkdown
+========================================================
+
+Good habits
+========================================================
+
+- No `setwd()` and *relative* paths
+
+- Define as *few* tables as possible
+
+- Don't write intermediate tables to file
+
+- *Scripts* (not RMarkdown) for heavy analyses
+
+- RMarkdown for figures and tables with comments
+
+- (Advanced: Use Make to run scripts that create data files)
+
+Demo: Plot sequencing depth per sample
+========================================================

@@ -1,0 +1,47 @@
+---
+title: "Comp bio fundamentals day 1"
+author: "Daniel Lundin"
+date: "12/12/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+```{r read-table}
+counts <- read_tsv(
+  '../../data/atacama-soils.asvtable.tsv',
+  col_types = cols(
+    .default = col_double(),
+    seqid = col_character()
+  )
+) %>%
+  gather(sample, count, 2:67) %>%
+  filter(count > 0)
+```
+
+```{r}
+counts %>%
+  group_by(sample) %>% summarise(count = sum(count)) %>% ungroup() %>%
+  ggplot(aes(y = sample, x = count)) +
+  geom_point() +
+  geom_vline(xintercept = 1000)
+```
+
+```{r filter-1000}
+counts <- counts %>%
+  group_by(sample) %>%
+  filter(sum(count) >= 1000) %>%
+  ungroup()
+```
+
+After looking at the sequencing depths, we decided to remove samples with less than 1000 counts. After
+filtering `r counts %>% distinct(sample) %>% nrow()` samples remained.
+
+
+

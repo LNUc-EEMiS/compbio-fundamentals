@@ -44,6 +44,8 @@
   
 - `pushd`: Move to a directory and place it in a *stack* of directories; see also `popd`. 
 
+- `pwd`: Print working directory, i.e. show which directory you're "standing" in.
+
 - `rm`: Remove a file, or, to be strict, a link (see \@ref(links)). The last hard link to be
   removed, removes the file.
 
