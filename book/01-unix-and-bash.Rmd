@@ -145,6 +145,80 @@ for other programs.
 
 ### Users, groups and permissions {#users-groups-permissions}
 
+A *user* in a UNIX system is what you log in as. Any files you create when you're working in the
+computer will be *owned* by this user plus a *group*. Whereas you can only be one user (unless you
+have multiple accounts), each user can belong to more than one group. The group that owns a file
+will be your *default group*, unless you change this. In a typical Linux system, your default group
+is named like your user and you're the only user belonging to this group.
+
+It's common, however, to create groups to enable collaboration since users and groups are used to
+control access to files. You can e.g. create a group for a project and make sure that all files that
+should be accessible to members of the project are owned by this group.
+
+When you list a directory in long format, you can see user, group and permissions, together with
+many other details:
+
+```
+ls -l
+-rw-r--r-- 1 dl dl  2526 dec 21 15:54 00-data-organization.Rmd
+-rw-r--r-- 1 dl dl 15216 dec 21 16:03 01-unix-and-bash.Rmd
+-rw-r--r-- 1 dl dl  4902 dec 21 15:54 02-uppmax.Rmd
+-rw-r--r-- 1 dl dl   138 dec  4 10:29 03-regexps.Rmd
+-rw-r--r-- 1 dl dl   365 dec 21 15:54 04-automation-with-snakemake.Rmd
+-rw-r--r-- 1 dl dl   104 dec  4 10:29 05-notes-on-annotation.Rmd
+-rw-r--r-- 1 dl dl   789 dec  6 09:57 06-tidyverse-intro.Rmd
+-rw-r--r-- 1 dl dl    65 dec  6 09:57 10-appendices.Rmd
+-rw-r--r-- 1 dl dl  2434 dec 21 15:54 11-bash-command-appendix.Rmd
+-rw-r--r-- 1 dl dl    56 dec 21 15:54 12-computer-terminology.Rmd
+-rw-r--r-- 1 dl dl    91 dec 21 15:54 13-references.Rmd
+drwxr-xr-x 4 dl dl  4096 dec 21 15:57 _book
+-rw-r--r-- 1 dl dl  2103 dec  6 09:57 eemis-compbio.bib
+lrwxrwxrwx 1 dl dl    15 dec 21 15:54 fundamentals_of_computational_biology.pdf -> _book/_main.pdf
+drwxr-xr-x 2 dl dl  4096 dec 21 15:54 img
+-rw-r--r-- 1 dl dl   907 dec  6 09:57 index.Rmd
+-rw-r--r-- 1 dl dl     0 dec  4 09:42 packages.bib
+-rw-r--r-- 1 dl dl  1103 dec  6 09:57 README.md
+```
+
+The user is the fourth column and the group the fifth.
+
+The first column, looking like `-rw-r--r--` is information about which type of file it is: `-` is a
+normal file, `d` a directory and `l` a symbolic link (see \@ref(symlinks)). Next comes permissions
+for owner, group and everybody else (the *world*) as triplets: `r` for read, `w` for write and `x`
+or `s` for executable. The string `-rw-r--r--` in other words means read and writable for the user
+and only readable for anybody else in the group as well as the world.
+
+The third *bit*, the executable, behaves differently for normal files and directories. For normal
+files it means the operating system will treat it like a program and run it if you tell it to. For
+directories it means you can `cd` into this directory and use it as your working directory. If
+there's an `s` instead of an `x` here it's yet again different between normal files and directories.
+For normal files an `s` means that the program will be executed as the owner of the file (`s` in the
+first triplet, i.e. as the fourth character) or group (`s` in the second triplet). This is commonly
+used for administrative programs that need more permissions than a normal user has. For directories,
+you mostly see `s` bit set on the group, which is a way of saying that all files and directories in
+this directory will belong to the same group as the directory with the `s` bit set. This is hence an
+excellent way of controlling access for a project directory.
+
+Ownership, both user and group, is controlled with the `chown` and `chgrp` commands (`chown` can
+change both user and group). The following will change ownership of the file `file` to the `dl` user
+and the `projects` group:
+
+```
+chgrp dl:projects file
+```
+
+To manipulate permissions of a file or directory, you use the `chmod` command. The most practical
+syntax for this is the *symbolic*, which works like this:
+
+```
+# Add writeability to the group
+chmod g+w file
+# Remove readability from the world
+chmod o-r file
+# Set the user's permissions to read, write and execute
+chmod u=rwx file
+```
+
 ### File systems {#filesystems}
 
 #### Absolute and relative paths {#paths}
