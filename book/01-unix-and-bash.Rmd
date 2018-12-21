@@ -186,9 +186,10 @@ The first column, looking like `-rw-r--r--` is information about which type of f
 normal file, `d` a directory and `l` a symbolic link (see \@ref(symlinks)). Next comes permissions
 for owner, group and everybody else (the *world*) as triplets: `r` for read, `w` for write and `x`
 or `s` for executable. The string `-rw-r--r--` in other words means read and writable for the user
-and only readable for anybody else in the group as well as the world.
+and only readable for anybody else in the group as well as the world. Each part of this string is
+called a *bit*.
 
-The third *bit*, the executable, behaves differently for normal files and directories. For normal
+The third bit, the executable, behaves differently for normal files and directories. For normal
 files it means the operating system will treat it like a program and run it if you tell it to. For
 directories it means you can `cd` into this directory and use it as your working directory. If
 there's an `s` instead of an `x` here it's yet again different between normal files and directories.
@@ -197,7 +198,8 @@ first triplet, i.e. as the fourth character) or group (`s` in the second triplet
 used for administrative programs that need more permissions than a normal user has. For directories,
 you mostly see `s` bit set on the group, which is a way of saying that all files and directories in
 this directory will belong to the same group as the directory with the `s` bit set. This is hence an
-excellent way of controlling access for a project directory.
+excellent way of controlling access for a project directory. (In the UPPMAX computers, the `/proj/`
+directories are by default owned by the corresponding group and the `s` bit is set.
 
 Ownership, both user and group, is controlled with the `chown` and `chgrp` commands (`chown` can
 change both user and group). The following will change ownership of the file `file` to the `dl` user
