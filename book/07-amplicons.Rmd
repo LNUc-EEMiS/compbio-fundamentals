@@ -1,0 +1,48 @@
+# Working with amplicon sequences {#amplicon-sequences}
+
+## Introduction
+
+Sequencing PCR products, amplicons, of a gene deemed as a good taxonomic marker is a very common
+technique in microbial ecology. For Bacteria and Archaea, the gene that is almost always used is the
+gene encoding the RNA molecule of the small subunit (SSU) of the ribosome, the 16S rRNA
+[@lane_rapid_1985]. For other organism groups, other molecules, such as the end of the SSU rRNA gene
+plus the following internal transcribed spacer (ITS), might be better choices.
+
+The 16S gene has been selected as a taxonomical marker for several reasons:
+
+1. It is present in all cellular organisms (although it's called 18S in eukaryotes).
+
+2. It is believed to very rarely transfer horizontally between cells, which would entangle the
+   relationships we rely on for taxonomy.
+
+3. It contains both highly conserved and not so conserved regions. The latter, more variable
+   regions, are numbered and called V1-V9 [see e.g. @chakravorty_detailed_2007]. The highly
+   conserved regions are used as primer sites and the more variable are used to discriminate taxa.
+   The variable regions are selected to form a product of suitable length for your sequencing
+   method.
+
+There are computer programs that facilitates design of primers [e.g. @hugerth_degeprime_2014], but
+in practice a few region combinations with primers are used. In many Swedish research groups Anders
+Andersson's primers for the V3V4 (around 400-450 bp; suitable for Illumina MiSeq 2x300 bp) are used
+(see [lab protocol](https://github.com/EnvGen/LabProtocols)). Recently, the V4V5 region has been
+proposed as a superior choice, in particular for its suitability for Archaea
+[@walters_improved_2016, @parada_marine_2017].
+
+### Contamination {#amplicon-contamination}
+
+In certain projects, usually those with very small amounts of DNA, we have observed problems with
+contamination of DNA from reagents used in the processing of DNA from filters
+[@salter_reagent_2014]. This is not unique for amplicon-based sequencing, but the amplification
+performed inflates the problem. To address this, one should routinely sequence samples of pure water
+that has gone through all the steps of the sample preparation process and subtract these sequences
+from analyses.
+
+@yeh_taxon_2017 recently published a report of a mysterious disapperance of certain taxa from a
+sequencing run. They were able to resolv this problem as they routinely added a sample of a mock
+community (just a defined mix of genomic DNA) to their sequencing runs.
+
+## Computational analysis of amplicon sequences {#amplicon-bioinformatics}
+
+```{r include=FALSE}
+# vim:tw=100
+```
