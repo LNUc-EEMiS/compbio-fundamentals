@@ -1,6 +1,6 @@
 # Automation with Snakemake {#snakemake}
 
-## Intro to workflows
+## Introduction to workflows {#workflows}
 
 A workflow is in essence a series of independent, repeatable tasks, each with well-defined inputs,
 parameters, and outputs. This help users perform a complex work by organizing a series of steps, so
