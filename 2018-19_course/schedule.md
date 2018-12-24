@@ -10,17 +10,17 @@
 
 **When:** 2019-01-23
 
-**Where:**
+**Where:** Ma1061K (Magna)
 
 ## Third instalment
 
 **When:** 2019-02-20
 
-**Where:**
+**Where:** Vi2140K (Vita)
 
 ## Fourth instalment
 
-**When:** 
+**When:** 2019-03-27
 
 **Where:**
 

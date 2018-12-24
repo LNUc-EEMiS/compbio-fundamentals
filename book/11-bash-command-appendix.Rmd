@@ -1,5 +1,8 @@
 # Alphabetical list of Bash commands
 
+Below, some commands are listed in alphabetical order with very little detail, see the `man` pages
+for more information (see \@ref(cli-getting-help)) or Google.
+
 - `&`: Place after a command to direct it to background execution. See \@ref(job-control).
 
 - &lt;ctrl&gt;-Z: Background a running program. See \@ref(job-control).
@@ -10,6 +13,12 @@
   single file: `cat file1 file2 file3 > new_file`. See \@ref(pipelines).
 
 - `cd`: Change directory
+
+- `chgrp`: Change user (and group). See \@ref(users-groups-permissions).
+
+- `chmod`: Change permissions of a file or directory. See \@ref(users-groups-permissions).
+
+- `chown`: Change owner of a file or directory. See \@ref(users-groups-permissions).
 
 - `fg`: Foreground a running program. See \@ref(job-control).
 
