@@ -26,7 +26,7 @@ in practice a few region combinations with primers are used. In many Swedish res
 Andersson's primers for the V3V4 (around 400-450 bp; suitable for Illumina MiSeq 2x300 bp) are used
 (see [lab protocol](https://github.com/EnvGen/LabProtocols)). Recently, the V4V5 region has been
 proposed as a superior choice, in particular for its suitability for Archaea
-[@walters_improved_2016, @parada_marine_2017].
+[@walters_improved_2016] [@parada_marine_2017].
 
 ### Contamination and other problems {#amplicon-contamination}
 
