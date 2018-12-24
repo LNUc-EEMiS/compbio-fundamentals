@@ -28,7 +28,7 @@ Andersson's primers for the V3V4 (around 400-450 bp; suitable for Illumina MiSeq
 proposed as a superior choice, in particular for its suitability for Archaea
 [@walters_improved_2016, @parada_marine_2017].
 
-### Contamination {#amplicon-contamination}
+### Contamination and other problems {#amplicon-contamination}
 
 In certain projects, usually those with very small amounts of DNA, we have observed problems with
 contamination of DNA from reagents used in the processing of DNA from filters
@@ -42,6 +42,20 @@ sequencing run. They were able to resolv this problem as they routinely added a 
 community (just a defined mix of genomic DNA) to their sequencing runs.
 
 ## Computational analysis of amplicon sequences {#amplicon-bioinformatics}
+
+Sequence reads are not perfect but contain errors. In the case of Illumina sequencing, the error
+rate is around 1% per base, but this varies substantially along the length of the read and 
+typically increases (i.e. quality goes down) by the end of the read. Just taking the raw sequencing
+reads and treating them as true would hence inflate your measurement of diversity in the sample.
+This problem has been addressed with clustering but correcting the reads has now become the method
+of choice. I will here describe both methods, but note that the OTU clustering method is described
+only for historical reasons and I do not recommend you to use it.
+
+### "OTU" clustering {#otu-clustering}
+
+### Correcting sequencing errors in amplicon reads {#amplicon-read-correction}
+
+### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
 
 ```{r include=FALSE}
 # vim:tw=100
