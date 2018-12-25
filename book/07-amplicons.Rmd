@@ -53,6 +53,19 @@ only for historical reasons and I do not recommend you to use it.
 
 ### "OTU" clustering {#otu-clustering}
 
+"Operational taxonomic units" (OTUs) are replacements for species in many ecological studies where
+species cannot be clearly delineated. In the case of prokaryotes, it's not only difficult to
+delineate species [@koeppel_identifying_2008], we do not know what constitutes a species
+[@cohan_what_2002], [@straub_null_2017] or even if prokaryotic species exist [e.g.
+@caro-quintero_bacterial_2012]. However, a pragmatic species definition for Bacteria has long been
+set to 70% DNA-DNA hybridization (DDH) [@tindall_notes_2010] which corresponds to 95-96% average
+nucleotide identity [@konstantinidis_bacterial_2006] over the whole genome, or 98.65% 16S rRNA
+identity [@kim_towards_2014]. 
+
+To take care of sequencing errors and address the problem of species delineation, microbial
+ecologists have clustered sequences, based on similarity, into OTUs, with a cutoff of typically 97%
+identity to come close to species.
+
 ### Correcting sequencing errors in amplicon reads {#amplicon-read-correction}
 
 ### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
