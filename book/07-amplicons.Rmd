@@ -66,6 +66,43 @@ To take care of sequencing errors and address the problem of species delineation
 ecologists have clustered sequences, based on similarity, into OTUs, with a cutoff of typically 97%
 identity to come close to species.
 
+There are different clustering methods available, using different definitions of clusters.
+*Complete linkage clustering* is perhaps the one that comes closest to many people's intuition. A
+cluster in complete linkage cluster is a group of sequences where no pair are less than, say, 97%
+identical^[This definition of complete linkage clustering is a bit simplified, but for the purpose
+of clustering sequences, it captures the essence. See the [Wikipedia
+page](https://en.wikipedia.org/wiki/Complete-linkage_clustering) for a fuller explanation.]. Because
+of this defintion, all sequences need to be compared with each other, which is time consuming if you
+have a lot of sequences as the number of comparisons, and hence run time grows as the square of the
+number of sequences^[If you study the full algorithm, you will find that it's scaling even worse, as
+the cube of the number of sequences.]. This characteristic makes complete linkage clustering, and
+its "siblings" *single linkage clustering* and *average linkage clustering* impractical for use with
+the amounts of sequences -- typically 10-20 million read pairs from one Illumina MiSeq run -- and
+faster, *heuristic*^["Heuristic" computer algorithms are (usually) fast ways of solving complicated
+problems, usually "known" to work but with no guarantee of reaching an optimal solution.] algorithms
+are required.
+
+One of the most commonly used heuristic algorithms for clustering sequences is the *greedy*^[A
+greedy algorithm heuristic, is one which only looks at the optimum, at a particular point in time,
+although at a later stage, this choice might prove suboptimal. See also the [Wikipedia
+page](https://en.wikipedia.org/wiki/Greedy_algorithm).] UPARSE algorithm [@edgar_uparse:_2013], part
+of the USEARCH package [@edgar_search_2010], but also in a free reimplentation as part of the
+VSEARCH package [@rognes_vsearch:_2016].
+
+The [UPARSE web page](https://drive5.com/usearch/manual/uparseotu_algo.html) describes the algorithm
+well. In short, one starts with all sequences sorted in falling order of abundance, i.e. with the
+most abundant first. The first sequence will be selected to form the *seed sequence* or *centroid*
+of the first cluster. Starting with the second sequence, the process is the same for all: 1) Run
+through all previously defined clusters and compare the current sequence with the seed sequence of
+the clusters. 2) If a seed sequence that is sufficiently similar, assign the current sequence to
+that cluster. 3) If no sufficiently similar seed sequence is found, assign the sequence as the seed
+for a new cluster. The resulting clusters will look something like this:
+
+![UPARSE clustering.](img/uparseotu_algo.jpg)
+
+Figure from the [UPARSE web
+page](https://drive5.com/usearch/manual/uparseotu_algo.html).
+
 ### Correcting sequencing errors in amplicon reads {#amplicon-read-correction}
 
 ### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
