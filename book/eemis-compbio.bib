@@ -334,3 +334,62 @@ Supplementary information: Supplementary data are available at Bioinformatics on
 	pages = {e2584},
 	file = {Full Text PDF:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/HF8YC949/Rognes m. fl. - 2016 - VSEARCH a versatile open source tool for metageno.pdf:application/pdf;Snapshot:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/S8UPE6ZM/2584.html:text/html}
 }
+
+@article{callahan_dada2:_2016,
+	title = {{DADA}2: {High}-resolution sample inference from {Illumina} amplicon data},
+	volume = {13},
+	copyright = {© 2016 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+	issn = {1548-7091},
+	shorttitle = {{DADA}2},
+	url = {http://www.nature.com.ezp.sub.su.se/nmeth/journal/v13/n7/full/nmeth.3869.html},
+	doi = {10.1038/nmeth.3869},
+	abstract = {We present the open-source software package DADA2 for modeling and correcting Illumina-sequenced amplicon errors (https://github.com/benjjneb/dada2). DADA2 infers sample sequences exactly and resolves differences of as little as 1 nucleotide. In several mock communities, DADA2 identified more real variants and output fewer spurious sequences than other methods. We applied DADA2 to vaginal samples from a cohort of pregnant women, revealing a diversity of previously undetected Lactobacillus crispatus variants.},
+	language = {en},
+	number = {7},
+	urldate = {2016-09-19},
+	journal = {Nature Methods},
+	author = {Callahan, Benjamin J. and McMurdie, Paul J. and Rosen, Michael J. and Han, Andrew W. and Johnson, Amy Jo A. and Holmes, Susan P.},
+	month = jul,
+	year = {2016},
+	keywords = {Metagenomics, Software, Statistical methods},
+	pages = {581--583},
+	file = {Full Text PDF:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/TDHG4BNI/Callahan et al. - 2016 - DADA2 High-resolution sample inference from Illum.pdf:application/pdf;Snapshot:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/EFBL7DXJ/nmeth.3869.html:text/html}
+}
+
+@article{nearing_denoising_2018,
+	title = {Denoising the {Denoisers}: an independent evaluation of microbiome sequence error-correction approaches},
+	volume = {6},
+	issn = {2167-8359},
+	shorttitle = {Denoising the {Denoisers}},
+	url = {https://peerj.com/articles/5364},
+	doi = {10.7717/peerj.5364},
+	abstract = {High-depth sequencing of universal marker genes such as the 16S rRNA gene is a common strategy to profile microbial communities. Traditionally, sequence reads are clustered into operational taxonomic units (OTUs) at a defined identity threshold to avoid sequencing errors generating spurious taxonomic units. However, there have been numerous bioinformatic packages recently released that attempt to correct sequencing errors to determine real biological sequences at single nucleotide resolution by generating amplicon sequence variants (ASVs). As more researchers begin to use high resolution ASVs, there is a need for an in-depth and unbiased comparison of these novel “denoising” pipelines. In this study, we conduct a thorough comparison of three of the most widely-used denoising packages (DADA2, UNOISE3, and Deblur) as well as an open-reference 97\% OTU clustering pipeline on mock, soil, and host-associated communities. We found from the mock community analyses that although they produced similar microbial compositions based on relative abundance, the approaches identified vastly different numbers of ASVs that significantly impact alpha diversity metrics. Our analysis on real datasets using recommended settings for each denoising pipeline also showed that the three packages were consistent in their per-sample compositions, resulting in only minor differences based on weighted UniFrac and Bray–Curtis dissimilarity. DADA2 tended to find more ASVs than the other two denoising pipelines when analyzing both the real soil data and two other host-associated datasets, suggesting that it could be better at finding rare organisms, but at the expense of possible false positives. The open-reference OTU clustering approach identified considerably more OTUs in comparison to the number of ASVs from the denoising pipelines in all datasets tested. The three denoising approaches were significantly different in their run times, with UNOISE3 running greater than 1,200 and 15 times faster than DADA2 and Deblur, respectively. Our findings indicate that, although all pipelines result in similar general community structure, the number of ASVs/OTUs and resulting alpha-diversity metrics varies considerably and should be considered when attempting to identify rare organisms from possible background noise.},
+	language = {en},
+	urldate = {2018-10-29},
+	journal = {PeerJ},
+	author = {Nearing, Jacob T. and Douglas, Gavin M. and Comeau, André M. and Langille, Morgan G. I.},
+	month = aug,
+	year = {2018},
+	pages = {e5364},
+	file = {Full Text PDF:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/L4C2FFSH/Nearing et al. - 2018 - Denoising the Denoisers an independent evaluation.pdf:application/pdf;Snapshot:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/M96USDEL/5364.html:text/html}
+}
+
+@article{amir_deblur_2017,
+	title = {Deblur {Rapidly} {Resolves} {Single}-{Nucleotide} {Community} {Sequence} {Patterns}},
+	volume = {2},
+	copyright = {Copyright © 2017 Amir et al.. This is an open-access article distributed under the terms of the Creative Commons Attribution 4.0 International license.},
+	issn = {2379-5077},
+	url = {http://msystems.asm.org/content/2/2/e00191-16},
+	doi = {10.1128/mSystems.00191-16},
+	abstract = {High-throughput sequencing of 16S ribosomal RNA gene amplicons has facilitated understanding of complex microbial communities, but the inherent noise in PCR and DNA sequencing limits differentiation of closely related bacteria. Although many scientific questions can be addressed with broad taxonomic profiles, clinical, food safety, and some ecological applications require higher specificity. Here we introduce a novel sub-operational-taxonomic-unit (sOTU) approach, Deblur, that uses error profiles to obtain putative error-free sequences from Illumina MiSeq and HiSeq sequencing platforms. Deblur substantially reduces computational demands relative to similar sOTU methods and does so with similar or better sensitivity and specificity. Using simulations, mock mixtures, and real data sets, we detected closely related bacterial sequences with single nucleotide differences while removing false positives and maintaining stability in detection, suggesting that Deblur is limited only by read length and diversity within the amplicon sequences. Because Deblur operates on a per-sample level, it scales to modern data sets and meta-analyses. To highlight Deblur’s ability to integrate data sets, we include an interactive exploration of its application to multiple distinct sequencing rounds of the American Gut Project. Deblur is open source under the Berkeley Software Distribution (BSD) license, easily installable, and downloadable from https://github.com/biocore/deblur.
+IMPORTANCE Deblur provides a rapid and sensitive means to assess ecological patterns driven by differentiation of closely related taxa. This algorithm provides a solution to the problem of identifying real ecological differences between taxa whose amplicons differ by a single base pair, is applicable in an automated fashion to large-scale sequencing data sets, and can integrate sequencing runs collected over time.},
+	language = {en},
+	number = {2},
+	urldate = {2017-04-25},
+	journal = {mSystems},
+	author = {Amir, Amnon and McDonald, Daniel and Navas-Molina, Jose A. and Kopylova, Evguenia and Morton, James T. and Xu, Zhenjiang Zech and Kightley, Eric P. and Thompson, Luke R. and Hyde, Embriette R. and Gonzalez, Antonio and Knight, Rob},
+	month = apr,
+	year = {2017},
+	pages = {e00191--16},
+	file = {Full Text PDF:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/9PI3S9BU/Amir et al. - 2017 - Deblur Rapidly Resolves Single-Nucleotide Communit.pdf:application/pdf;Snapshot:/home/daluab/.mozilla/firefox/ceesjlsm.default/zotero/storage/UGJ9URVJ/e00191-16.html:text/html}
+}

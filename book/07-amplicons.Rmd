@@ -98,12 +98,51 @@ the clusters. 2) If a seed sequence that is sufficiently similar, assign the cur
 that cluster. 3) If no sufficiently similar seed sequence is found, assign the sequence as the seed
 for a new cluster. The resulting clusters will look something like this:
 
-![UPARSE clustering.](img/uparseotu_algo.jpg)
+![**UPARSE clustering.**](img/uparseotu_algo.jpg)
 
-Figure from the [UPARSE web
-page](https://drive5.com/usearch/manual/uparseotu_algo.html).
+Figure from the [UPARSE web page](https://drive5.com/usearch/manual/uparseotu_algo.html).
 
 ### Correcting sequencing errors in amplicon reads {#amplicon-read-correction}
+
+The underlying assumption behind OTU clustering is that reads containing sequencing errors are going
+to be similar to the true sequence, but rarer. It has recently become clear, however, that this
+introduces both *false positives* in the form of OTUs that do not correspond to a true population
+and *false negatives* in the form of populations not represented among the OTUs. In addition, the
+abundances can be wrong due to assignment of reads to the wrong cluster. A new family of algorithms
+tries to remedy these problems by correcting sequences (DADA2; [@callahan_dada2:_2016]) or deleting
+erroneous sequences (Deblur; [@amir_deblur_2017]). (@nearing_denoising_2018 recently compared the
+two, plus some other alternatives.) This figure illustrates how DADA2 better estimates the true
+sequences and their abundances.
+
+![**DADA2 vs. OTU clustering.** **TP**: true positive, **FP**: false positive, **FN**: false
+negative and **cor**: Pearson correlation coefficient.](img/dada2_accuracy.jpg)
+
+Figure from the [DADA2 web site](https://benjjneb.github.io/dada2/).
+
+DADA2 uses a statistical model of sequencing errors to estimate the likelihood that a given sequence
+arose from the same molecule as another, more abundant sequence. The model includes parameters that
+are common for all runs with a given methodology (currently Illumina and PacBio) with parameters
+estimated from the error profile of the current run. (It is recommended to run DADA2 on *all samples
+from a single sequencing run*, since they will all share the same error profile.) In the error
+correction step, the likelihoods are used to correct errors in less likely sequences so they are
+*placed* on more likely true sequences.  One ends up with a set of estimated true sequences, termed
+*amplicon sequence variants* (ASVs) (or *sub-OTUs*, though I prefer ASVs), tied to abundances for
+each in each sample.
+
+The algorithm is implemented in R, and complete workflows are documented at the [DADA2 web
+site](https://benjjneb.github.io/dada2/tutorial.html). DADA2 is also implemented as a module in the
+[QIIME2 package](https://docs.qiime2.org). The latter is easier to use in a production setting, i.e.
+set up to be run regularly after receival of sequences, whereas the former is, maybe, more
+illustrative.
+
+Besides being more biologically correct, error correction algorithms address the problem of
+datasets, such as time series, that are continuously filled up with sequences from new sequencing
+runs. Clustering depends on all sequences, with their abundances, being present at the time of
+clustering suggesting that one has to either include old clusters as seeds when adding new
+sequences, or rerunning the clustering from scratch. With error correction, this is not necessary,
+since correct sequences are rediscovered.
+
+#### Detecting and eliminating sequence chimaeras
 
 ### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
 
