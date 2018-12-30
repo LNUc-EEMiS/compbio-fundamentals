@@ -142,7 +142,16 @@ clustering suggesting that one has to either include old clusters as seeds when 
 sequences, or rerunning the clustering from scratch. With error correction, this is not necessary,
 since correct sequences are rediscovered.
 
-#### Detecting and eliminating sequence chimaeras
+#### Detecting and eliminating sequence chimaeras {#amplicon-bimeras}
+
+During the PCR reaction, artifactual products formed from two different molecules -- *chimaeras* or,
+in DADA2 parlance, *bimeras* -- can be formed. Both the UPARSE and the DADA2 workflows contain
+programs to deal with this problem. In the latter, the bimera check is run after the forward and
+reverse reads have been merged. Like in detection of erroneous sequences, bimera deletion is based
+on abundances. A bimeric sequence should be less abundant than either of two *parent* sequences,
+i.e. true sequences^[The *parent overabundance* is a parameter that can be set. The default of 1,
+i.e. parents are not required to be more abundant is, in my expericence too harsh; I have good
+experiences with a setting of 8].
 
 ### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
 
