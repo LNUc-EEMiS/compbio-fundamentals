@@ -153,7 +153,32 @@ i.e. true sequences^[The *parent overabundance* is a parameter that can be set. 
 i.e. parents are not required to be more abundant is, in my expericence too harsh; I have good
 experiences with a setting of 8].
 
+#### DADA2 in practice with QIIME2
+
 ### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
+
+The ASVs (or OTUs if you use clustering) that the above procedure describes is for many types of
+analyses, e.g. diversity measurements, quite sufficient but in many cases we're interested in having
+a taxonomical name assigned to each ASV. Usually this is done by comparing the representative
+sequence for each ASV with a database such as SILVA, RDP or Greengenes. Aligning several thousands
+of sequences to the databases takes a little while, and faster methods have been developed, in
+particular the "RDP classifier".
+
+#### The RDP classifier {#amplicon-rdp-classifier}
+
+The RDP classifier is based on *sequence signatures*, in this case frequencies of 8mers. In the
+paper describing the "RDP classifier", @wang_naive_2007, show that the frequency of 8mers^[An 8mer
+is a stretch of eight consecutive nucleotides. There are $4^8 = 65536$ different possible 8mers.]
+present in a sequence can be used to distinguish it from other sequences but also that closely
+related species have quite similar 8mer frequences. This can be used to identify sequences. In
+practice, one has to *train* one's database of choice by building an index of 8mer frequencies
+before one can start identifying one's own sequences. This training is very important, since having
+an index built from incorrect sequences, i.e. not the target sequence, or another part of the
+sequence that is actually used, will lead to erroneous results.
+
+QIIME2 contains an implementation of the RDP classifier in the `classify-sklearn` module. Mothur
+also contains one. The DRP classifier in QIIME2 is an order of magnitude faster than aligning
+sequences with VSEARCH, also implemented in the `classify-sklearn` module.
 
 ```{r include=FALSE}
 # vim:tw=100
