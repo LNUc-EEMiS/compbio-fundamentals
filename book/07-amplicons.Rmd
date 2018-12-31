@@ -172,8 +172,8 @@ is a stretch of eight consecutive nucleotides. There are $4^8 = 65536$ different
 present in a sequence can be used to distinguish it from other sequences but also that closely
 related species have quite similar 8mer frequences. This can be used to identify sequences. In
 practice, one has to *train* one's database of choice by building an index of 8mer frequencies
-before one can start identifying one's own sequences. This training is very important, since having
-an index built from incorrect sequences, i.e. not the target sequence, or another part of the
+before one can start identifying one's own sequences. This *training is very important*, since
+having an index built from incorrect sequences, i.e. not the target sequence, or another part of the
 sequence that is actually used, will lead to erroneous results.
 
 QIIME2 contains an implementation of the RDP classifier in the `classify-sklearn` module. Mothur
