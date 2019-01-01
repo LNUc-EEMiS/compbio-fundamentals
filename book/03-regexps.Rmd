@@ -1,6 +1,76 @@
 # Regular expressions {#regexps}
 
+Regular expressions, or *regexps*, are strings that describe classes of strings. E.g. the regexp
+"Nrd[A-Z]" describes, or *matches*, the strings "NrdA", "NrdB", "NrdC" or any other string that
+starts with "Nrd" and continues with a capital letter. Regexps are often called *patterns*. Regexps
+are used to *search* for strings and in tools that *modify* strings. 
+
+There are two types of characters in regexps: regular characters and *metacharacters*. The former
+makes up the majority and just matches itself; examples include letters, numbers, space and most
+other characters. The latter, the metacharacters, are characters that matches something else than a
+literal character. Two very common examples are `.` and `*`. The `.` matches not a literal character
+but *any character*, whereas the `*` is a *multiplier* specifying that the character before it could
+occur any number of times, including zero. A `.*` pattern hence means "match anything, any number of
+times" (which is, of course, rather useless on its own, but is useful when mixed with other
+characters).
+
+If you want to search for a literal character, but the specific character, e.g. `.`, is a
+metacharacter, you can escape it, usually by preceding it with a `\`. `\.` would hence match a
+literal period. In some cases, particularly tools that are older than Perl, such as grep, awk and
+sed, there are missing metacharacters. To turn regular characters into metacharacters in these
+cases, you have to escape the regular character. An example is `(` and `)` which in Perl and many
+other regexp engines are used to "capture" what was matched for later use, but in standard sed just
+means literal parentheses. To capture text and modify it with `sed` you could e.g. write
+`s/Nrd\([A-Za-z]\)/Nrd\U\1/` (match "Nrd" followed by any letter and make sure the letter is capital
+(`\U`: upper case)). See also the grep alternation example in \@ref(grep)  below.
+
+---------------------------------------------------------------------------------------------------
+Metacharacter Meaning                   Examples                        Implemented in Absent from*
+                                            
+------------- ------------------------- ------------------------------- -------------- ------------
+`.`           Match anything.                                           All
+
+`[a-z]`       Enumeration of characters `[a-z]` matches any small       All
+              ("character class").      letter, `[a-zA-Z0-9]` any 
+                                        letter or number.
+                
+
+`*`           Allow any number of the   `[a-z]*` matches any number     All
+              character preceding.      of any small letter.
+
+---------------------------------------------------------------------------------------------------
+
+Table: (\#tab:regexp-metacharacters) Common metacharacters used in regular expressions. *Often,
+but not always, the function of an absent metacharacter can be gotten by escaping the corresponding 
+regular character, e.g. `\|` to use alternation in grep or sed.
+
+Below, a few tools that implement regexps are described.
+
 ## Grep {#grep}
+
+The `grep` program^[Supposedly, "grep" stands for "globally search a regular expression and print".]
+is a standard UNIX search tool commonly used on its own or in pipelines to search for *rows* in
+files that contain a regexp.
+
+```
+# Search for a user named "dl" in the user database
+grep dl /etc/passwd
+
+# Search for RNR proteins in a fasta file containing NCBI's NR database
+# (The quotes are not necessary, but a good habit to make sure regexps not
+# mistakenly match file globs.)
+grep "Nrd[ABDEFJ]" nr.faa
+
+# Subset results to mouse and human, assuming the species name comes after the 
+# protein name.
+# This pattern uses *alternation* when looking for either mouse or human.
+# (The parentheses and pipe are not metacharacters in grep, so we have to escape 
+# them.)
+grep "Nrd[ABDEFJ].*\(Mus musculus\)\|\(Homo sapiens\)" nr.faa
+
+# If we're not certain that protein name comes before species, build a pipeline
+grep "Nrd[ABDEFJ]" nr.faa | grep "\(Mus musculus\)\|\(Homo sapiens\)"
+```
 
 ## Sed {#sed}
 

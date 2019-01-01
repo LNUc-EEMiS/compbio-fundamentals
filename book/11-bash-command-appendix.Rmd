@@ -20,6 +20,8 @@ for more information (see \@ref(cli-getting-help)) or Google.
 
 - `chown`: Change owner of a file or directory. See \@ref(users-groups-permissions).
 
+- `clear`: Clears the terminal screen.
+
 - `fg`: Foreground a running program. See \@ref(job-control).
 
 - `find`: Searches for files. Very powerful, takes a little while to learn and a lifetime to

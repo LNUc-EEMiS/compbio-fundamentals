@@ -1,1 +1,12 @@
 # Alphabetical list of computer terms {#computer-terms}
+
+- *Disk*:
+
+- *Memory*:
+
+- *Regular expression*: A string that describes other strings; used as a search tool. See
+  \@ref(regexps).
+
+```{r include=FALSE}
+# vim:tw=100
+```
