@@ -2,6 +2,7 @@
 
 - *Disk*:
 
+- *Manual/Man page*: Classical help system in UNIX computers, see \@ref(cli-getting-help).
 - *Memory*:
 
 - *Regular expression*: A string that describes other strings; used as a search tool. See

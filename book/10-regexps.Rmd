@@ -16,8 +16,8 @@ characters).
 
 If you want to search for a literal character, but the specific character, e.g. `.`, is a
 metacharacter, you can escape it, usually by preceding it with a `\`. `\.` would hence match a
-literal period. In some cases, particularly tools that are older than Perl, such as grep, awk and
-sed, there are missing metacharacters. To turn regular characters into metacharacters in these
+literal period. In some cases, particularly tools that are older than Perl, such as Grep, Awk and
+Sed, there are missing metacharacters. To turn regular characters into metacharacters in these
 cases, you have to escape the regular character. An example is `(` and `)` which in Perl and many
 other regexp engines are used to "capture" what was matched for later use, but in standard sed just
 means literal parentheses. To capture text and modify it with `sed` you could e.g. write
@@ -25,32 +25,68 @@ means literal parentheses. To capture text and modify it with `sed` you could e.
 (`\U`: upper case)). See also the grep alternation example in \@ref(grep)  below.
 
 ---------------------------------------------------------------------------------------------------
-Metacharacter Meaning                   Examples                        Implemented in Absent from*
+Metacharacter Meaning                   Examples                                Implemented in 
                                             
-------------- ------------------------- ------------------------------- -------------- ------------
-`.`           Match anything.                                           All
+------------- ------------------------- --------------------------------------- -------------------
+`.`           Match anything.                                                   All
 
-`[a-z]`       Enumeration of characters `[a-z]` matches any small       All
+`[a-z]`       Enumeration of characters `[a-z]` matches any small               All
               ("character class").      letter, `[a-zA-Z0-9]` any 
                                         letter or number.
                 
 
-`*`           Allow any number of the   `[a-z]*` matches any number     All
+`*`           Allow any number of the   `[a-z]*` matches any number             All
               character preceding.      of any small letter.
+
+`?`           Allow one or zero of the  `[a-z]?` matches zero or one            All
+              preceding pattern.        small letter.
+
+`+`           At least one.             `[a-z]+` matches one or more            Perl, R. Grep and 
+                                        small letters.                          Sed in escaped form.
+
+`(n)`         Capture and group.        Capture for later use in a              Perl, R. Grep and 
+                                        substitution (see Sed below)            Sed in escaped form.
+                                        or group used with the                  
+                                        alternation character `|`.
+
+`|`           Alternation.              Match either what's before the pipe     Perl, R. Grep and
+                                        or what comes after (usually in         Sed in escaped form.
+                                        parentheses, i.e `(bike)|(boat)`.       
 
 ---------------------------------------------------------------------------------------------------
 
-Table: (\#tab:regexp-metacharacters) Common metacharacters used in regular expressions. *Often,
-but not always, the function of an absent metacharacter can be gotten by escaping the corresponding 
-regular character, e.g. `\|` to use alternation in grep or sed.
+Table: (\#tab:regexp-metacharacters) Common metacharacters used in regular expressions.
 
 Below, a few tools that implement regexps are described.
 
 ## Grep {#grep}
 
-The `grep` program^[Supposedly, "grep" stands for "globally search a regular expression and print".]
-is a standard UNIX search tool commonly used on its own or in pipelines to search for *rows* in
-files that contain a regexp.
+The Grep program^[Supposedly, "grep" stands for "**G**lobally search a **R**egular **E**xpression
+and **P**rint".] is a standard UNIX search tool commonly used on its own or in pipelines to search
+for *rows* in files that contain a regexp. That Grep searches for rows instead of only the search
+pattern -- unless you specify the `-o/--only-matching` option -- makes it a little bit different
+than most other tools since you do not have to specify a complete, row-matching, pattern, but just a
+piece that is sufficiently discriminating. Grep is a tool that is commonly used as a filter in
+pipelines see \@ref(pipelines) and the examples below.
+
+---------------------------------------------------------------------------------------------------
+Options                 Meaning                 
+----------------------- ---------------------------------------------------------------------------
+-i/--ignore-case        Ignore case, i.e. look for matches disregarding capital/lower case.
+
+-v/--invert-match       Invert match, i.e. output rows that do *not* match the pattern.
+
+-c/--count              Count the number of matching rows.
+
+-f FILE/--file=FILE     Search for patterns specified in FILE.
+
+-l/--files-with-matches Output only the names of files containing at least one matchin row.
+
+---------------------------------------------------------------------------------------------------
+
+Table: (\#grep-options) Commonly used options in Grep. See the manual page for much more.
+
+Some examples of how to use Grep:
 
 ```
 # Search for a user named "dl" in the user database
