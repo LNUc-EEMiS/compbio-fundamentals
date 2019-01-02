@@ -293,6 +293,12 @@ line as `a_symlink -> a_file`.
 
 ### Timestamps {#timestamps}
 
+## Editing files {#text-editors}
+
+### Vi/Vim
+
+### Emacs
+
 ## Screen {#screen}
 
 ## Source control with Git {#git}
