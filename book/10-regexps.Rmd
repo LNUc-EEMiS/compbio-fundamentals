@@ -53,6 +53,14 @@ Metacharacter Meaning                   Examples                                
                                         or what comes after (usually in         Sed in escaped form.
                                         parentheses, i.e `(bike)|(boat)`.       
 
+`&`           In *substitution*:        `s/(Nrd[A-Z])/&\t&/` duplicates the     All that have
+              whatever was matched      match separated with a tab.             substitution: Perl,
+                                                                                Sed, R.
+
+`\1`          In *substitution*:        `s/.*(Nrd[A-Z])/\1/` strip off          All that have
+              whatever was matched by   anything before "Nrdx". Up to nine      substitution.
+              first set of parentheses. pairs of parentheses can be used.
+
 ---------------------------------------------------------------------------------------------------
 
 Table: (\#tab:regexp-metacharacters) Common metacharacters used in regular expressions.
