@@ -92,7 +92,7 @@ Options                 Meaning
 
 ---------------------------------------------------------------------------------------------------
 
-Table: (\#grep-options) Commonly used options in Grep. See the manual page for much more.
+Table: (\#tab:grep-options) Commonly used options in Grep. See the manual page for much more.
 
 Some examples of how to use Grep:
 
