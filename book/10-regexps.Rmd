@@ -71,9 +71,9 @@ Below, a few tools that implement regexps are described.
 
 The Grep program^[Supposedly, "grep" stands for "**G**lobally search a **R**egular **E**xpression
 and **P**rint".] is a standard UNIX search tool commonly used on its own or in pipelines to search
-for *rows* in files that contain a regexp. That Grep searches for rows instead of only the search
+for *lines* in files that contain a regexp. That Grep searches for lines instead of only the search
 pattern -- unless you specify the `-o/--only-matching` option -- makes it a little bit different
-than most other tools since you do not have to specify a complete, row-matching, pattern, but just a
+than most other tools since you do not have to specify a complete, line-matching, pattern, but just a
 piece that is sufficiently discriminating. Grep is a tool that is commonly used as a filter in
 pipelines see \@ref(pipelines) and the examples below.
 
@@ -82,13 +82,13 @@ Options                 Meaning
 ----------------------- ---------------------------------------------------------------------------
 -i/--ignore-case        Ignore case, i.e. look for matches disregarding capital/lower case.
 
--v/--invert-match       Invert match, i.e. output rows that do *not* match the pattern.
+-v/--invert-match       Invert match, i.e. output lines that do *not* match the pattern.
 
--c/--count              Count the number of matching rows.
+-c/--count              Count the number of matching lines.
 
 -f FILE/--file=FILE     Search for patterns specified in FILE.
 
--l/--files-with-matches Output only the names of files containing at least one matchin row.
+-l/--files-with-matches Output only the names of files containing at least one matching line.
 
 ---------------------------------------------------------------------------------------------------
 
@@ -117,6 +117,31 @@ grep "Nrd[ABDEFJ]" nr.faa | grep "\(Mus musculus\)\|\(Homo sapiens\)"
 ```
 
 ## Sed {#sed}
+
+Sed^[Sed stands for **S**tream **ED**itor.] is a tool that uses regexps to modify text. The most
+common way to use the program, is to specify a substitution command that looks like
+`s/regexp/replacement/` which is like a search (regexp) and replace (replacement part) command, but
+more powerful. In the replacement part, you can refer to the whole match (`&`) or parts of the match
+that were captured with parentheses (`\1`). After the last `/` you can add modifiers; the most
+commonly used is `g` (global) which does more than one replacement per line.
+
+Like Grep, Sed is a very powerful pipeline tool.
+
+Some examples of how to use Sed:
+
+```
+# Replace space with underscore characters:
+sed "s/ /_/g" file > newfile
+
+# If there sometimes are more than one space that you want to replace with a single underscore:
+sed "s/ \+/_/g" file > newfile
+
+# The -i option edits the file in place
+sed -i "s/ \+/_/g" file > newfile
+```
+
+More help can be found at the [GNU sed home page](http://www.gnu.org/software/sed/) or by searching
+the Internet.
 
 ## Awk {#awk}
 
