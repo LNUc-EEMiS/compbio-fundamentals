@@ -116,6 +116,9 @@ grep "Nrd[ABDEFJ].*\(Mus musculus\)\|\(Homo sapiens\)" nr.faa
 grep "Nrd[ABDEFJ]" nr.faa | grep "\(Mus musculus\)\|\(Homo sapiens\)"
 ```
 
+(The above describes Grep's *basic regular expression* mode (BRE), which is the default. There is
+also an *extended regular expression* mode (ERE) which is available via the `-E` option.)
+
 ## Sed {#sed}
 
 Sed^[Sed stands for **S**tream **ED**itor.] is a tool that uses regexps to modify text. The most
