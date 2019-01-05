@@ -146,7 +146,11 @@ sed -i "s/ \+/_/g" file > newfile
 More help can be found at the [GNU sed home page](http://www.gnu.org/software/sed/) or by searching
 the Internet.
 
-## Awk {#awk}
+## AWK {#awk}
+
+AWK is a complete programming language with a feature complete regexp engine. Although not much used
+for script writing anymore, it is a popular tool in pipelines. Since its regexp engine is rarely
+seen in pipelines I'm skipping it here for now.
 
 ## R {#r-regexps}
 

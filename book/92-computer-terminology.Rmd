@@ -8,6 +8,16 @@
 - *Regular expression*: A string that describes other strings; used as a search tool. See
   \@ref(regexps).
 
+- *Script*/*scripting language*: A *scripting language* is a programming language that is not
+  compiled, i.e. you don't have to process your code with any tool before running it. Today,
+  scripting languages, such as *R* and *Python* are very popular particularly in computational
+  sciences. Another scripting language that is commonly seen is *Bash* or other *shell* scripting
+  languages. Scripts written in Bash are examples of how the program you're using when interacting
+  with the computer -- the shell -- can be used to automate tasks. In essence, writing a shell
+  script is just collecting a number of commands you regularly issue at the command prompt to
+  perform some task, usually together with some program logic in the form of *if else* or *while*
+  clauses plus variables to make the script more general.
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
