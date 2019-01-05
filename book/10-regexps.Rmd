@@ -1,9 +1,9 @@
 # Regular expressions {#regexps}
 
-Regular expressions, or *regexps*, are strings that describe classes of strings. E.g. the regexp
-"Nrd[A-Z]" describes, or *matches*, the strings "NrdA", "NrdB", "NrdC" or any other string that
-starts with "Nrd" and continues with a capital letter. Regexps are often called *patterns*. Regexps
-are used to *search* for strings and in tools that *modify* strings. 
+*Regular expressions*, *regexps* or *patterns*, are strings that describe classes of strings. E.g.
+the regexp "Nrd[A-Z]" describes, or *matches*, the strings "NrdA", "NrdB", "NrdC" or any other
+string that starts with "Nrd" and continues with a capital letter. Regexps are used to *search* for
+strings and in tools that *modify* strings. 
 
 There are two types of characters in regexps: regular characters and *metacharacters*. The former
 makes up the majority and just matches itself; examples include letters, numbers, space and most
@@ -18,11 +18,11 @@ If you want to search for a literal character, but the specific character, e.g. 
 metacharacter, you can escape it, usually by preceding it with a `\`. `\.` would hence match a
 literal period. In some cases, particularly tools that are older than Perl, such as Grep, Awk and
 Sed, there are missing metacharacters. To turn regular characters into metacharacters in these
-cases, you have to escape the regular character. An example is `(` and `)` which in Perl and many
-other regexp engines are used to "capture" what was matched for later use, but in standard sed just
-means literal parentheses. To capture text and modify it with `sed` you could e.g. write
-`s/Nrd\([A-Za-z]\)/Nrd\U\1/` (match "Nrd" followed by any letter and make sure the letter is capital
-(`\U`: upper case)). See also the grep alternation example in \@ref(grep)  below.
+cases, you have to *escape the regular character*. One example is `(` and `)` which are used in
+Perl, and many other regexp engines, to "capture" what was matched for later use, but in standard
+sed just means literal parentheses. To capture text and modify it with `sed` you could e.g. write
+`s/Nrd\([A-Za-z]\)/Nrd\U\1/` (match "Nrd" followed by any letter and make the letter capital (`\U`:
+upper case)). See also the grep alternation example in \@ref(grep)  below.
 
 ---------------------------------------------------------------------------------------------------
 Metacharacter Meaning                   Examples                                Implemented in 
@@ -122,11 +122,11 @@ also an *extended regular expression* mode (ERE) which is available via the `-E`
 ## Sed {#sed}
 
 Sed^[Sed stands for **S**tream **ED**itor.] is a tool that uses regexps to modify text. The most
-common way to use the program, is to specify a substitution command that looks like
-`s/regexp/replacement/` which is like a search (regexp) and replace (replacement part) command, but
-more powerful. In the replacement part, you can refer to the whole match (`&`) or parts of the match
-that were captured with parentheses (`\1`). After the last `/` you can add modifiers; the most
-commonly used is `g` (global) which does more than one replacement per line.
+common way to use the program is to specify a substitution command that looks like
+`s/regexp/replacement/` which is like a search (regexp) and replace (replacement) command, but more
+powerful. In the replacement part, you can refer to the whole match (`&`) or parts of the match that
+were captured with parentheses (`\1`). After the last `/` you can add modifiers; the most commonly
+used is `g` (global) which does more than one replacement per line.
 
 Like Grep, Sed is a very powerful pipeline tool.
 
