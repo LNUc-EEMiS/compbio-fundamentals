@@ -1,22 +1,28 @@
 # Alphabetical list of computer terms {#computer-terms}
 
-- *Disk*:
+- *Disk*: Although today, after the advent of solid state storage (SSD), not the only form of
+  *permanent* storage in a computer the term *disk* storage is usually used synonymous with
+  *permanent storage*, i.e. where files and programs are stored when not in use.
 
 - *Manual/Man page*: Classical help system in UNIX computers, see \@ref(cli-getting-help).
-- *Memory*:
+
+- *Memory*: **R**andom **A**ccess **M**emory (RAM), or *memory* in short, is the working memory for
+  the computer. Any program you start will be placed in memory together with any data it is using.
+  Having too little memory is a common reason why computers feels slow. Using fewer programs is a
+  way of dealing with that.
 
 - *Regular expression*: A string that describes other strings; used as a search tool. See
   \@ref(regexps).
 
 - *Script*/*scripting language*: A *scripting language* is a programming language that is not
   compiled, i.e. you don't have to process your code with any tool before running it. Today,
-  scripting languages, such as *R* and *Python* are very popular particularly in computational
+  scripting languages, such as *R* and *Python*, are very popular particularly in computational
   sciences. Another scripting language that is commonly seen is *Bash* or other *shell* scripting
   languages. Scripts written in Bash are examples of how the program you're using when interacting
   with the computer -- the shell -- can be used to automate tasks. In essence, writing a shell
   script is just collecting a number of commands you regularly issue at the command prompt to
-  perform some task, usually together with some program logic in the form of *if else* or *while*
-  clauses plus variables to make the script more general.
+  perform some task, together with some program logic in the form of *if else* or *while* clauses
+  plus variables to make the script more general.
 
 ```{r include=FALSE}
 # vim:tw=100
