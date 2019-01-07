@@ -44,6 +44,12 @@ Metacharacter Meaning                   Examples                                
 `+`           At least one.             `[a-z]+` matches one or more            Perl, R. Grep and 
                                         small letters.                          Sed in escaped form.
 
+`^`           Anchor pattern at the     `^NrdA` matches "NrdA" only if it's     All
+              start of the line.        at the start of the line.
+
+`$`           Anchor pattern at the     `NrdA$` matches "NrdA" only if it's     All
+              end of the line.          at the end of the line.
+
 `(n)`         Capture and group.        Capture for later use in a              Perl, R. Grep and 
                                         substitution (see Sed below)            Sed in escaped form.
                                         or group used with the                  
