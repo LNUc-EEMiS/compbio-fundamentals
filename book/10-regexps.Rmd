@@ -167,6 +167,37 @@ in computational biology, I'm not going to describe it here.
 
 ## R {#r-regexps}
 
+R has a very complete regexp engine. One primarily uses the `grep` family of functions for regexps
+in R: `grep` and `grepl` for matching, i.e. searching, `sub` and `gsub` for substituation (the
+former does *one* substituation, the latter global, i.e. as many substitutions as possible) and
+`regexp`, `gregexp` and `regexec` for some other operations (see help for any of the mentioned
+functions).  There are also other functions that use regexps, e.g. the excellent `stringr` package
+(part of the Tidyverse).
+
+One quirk with R is that escaping regexp characters needs *double `\` characters*, i.e. use `\\`
+whenever you would use `\`, see examples below.
+
+Some examples, in a Tidyverse setting:
+
+```
+# Replace space with underscore characters:
+data <- data %>% mutate(f = gsub(' +', '_', f))
+
+# Cutout everything except "Nrd[A-Z" from a string
+data <- data %>% mutate(f = sub('.*(Nrd[A-Z]).*', '\\1', f))
+
+# Assign a class to rows where the protein name matches 'Nrd[ABDEFJ]'
+data <- data %>% 
+  mutate(
+    class = case_when(
+      grepl('Nrd[ABEF]', protein) ~ 'I',
+      grepl('NrdD', protein)      ~ 'III',
+      grepl('NrdJ', protein)      ~ 'II',
+      TRUE                        ~ 'Unknown'
+    )
+  )
+```
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
