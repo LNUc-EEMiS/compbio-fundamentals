@@ -152,11 +152,18 @@ sed -i "s/ \+/_/g" file > newfile
 More help can be found at the [GNU sed home page](http://www.gnu.org/software/sed/) or by searching
 the Internet.
 
-## AWK {#awk}
+## AWK {#awk-regexps}
 
 AWK is a complete programming language with a feature complete regexp engine. Although not much used
 for script writing anymore, it is a popular tool in pipelines. Since its regexp engine is rarely
 seen in pipelines I'm skipping it here for now.
+
+## Perl {#perl-regexps}
+
+The Perl scripting language has meant more for the development of regexps than any other language
+with the invention of several new useful concepts like metacharacters for predefined character
+classes like numbers and whitespace. Since Perl unfortunately has lost most of its early user base
+in computational biology, I'm not going to describe it here.
 
 ## R {#r-regexps}
 
