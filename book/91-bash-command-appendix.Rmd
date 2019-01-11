@@ -7,6 +7,10 @@ for more information (see \@ref(cli-getting-help)) or Google.
 
 - &lt;ctrl&gt;-Z: Background a running program. See \@ref(job-control).
 
+- `alias`: Defines an alias for a command, i.e. something to type instead of the command to save
+  typing. Common uses of aliases are for commands with particular options. As an example, in many
+  Linux machines, `ll` is an alias for `ls -l`. See \@ref(bash-config-files).
+
 - `bg`: Background a stopped program; see also `fg` and `jobs`. See \@ref(job-control).
 
 - `cat`: Print one or more files to STDOUT. Often used to concatenate several files to create a
