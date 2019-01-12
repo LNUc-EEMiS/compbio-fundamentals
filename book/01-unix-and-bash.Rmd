@@ -5,7 +5,7 @@ they are usually controlled from the command line (CLI) and not from a graphical
 
 UNIX and it's derivatives have a long history as an operating system by programmers for programmers.
 This makes UNIX different from commercial operating systems and there is a clear philosophy behind
-many aspects of behaviour of a computer running UNIX. That being said, a modern UNIX-like operating
+many aspects of behavior of a computer running UNIX. That being said, a modern UNIX-like operating
 system like Linux is in many ways similar to e.g. Apple's OS X or Windows and is fully controllable
 via a graphical interface. However, behind the graphical interface the tools many long-time users
 have come to love still remain. Apple's OS X is in this way similar to e.g. Linux by being a UNIX at
@@ -192,9 +192,9 @@ exist, with some default content.
 ### Pipelines {#pipelines}
 
 The word "pipeline" can mean slightly different things in computing. The most original meaning comes
-from the UNIX shell, where it means that you literaly connect the output of one command as input to
+from the UNIX shell, where it means that you literally connect the output of one command as input to
 the next in a chain^[When the word "pipeline" is used in computational biology, it's usually used
-symbolicaly and means that in order to produce a certain output you need to run several programs in
+symbolically and means that in order to produce a certain output you need to run several programs in
 succession. A better term for this is *workflow*.]. 
 
 To truly understand what's going on, you need to know about the three different channels that each
@@ -330,7 +330,7 @@ command and moved, including name changed, with `mv`.
 Every file must have at least one hard link, but can have many, all of them equivalent. This means
 that a file can have many indistinguishable names. They must all reside on the same file system (see
 \@ref(filesystems)). A file is not removed until you have removed all links. You can see this
-behaviour with the following example:
+behavior with the following example:
 
 ```
 pushd /tmp      # cd to /tmp, but remember where I came from
@@ -358,7 +358,7 @@ all other purposes, symlinks are equivalent to hard links and can be very useful
 
 Why using symlinks instead of actual file copies?
 
-1. Unlike file copies symlinks are mere labels, so that a consideable amount of disk memory can be
+1. Unlike file copies symlinks are mere labels, so that a considerable amount of disk memory can be
    saved.
 
 1. They are a safety measure: in case you accidentally overwrite them the original file remains
@@ -452,7 +452,7 @@ not required in order to use it. With Conda you can:
 
 1.Readily install a software and all its required dependencies at once.
 
-1.Easily update the installed softwares.
+1.Easily update the installed software.
 
 1.store different versions of programs in different environments, because Conda is also an
 environment manager.
@@ -514,11 +514,11 @@ where the -c flag specifies the channel (e.g. namechannel) that contains said pa
 (e.g. namepackage). You can look for the channel that contains the package of interest in the [Anaconda Cloud](https://anaconda.org/).
 A [tutorial](https://conda.io/docs/user-guide/tutorials/index.html) about how to set Conda and run it has been made available online.
 Although conda works both with Python 2.7 and 3.6, only the version 3 is the one 
-that is being currently updated. Furtherly, programs like CheckM will support only particular
+that is being currently updated. Furthermore, programs like CheckM will support only particular
 versions of Python (e.g. 2.7 for CheckM), so sooner or later you might need to create a conda
 environment that stores a specific version of a software (e.g. Python).
 Suppose we have installed Miniconda3 and are interested in having both Python 2.7 and Python 3.6
-available in the same account. The following command line creates a conda environment named pyton2.7
+available in the same account. The following command line creates a conda environment named python2.7
 with Python version 2.7 installed in it:
 
 ```

@@ -37,8 +37,8 @@ performed inflates the problem. To address this, one should routinely sequence s
 that has gone through all the steps of the sample preparation process and subtract these sequences
 from analyses.
 
-@yeh_taxon_2017 recently published a report of a mysterious disapperance of certain taxa from a
-sequencing run. They were able to resolv this problem as they routinely added a sample of a mock
+@yeh_taxon_2017 recently published a report of a mysterious disappearance of certain taxa from a
+sequencing run. They were able to resolve this problem as they routinely added a sample of a mock
 community (just a defined mix of genomic DNA) to their sequencing runs.
 
 ## Computational analysis of amplicon sequences {#amplicon-bioinformatics}
@@ -72,7 +72,7 @@ cluster in complete linkage cluster is a group of sequences where no pair are le
 identical^[This definition of complete linkage clustering is a bit simplified, but for the purpose
 of clustering sequences, it captures the essence. See the [Wikipedia
 page](https://en.wikipedia.org/wiki/Complete-linkage_clustering) for a fuller explanation.]. Because
-of this defintion, all sequences need to be compared with each other, which is time consuming if you
+of this definition, all sequences need to be compared with each other, which is time consuming if you
 have a lot of sequences as the number of comparisons, and hence run time grows as the square of the
 number of sequences^[If you study the full algorithm, you will find that it's scaling even worse, as
 the cube of the number of sequences.]. This characteristic makes complete linkage clustering, and
@@ -84,7 +84,7 @@ are required.
 
 One of the most commonly used heuristic algorithms for clustering sequences is the *greedy*^[A
 greedy algorithm heuristic, is one which only looks at the optimum, at a particular point in time,
-although at a later stage, this choice might prove suboptimal. See also the [Wikipedia
+although at a later stage, this choice might prove sub optimal. See also the [Wikipedia
 page](https://en.wikipedia.org/wiki/Greedy_algorithm).] UPARSE algorithm [@edgar_uparse:_2013], part
 of the USEARCH package [@edgar_search_2010], but also in a free reimplentation as part of the
 VSEARCH package [@rognes_vsearch:_2016].
@@ -142,15 +142,15 @@ clustering suggesting that one has to either include old clusters as seeds when 
 sequences, or rerunning the clustering from scratch. With error correction, this is not necessary,
 since correct sequences are rediscovered.
 
-#### Detecting and eliminating sequence chimaeras {#amplicon-bimeras}
+#### Detecting and eliminating sequence chimeras {#amplicon-bimeras}
 
-During the PCR reaction, artifactual products formed from two different molecules -- *chimaeras* or,
+During the PCR reaction, artifactual products formed from two different molecules -- *chimeras* or,
 in DADA2 parlance, *bimeras* -- can be formed. Both the UPARSE and the DADA2 workflows contain
 programs to deal with this problem. In the latter, the bimera check is run after the forward and
 reverse reads have been merged. Like in detection of erroneous sequences, bimera deletion is based
 on abundances. A bimeric sequence should be less abundant than either of two *parent* sequences,
 i.e. true sequences^[The *parent overabundance* is a parameter that can be set. The default of 1,
-i.e. parents are not required to be more abundant is, in my expericence too harsh; I have good
+i.e. parents are not required to be more abundant is, in my experience too harsh; I have good
 experiences with a setting of 8].
 
 #### DADA2 in practice with QIIME2
@@ -170,7 +170,7 @@ The RDP classifier is based on *sequence signatures*, in this case frequencies o
 paper describing the "RDP classifier", @wang_naive_2007, show that the frequency of 8mers^[An 8mer
 is a stretch of eight consecutive nucleotides. There are $4^8 = 65536$ different possible 8mers.]
 present in a sequence can be used to distinguish it from other sequences but also that closely
-related species have quite similar 8mer frequences. This can be used to identify sequences. In
+related species have quite similar 8mer frequencies. This can be used to identify sequences. In
 practice, one has to *train* one's database of choice by building an index of 8mer frequencies
 before one can start identifying one's own sequences. This *training is very important*, since
 having an index built from incorrect sequences, i.e. not the target sequence, or another part of the
