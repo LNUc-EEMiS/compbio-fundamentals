@@ -386,9 +386,59 @@ line as `a_symlink -> a_file`.
 
 ## Editing files {#text-editors}
 
-### Vi/Vim
+For almost any task you perform as a computational biologist, you need to edit *text files*. If
+you're new to command line computing, the concept of a text file might be a bit abstract -- are they
+Word documents? What's meant by *text file* in computing is not a file containing text, like word
+processor documents, but files containing *only* text, i.e. files that do not contain formatting
+information or any other fancy stuff -- with the exception of files like e.g. HTML where the
+formatting itself is written as plain text -- just the text characters themselves. The opposite to
+text files are *binary files*, files with information, like formatting, that requires a program for
+interpretation.
 
-### Emacs
+Examples of text files you will be exposed to are all your raw data in *fasta* or *fastq* format,
+processed data in the form of *tab or comma separated tables* (in contrast to spreadsheet data,
+which is binary), *program code* (e.g. R scripts) and *configuration files* for programs you run.
+
+Since text files frequently need to be manipulated, you need to choose and learn a *text editor*, a
+program to edit text files. There are usually several installed by default in any UNIX computer,
+common examples include Vim, Nano and Emacs. There is probably some advantage to each of them, but
+they can also be roughly divided into those that are a bit more intuitive to use, but usually less
+powerful and those that have a steeper learning curve, but very powerful in the long run.
+
+Since you're going to work a lot with text files, I encourage you to *choose either Vim or Emacs*!
+
+### Nano {#nano}
+
+One of the most common examples of the intuitive, less powerful editors is Nano. You start Nano with
+the following command, which will let you work with `my_file` by replacing the command line with a
+view of the file:
+
+```
+nano my_file
+```
+
+As you can see, there's a line at the bottom giving you instructions for how to save the file, exit
+the program etc. Besides that, editing a file is straightforward: you just use the arrow, PgUp and
+PgDown keys to move around and the type text, press delete or backspace to change things.
+
+### Vi/Vim {#vi}
+
+Vim^[**V**i **im**proved. The name comes from the fact that Vim was born as a reimplementation of
+the classical, but non-free, UNIX text editor Vi (short for **vi**sual in contrast to the
+line-oriented editors, primarily Ed, that existed before it).] is a popular example of powerful text
+editors with quite a steep learning curve. Vim's power comes e.g. from the way you can navigate and
+modify the text by using regular expressions (see \@ref(regexps)).
+
+The primary reason for why Vim is difficult to begin with is that it has *two modes*: moving about
+or *command* mode and *insert* mode respectively. When you're in moving about mode the keys have
+completely different meaning than when you're in insert mode. In the latter, keys have the normal
+meaning, i.e. pressing an "j" means inserting an "j" character at the position of the cursor. In
+command mode, a "j" means move down one line.  
+
+Instead of writing yet another Vim tutorial, [here's one, rather randomly selected, tutorial series
+for how to work with Vim](https://www.linux.com/learn/vim-101-beginners-guide-vim).
+
+### Emacs {#emacs}
 
 ## Screen {#screen}
 
