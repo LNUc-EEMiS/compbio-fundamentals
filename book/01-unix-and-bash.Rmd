@@ -435,6 +435,16 @@ completely different meaning than when you're in insert mode. In the latter, key
 meaning, i.e. pressing an "j" means inserting an "j" character at the position of the cursor. In
 command mode, a "j" means move down one line.  
 
+Pressing some keys will change mode from command to insert: An "i" will let you **i**nsert text at
+the position of the cursor, an "o" will **o**pen a new line above the one you're standing and an "a"
+will **a**pend (there are also capital versions of each of these, so be careful with &lt;shift&gt;.
+
+To go from insert mode to command mode, you press &lt;Esc&gt;.
+
+If you happen to open a file with Vim, don't know what to do and *just want to quit*, type `:q!` and
+press &lt;Enter&gt;. This will **q**uit without saving. If you instead type `:x` you will e**x**it
+*and save* if the file was modified.
+
 Instead of writing yet another Vim tutorial, [here's one, rather randomly selected, tutorial series
 for how to work with Vim](https://www.linux.com/learn/vim-101-beginners-guide-vim).
 
