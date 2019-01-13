@@ -19,7 +19,8 @@ use Secure Shell (ssh).
 
 ### Connecting from a UNIX-like computer (Linux or Mac OS X) {#connecting-from-unix}
 
-SSH is a command-line tool available in all Linux distributions and in OS X. You connect like this:
+SSH\index{SSH} is a command-line tool available in all Linux distributions and in OS X. You connect
+like this:
 
 ```
 ssh user@rackham.uppmax.uu.se

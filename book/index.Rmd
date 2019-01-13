@@ -8,6 +8,9 @@ output:
     lib_dir: "book_assets"
   bookdown::pdf_book:
     keep_tex: yes
+    includes:
+      in_header: preamble.tex
+      after_body: index.tex
 documentclass: book
 bibliography: [eemis-compbio.bib, packages.bib]
 biblio-style: apalike
