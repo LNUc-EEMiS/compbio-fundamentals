@@ -26,6 +26,13 @@ If you add something to the Zotero group, you need to export it to BibTex with t
 
 Refering to literature is done like this: `@garrels_bash_2008` (get the name from the bib file).
 
+## Index
+
+You should add index terms to the text: `\index{GUI}GUI`. Try to use basic forms of words, like
+nominative for nouns and infinitive for verbs. Also look at what is already used as index terms,
+either by grepping for `\index` (`grep -o "\index{[^}]*}" *.Rmd`) or by building the book in PDF
+format (HTML does not produce an index).
+
 ## Building the book
 
 The book can be built from inside RStudio by clicking "Build Book" in the "Build" pane in the upper
