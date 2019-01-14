@@ -1,21 +1,22 @@
 # Using UNIX-like computers and mastering the command shell {#unix-and-shell}
 
 Most programs in bioinformatics are written for UNIX-like operating systems like Linux. Moreover,
-they are usually controlled from the command line (CLI) and not from a graphical interface (GUI).
+they are usually controlled from the \index{command line}command line (\index{CLI}CLI) and not from
+a \index{graphical interface}graphical interface (\index{GUI}GUI).
 
-UNIX and it's derivatives have a long history as an operating system by programmers for programmers.
-This makes UNIX different from commercial operating systems and there is a clear philosophy behind
-many aspects of behavior of a computer running UNIX. That being said, a modern UNIX-like operating
-system like Linux is in many ways similar to e.g. Apple's OS X or Windows and is fully controllable
-via a graphical interface. However, behind the graphical interface the tools many long-time users
-have come to love still remain. Apple's OS X is in this way similar to e.g. Linux by being a UNIX at
-its core, with a proprietary graphical interface although in this case a commercial, non-free
+\index{UNIX}UNIX and it's derivatives have a long history as an operating system by programmers for
+programmers.  This makes UNIX different from commercial operating systems and there is a clear
+philosophy behind many aspects of behavior of a computer running UNIX. That being said, a modern
+UNIX-like operating system like Linux is in many ways similar to e.g. Apple's OS X or Windows and is
+fully controllable via a graphical interface. However, behind the graphical interface the tools many
+long-time users have come to love still remain. Apple's OS X is in this way similar to e.g. Linux by
+being a UNIX at its core, with a proprietary graphical interface which is a commercial, non-free
 program. 
 
 ## Interacting with UNIX-like operating systems from commercial operating systems {#interacting-with-unix}
 
 In scientific computing, the most common way to connect to a computing cluster running Linux, is to
-use Secure Shell (ssh). 
+use \index{SSH}Secure Shell (SSH). 
 
 ### Connecting from a UNIX-like computer (Linux or Mac OS X) {#connecting-from-unix}
 
@@ -32,12 +33,13 @@ And your local command-line session is exchanged for one at the cluster.
 
 It's a little bit more complicated with Windows computers, because there's no ssh program directly
 available. There are some options though. At UPPMAX they recommend the
-[MobaXterm](http://mobaxterm.mobatek.net/) program (see [UPPMAX
+\index{MobaXterm}[MobaXterm](http://mobaxterm.mobatek.net/) program (see [UPPMAX
 documentation](http://www.uppmax.uu.se/support/user-guides/guide--first-login-to-uppmax/)). Another
-popular program is [PuTTY](https://putty.org/).
+popular program is \index{PuTTY}[PuTTY](https://putty.org/).
 
-There are also bash implementations for Windows, e.g. [Cygwin](https://www.cygwin.com/) and the
-command line interface that comes with [Git for Windows](https://git-scm.com/download/win).
+There are also Bash implementations for Windows, e.g.
+\index{Cygwin}[Cygwin](https://www.cygwin.com/) and the command line interface that comes with
+\index{Git for Windows}[Git for Windows](https://git-scm.com/download/win).
 
 (I also came across a [blog post describing Windows 10's inbuilt Bash
 shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).)
@@ -46,16 +48,17 @@ shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-sh
 
 ## Using the Linux command line {#linux-cli}
 
-The Linux command line is a program called the *shell*, and exists in different versions. The most
-popular is probably `bash` (short for *B*ourne *a*gain *sh*ell) a derivative of the original *Bourne
-shell* `sh`. Together with *Korn shell*, `sh` and `bash` forms a family with similar syntax. A
-second family started with *C shell* `csh`, which aimed at being more similar in syntax to the *C*
-programming language. In this book, we're going to focus solely on `bash`.
+The Linux command line is a program called the \index{shell}*shell*, and exists in different
+versions. The most popular is probably \index{Bash}Bash (short for *B*ourne *a*gain *sh*ell) a
+derivative of the original \index{Bourne shell}*Bourne shell* Sh. Together with \index{Korn
+shell}*Korn shell*, Sh and Bash forms a family with similar syntax. A second family started with
+\index{C shell}*C shell* Csh, which aimed at being more similar in syntax to the *C* programming
+language. In this book, we're going to focus solely on Bash.
 
 The shell is both a way of interacting interactively with the computer and a programming language, a
-*scripting* language. When you use the shell interactively you execute commands and programs and a
-shell script is nothing else than a set of commands saved for later, though often generalized with
-variables etc. to be more useful.
+\index{scripting}\index{script}*scripting* language. When you use the shell interactively you
+execute commands and programs and a shell script is nothing else than a set of commands saved for
+later, though often generalized with variables etc. to be more useful.
 
 There are many free sources of information available, one of them the classic [Bash Guide for
 Beginners](http://www.tldp.org/LDP/Bash-Beginners-Guide/html/) [@garrels_bash_2008] from "The

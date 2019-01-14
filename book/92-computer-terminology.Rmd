@@ -1,8 +1,13 @@
 # Alphabetical list of computer terms {#computer-terms}
 
+- *CLI* or *Command Line Interface*: A program that is written in a way to let you control it from
+  the "command line", i.e. the *shell* in a UNIX computer.
+
 - *Disk*: Although today, after the advent of solid state storage (SSD), not the only form of
   *permanent* storage in a computer the term *disk* storage is usually used synonymous with
   *permanent storage*, i.e. where files and programs are stored when not in use.
+
+- *GUI* or *Graphical User Interface*: A program that is written with a graphical interface.
 
 - *Manual/Man page*: Classical help system in UNIX computers, see \@ref(cli-getting-help).
 
@@ -23,6 +28,9 @@
   script is just collecting a number of commands you regularly issue at the command prompt to
   perform some task, together with some program logic in the form of *if else* or *while* clauses
   plus variables to make the script more general.
+
+- *Shell*: A terminal, or *command line* program to control the computer. The most common example
+  today is Bash. See \@ref(linux-cli).
 
 ```{r include=FALSE}
 # vim:tw=100
