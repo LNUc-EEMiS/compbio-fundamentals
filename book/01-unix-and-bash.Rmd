@@ -46,7 +46,7 @@ shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-sh
 
 ### SSH public key authentication {#ssh-public-key-authentication}
 
-There are two ways of \index{authentication in SSH}authentication in SSH: the normal
+There are two ways of \index{SSH, authentication}authentication in SSH: the normal
 username/password and \index{public key authentication}public key authentication. The latter is
 using \index{public-key cryptography}[public-key
 cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), also known as
@@ -74,8 +74,8 @@ on to a computer. To keep the private key private it is important to protect it 
 cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), key, used to encrypt and
 decrypt the key. Each time you logon using public-key authentication, you will be asked to type in
 your passphrase to the key instead of the password to the computer. So what is gained by that?
-Nothing, unless you run an SSH-agent, which is a program that keeps your key in memory so you only
-need to type in your passphrase once after each boot. 
+Nothing, unless you run an \index{SSH-agent}SSH-agent, which is a program that keeps your key in
+memory so you only need to type in your passphrase once after each boot. 
 
 To create a key-pair, you run:
 
@@ -447,14 +447,14 @@ line as `a_symlink -> a_file`.
 
 ## Editing files {#text-editors}
 
-For almost any task you perform as a computational biologist, you need to edit *text files*. If
-you're new to command line computing, the concept of a text file might be a bit abstract -- are they
-Word documents? What's meant by *text file* in computing is not a file containing text, like word
-processor documents, but files containing *only* text, i.e. files that do not contain formatting
-information or any other fancy stuff -- with the exception of files like e.g. HTML where the
-formatting itself is written as plain text -- just the text characters themselves. The opposite to
-text files are *binary files*, files with information, like formatting, that requires a program for
-interpretation.
+For almost any task you perform as a computational biologist, you need to edit \index{text
+file}*text files*. If you're new to command line computing, the concept of a text file might be a
+bit abstract -- are they Word documents? What's meant by *text file* in computing is not a file
+containing text, like word processor documents, but files containing *only* text, i.e. files that do
+not contain formatting information or any other fancy stuff -- with the exception of files like e.g.
+HTML where the formatting itself is written as plain text -- just the text characters themselves.
+The opposite to text files are \index{binary file}*binary files*, files with information, like
+formatting, that requires a program for interpretation.
 
 Examples of text files you will be exposed to are all your raw data in *fasta* or *fastq* format,
 processed data in the form of *tab or comma separated tables* (in contrast to spreadsheet data,
@@ -470,9 +470,9 @@ Since you're going to work a lot with text files, I encourage you to *choose eit
 
 ### Nano {#nano}
 
-One of the most common examples of the intuitive, less powerful editors is Nano. You start Nano with
-the following command, which will let you work with `my_file` by replacing the command line with a
-view of the file:
+One of the most common examples of the intuitive, less powerful editors is \index{Nano}Nano. You
+start Nano with the following command, which will let you work with `my_file` by replacing the
+command line with a view of the file:
 
 ```
 nano my_file
@@ -484,11 +484,11 @@ PgDown keys to move around and the type text, press delete or backspace to chang
 
 ### Vi/Vim {#vi}
 
-Vim^[**V**i **im**proved. The name comes from the fact that Vim was born as a reimplementation of
-the classical, but non-free, UNIX text editor Vi (short for **vi**sual in contrast to the
-line-oriented editors, primarily Ed, that existed before it).] is a popular example of powerful text
-editors with quite a steep learning curve. Vim's power comes e.g. from the way you can navigate and
-modify the text by using regular expressions (see \@ref(regexps)).
+\index{Vim}Vim^[**V**i **im**proved. The name comes from the fact that Vim was born as a
+reimplementation of the classical, but non-free, UNIX text editor Vi (short for **vi**sual in
+contrast to the line-oriented editors, primarily Ed, that existed before it).] is a popular example
+of powerful text editors with quite a steep learning curve. Vim's power comes e.g. from the way you
+can navigate and modify the text by using regular expressions (see \@ref(regexps)).
 
 The primary reason for why Vim is difficult to begin with is that it has *two modes*: moving about
 or *command* mode and *insert* mode respectively. When you're in moving about mode the keys have
