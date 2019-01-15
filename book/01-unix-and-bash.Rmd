@@ -124,33 +124,33 @@ Linux Documentation Project" (tldp).
 ### Getting help {#cli-getting-help}
 
 The classical way of program authors to provide help to users is via manual ("man") pages, readable
-with the `man` command. To read the man page for e.g. the find command you:
+with the \index{Man}Man command. To read the man page for e.g. the Find program you:
 
 ```
 man find
 ```
 
-The man command uses the `more` command to show the content page by page. Step through pages with
-the space key, search with `/` followed by a string and exit by pressing `q`.
+The man command uses the \index{More}More command to show the content page by page. Step through
+pages with the space key, search with `/` followed by a string and exit by pressing `q`.
 
 Today it's more common to integrate help in the program and make it available with a flag, usually
-`--help` or `-v`. In many cases, you get more than one page of output, so you might want to pipe the
-output to `more` to read page by page.
+`--help` or `-h`. In many cases, you get more than one page of output, so you might want to pipe the
+output to More to read page by page.
 
 ```
 wget --help|more
 ```
 
 For complex programs doing many different things it has become increasingly popular to modularise
-program invocation and help. A typical example is `git`, which has one overall help plus individual
-help for each type of thing you can do with the program.
+program invocation and help. A typical example is \index{Git}Git, which has one overall help plus
+individual help for each type of thing you can do with the program.
 
 ```
 git --help
 git clone --help
 ```
 
-In this particular example, you're actually taken to the manual page for `git clone`, in the latter
+In this particular example, you're actually taken to the manual page for `git clone` in the latter
 of the two commands.
 
 ### The environment {#bash-environment}
@@ -514,6 +514,11 @@ for how to work with Vim](https://www.linux.com/learn/vim-101-beginners-guide-vi
 ## Screen {#screen}
 
 ## Source control with Git {#git}
+
+TO BE DONE.
+
+[Link to nice blog post](https://nvie.com/posts/a-successful-git-branching-model/). (Not beginner
+stuff though.)
 
 ## Installing programs with Conda {#conda}
 
