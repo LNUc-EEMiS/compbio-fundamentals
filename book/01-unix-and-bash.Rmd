@@ -44,6 +44,12 @@ shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-sh
 
 ### Public key authentication {#public-key-authentication}
 
+There are two ways of \index{authentication in SSH}authentication in SSH: the normal
+username/password and \index{public key authentication}public key authentication. The latter is
+using \index{public-key cryptography}[public-key
+cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), also known as
+\index{asymmetric cryptography}asymmetric cryptography.
+
 ## Using the Linux command line {#linux-cli}
 
 The Linux command line is a program called the *shell*, and exists in different versions. The most
