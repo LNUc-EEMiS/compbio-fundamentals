@@ -6,6 +6,12 @@ you already know Bookdown.
 Use 100 characters as text width in files (in vi/vim: `:set tw=100`; there is a modeline in each file, 
 requires that `set modline` is set(!)).
 
+## Conventions
+
+I have used standard capitalization and standard font for program names, i.e. writing "Bash" instead
+of e.g. "bash" or `bash`. There are probably remnants of writing in code style, i.e. `bash`, in some
+places. Please change if you see them.
+
 ## Figures
 
 SVG figures in `img/` need to be converted to png. This can either be done by opening every file in
