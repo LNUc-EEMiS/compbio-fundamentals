@@ -44,13 +44,64 @@ There are also Bash implementations for Windows, e.g.
 (I also came across a [blog post describing Windows 10's inbuilt Bash
 shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).)
 
-### Public key authentication {#public-key-authentication}
+### SSH public key authentication {#ssh-public-key-authentication}
 
 There are two ways of \index{authentication in SSH}authentication in SSH: the normal
 username/password and \index{public key authentication}public key authentication. The latter is
 using \index{public-key cryptography}[public-key
 cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), also known as
-\index{asymmetric cryptography}asymmetric cryptography.
+\index{asymmetric cryptography}asymmetric cryptography. In public-key cryptography each user has a
+*pair* of keys, which each can be used to encrypt a message. If a message is encrypted by one of the
+keys, it can only be decrypted with the *other* key. The two keys are treated differently, so that
+one is kept secret (the \index{private key}*private* key) while the other can be publicly
+distributed (the \index{public key}*public* key). Anyone on the Internet can download a public key
+from another user, and use this to encrypt a message and send to the owner of the public key which
+is the only user that can decrypt it, using its private key.
+
+Besides being useful for encrypting messages, public-key cryptography can also be used to verify a
+user or computer is actually what it personates as. This relies on encrypting non-secret messages
+with the private key. If I would send a message containing, say, the current time and date,
+and send it to the user or computer, it could return the message encrypted with its *private* key.
+If the returned message is possible to decrypt with its *public* key yielding the original message,
+its proof that the message was in the hands of the user or computer and is hence proof of
+authenticity.
+
+This mechanism for authentication is what SSH uses in its public-key authentication mode. Many argue
+this is a safer mode of authentication, as long as users keep their private keys private and safe,
+but it also has other advantages primarily that you can save typing your password each time you log
+on to a computer. To keep the private key private it is important to protect it with a good
+\index{passphrase}*passphrase*, which is a normal, \index{symmetric cryptography}[symmetric
+cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), key, used to encrypt and
+decrypt the key. Each time you logon using public-key authentication, you will be asked to type in
+your passphrase to the key instead of the password to the computer. So what is gained by that?
+Nothing, unless you run an SSH-agent, which is a program that keeps your key in memory so you only
+need to type in your passphrase once after each boot. 
+
+To create a key-pair, you run:
+
+```
+ssh-keygen
+```
+
+You will be asked to provide a passphrase -- make sure it's *strong* and something you're *not using
+on the Internet*.
+
+#### Running an SSH-agent {#ssh-agent}
+
+The SSH-agent is usually started automatically on a Linux machine, but requires (I believe) that you
+add the following to a file called `~/.ssh/config` (which might not yet exist). (This is a
+\index{text file}*text file*; see \@ref(text-editors) for how to work with text files.)
+
+```
+Host *
+    AddKeysToAgent yes
+```
+
+See [this
+page](https://www.reddit.com/r/osx/comments/52zn5r/difficulties_with_sshagent_in_macos_sierra/) if
+you don't get it working right away.
+
+#### Running an SSH-agent on a Windows machine {#ssh-agent-windows}
 
 ## Using the Linux command line {#linux-cli}
 
