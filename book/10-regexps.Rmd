@@ -200,6 +200,40 @@ data <- data %>%
   )
 ```
 
+## Vim {#vim-regexps}
+
+One of the things that makes \index{Vim}Vim such a powerful \index{text editor}\index{editor}text
+editor is its use of regexps. You can *search* for regexps by pressing `/` (forward search) or `?`
+(backward), typing a regexp and pressing &lt;Enter&gt; (pressing `n` will repeat the search, i.e.
+search for the next occurrence; pressing `N` searches in the reverse direction).
+
+You can also modify text using regexps and the builtin in \index{Ed}Ed line editor which is accessed
+by pressing `:`. Ed is rather similar to \index{Sed}Sed (\@ref(sed)). Each command starts with a
+specification of which lines to operate on. `%` means the whole file, `1,10` lines 1-10, `.,+4` the
+current line plus four more. You can use regexps for this too. `g/Nrd[A-Z]/` will operate on all
+lines containing "Nrd[A-Z]", and `v/Nrd[A-Z]` on lines that do *not* contain "Nrd[A-Z]". After the
+"address", i.e. which lines to operate on, comes a command which often is a substitution in the same
+shape as Sed, i.e. `s/pattern/something/`, possibly with a modifier like `g` (global, i.e. all
+possible places) added `s/pattern/something/g`. A few example commands to try in Vim:
+
+```
+# On this line, and the two below, replace literal "global" with "local", but only once
+:.,+2s/global/local/
+# On all lines, replace all "Nrd[A-Z]" in all kinds of capitalizations with the 
+# correctly capitalized
+:%s/nrd\([a-z]\)/Nrd\U\1/ig
+```
+
+In the [intro guide to Vim](https://www.linux.com/learn/vim-101-beginners-guide-vim) I linked to in
+the Vim section (\@ref(vim)), there's a very short intro to the Ed commands. When you want to know
+more, Google or check the man page for Ed: `man ed`.
+
+## More and Less {#more-regexps}
+
+The \index{More}More and \index{Less}Less "pagers", i.e. programs that allow you to study a
+\index{text file}text file page by page, allow you to search for regexps similar to Vim, i.e. by
+first pressing `/` (forward search) or `?` (backward).
+
 ```{r include=FALSE}
 # vim:tw=100
 ```

@@ -482,7 +482,7 @@ As you can see, there's a line at the bottom giving you instructions for how to 
 the program etc. Besides that, editing a file is straightforward: you just use the arrow, PgUp and
 PgDown keys to move around and the type text, press delete or backspace to change things.
 
-### Vi/Vim {#vi}
+### Vi/Vim {#vim}
 
 \index{Vim}Vim^[**V**i **im**proved. The name comes from the fact that Vim was born as a
 reimplementation of the classical, but non-free, UNIX text editor Vi (short for **vi**sual in
