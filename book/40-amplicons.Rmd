@@ -112,12 +112,13 @@ Figure from the [UPARSE web page](https://drive5.com/usearch/manual/uparseotu_al
 
 The underlying assumption behind OTU clustering is that reads containing sequencing errors are going
 to be similar to the true sequence, but rarer. It has recently become clear, however, that this
-introduces both *false positives* in the form of OTUs that do not correspond to a true population
-and *false negatives* in the form of populations not represented among the OTUs. In addition, the
-abundances can be wrong due to assignment of reads to the wrong cluster. A new family of algorithms
-tries to remedy these problems by correcting sequences (DADA2; [@callahan_dada2:_2016]) or deleting
-erroneous sequences (Deblur; [@amir_deblur_2017]). (@nearing_denoising_2018 recently compared the
-two, plus some other alternatives.) This figure illustrates how DADA2 better estimates the true
+introduces both \index{false positive}*false positives* in the form of OTUs that do not correspond
+to a true population and \index{false negative}*false negatives* in the form of populations not
+represented among the OTUs. In addition, the abundances can be wrong due to assignment of reads to
+the wrong cluster. A new family of algorithms tries to remedy these problems by \index{sequence
+correction}correcting sequences (\index{DADA2}DADA2; [@callahan_dada2:_2016]) or deleting erroneous
+sequences (\index{Deblur}Deblur; [@amir_deblur_2017]). (@nearing_denoising_2018 recently compared
+the two, plus some other alternatives.) This figure illustrates how DADA2 better estimates the true
 sequences and their abundances.
 
 ![**DADA2 vs. OTU clustering.** **TP**: true positive, **FP**: false positive, **FN**: false
@@ -127,19 +128,20 @@ Figure from the [DADA2 web site](https://benjjneb.github.io/dada2/).
 
 DADA2 uses a statistical model of sequencing errors to estimate the likelihood that a given sequence
 arose from the same molecule as another, more abundant sequence. The model includes parameters that
-are common for all runs with a given methodology (currently Illumina and PacBio) with parameters
-estimated from the error profile of the current run. (It is recommended to run DADA2 on *all samples
-from a single sequencing run*, since they will all share the same error profile.) In the error
-correction step, the likelihoods are used to correct errors in less likely sequences so they are
-*placed* on more likely true sequences.  One ends up with a set of estimated true sequences, termed
-*amplicon sequence variants* (ASVs) (or *sub-OTUs*, though I prefer ASVs), tied to abundances for
-each in each sample.
+are common for all runs with a given methodology (currently \index{Illumina}Illumina and
+\index{PacBio}PacBio) with parameters estimated from the error profile of the current run. (It is
+recommended to run DADA2 on *all samples from a single sequencing run*, since they will all share
+the same error profile.) In the error correction step, the likelihoods are used to correct errors in
+less likely sequences so they are *placed* on more likely true sequences.  One ends up with a set of
+estimated true sequences, termed \index{amplicon sequence variant}*amplicon sequence variants*
+(\index{ASV}ASVs) (or \index{sub-OTU}*sub-OTUs*, though I prefer ASVs), tied to abundances for each
+in each sample.
 
-The algorithm is implemented in R, and complete workflows are documented at the [DADA2 web
+The algorithm is implemented in \index{R}R, and complete workflows are documented at the [DADA2 web
 site](https://benjjneb.github.io/dada2/tutorial.html). DADA2 is also implemented as a module in the
-[QIIME2 package](https://docs.qiime2.org). The latter is easier to use in a production setting, i.e.
-set up to be run regularly after receival of sequences, whereas the former is, maybe, more
-illustrative.
+\index{QIIME2}[QIIME2 package](https://docs.qiime2.org). The latter is easier to use in a production
+setting, i.e.  set up to be run regularly after receival of sequences, whereas the former is, maybe,
+more illustrative.
 
 Besides being more biologically correct, error correction algorithms address the problem of
 datasets, such as time series, that are continuously filled up with sequences from new sequencing
@@ -150,41 +152,43 @@ since correct sequences are rediscovered.
 
 #### Detecting and eliminating sequence chimeras {#amplicon-bimeras}
 
-During the PCR reaction, artifactual products formed from two different molecules -- *chimeras* or,
-in DADA2 parlance, *bimeras* -- can be formed. Both the UPARSE and the DADA2 workflows contain
-programs to deal with this problem. In the latter, the bimera check is run after the forward and
-reverse reads have been merged. Like in detection of erroneous sequences, bimera deletion is based
-on abundances. A bimeric sequence should be less abundant than either of two *parent* sequences,
-i.e. true sequences^[The *parent overabundance* is a parameter that can be set. The default of 1,
-i.e. parents are not required to be more abundant is, in my experience too harsh; I have good
-experiences with a setting of 8].
+During the PCR reaction, artifactual products formed from two different molecules --
+\index{chimera}*chimeras* or, in DADA2 parlance, \index{bimera}*bimeras* -- can be formed. Both the
+\index{UPARSE}UPARSE and the \index{DADA2}DADA2 workflows contain programs to deal with this
+problem. In the latter, the bimera check is run after the forward and reverse reads have been
+merged. Like in detection of erroneous sequences, bimera deletion is based on abundances. A bimeric
+sequence should be less abundant than either of two *parent* sequences, i.e. true sequences^[The
+*parent overabundance* is a parameter that can be set. The default of 1, i.e. parents are not
+required to be more abundant is, in my experience too harsh; I have good experiences with a setting
+of 8].
 
 #### DADA2 in practice with QIIME2
 
-### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
+### Assigning \index{taxonomy assignment}taxonomy to amplicon sequences {#amplicon-taxonomy}
 
-The ASVs (or OTUs if you use clustering) that the above procedure describes is for many types of
-analyses, e.g. diversity measurements, quite sufficient but in many cases we're interested in having
-a taxonomical name assigned to each ASV. Usually this is done by comparing the representative
-sequence for each ASV with a database such as SILVA, RDP or Greengenes. Aligning several thousands
-of sequences to the databases takes a little while, and faster methods have been developed, in
-particular the "RDP classifier".
+The \index{ASV}ASVs (or \index{OTU}OTUs if you use clustering) that the above procedure describes is
+for many types of analyses, e.g. diversity measurements, quite sufficient but in many cases we're
+interested in having a taxonomical name assigned to each ASV. Usually this is done by comparing the
+representative sequence for each ASV with a database such as \index{SILVA}SILVA, \index{RDP}RDP or
+\index{Greengenes}Greengenes. Aligning several thousands of sequences to the databases takes a
+little while, and faster methods have been developed, in particular the "RDP classifier".
 
-#### The RDP classifier {#amplicon-rdp-classifier}
+#### The \index{RDP classifier}RDP classifier {#amplicon-rdp-classifier}
 
-The RDP classifier is based on *sequence signatures*, in this case frequencies of 8mers. In the
-paper describing the "RDP classifier", @wang_naive_2007, show that the frequency of 8mers^[An 8mer
-is a stretch of eight consecutive nucleotides. There are $4^8 = 65536$ different possible 8mers.]
-present in a sequence can be used to distinguish it from other sequences but also that closely
-related species have quite similar 8mer frequencies. This can be used to identify sequences. In
-practice, one has to *train* one's database of choice by building an index of 8mer frequencies
-before one can start identifying one's own sequences. This *training is very important*, since
-having an index built from incorrect sequences, i.e. not the target sequence, or another part of the
-sequence that is actually used, will lead to erroneous results.
+The RDP classifier is based on \index{sequence signature}*sequence signatures*, in this case
+frequencies of \index{8mer}8mers. In the paper describing the "RDP classifier", @wang_naive_2007,
+show that the frequency of 8mers^[An 8mer is a stretch of eight consecutive nucleotides. There are
+$4^8 = 65536$ different possible 8mers.] present in a sequence can be used to distinguish it from
+other sequences but also that closely related species have quite similar 8mer frequencies. This can
+be used to identify sequences. In practice, one has to *train* one's database of choice by building
+an index of 8mer frequencies before one can start identifying one's own sequences. This *training is
+very important*, since having an index built from incorrect sequences, i.e. not the target sequence,
+or another part of the sequence that is actually used, will lead to erroneous results.
 
-QIIME2 contains an implementation of the RDP classifier in the `classify-sklearn` module. Mothur
-also contains one. The DRP classifier in QIIME2 is an order of magnitude faster than aligning
-sequences with VSEARCH, also implemented in the `classify-sklearn` module.
+\index{QIIME2}QIIME2 contains an implementation of the RDP classifier in the
+\index{classify-sklearn}`classify-sklearn` module. \index{Mothur}Mothur also contains one. The RDP
+classifier in QIIME2 is an order of magnitude faster than aligning sequences with
+\index{VSEARCH}VSEARCH, also implemented in the `classify-sklearn` module.
 
 ```{r include=FALSE}
 # vim:tw=100
