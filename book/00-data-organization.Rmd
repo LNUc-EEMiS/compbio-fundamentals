@@ -1,10 +1,11 @@
 # Working with data {#working-with-data}
 
 In many biological projects where large amounts of data from e.g. sequencing are involved, the
-project can be divided up into three phases: "annotation", analyses and preparation of final
-figures. The quotes around annotation signifies that the term should be understood in a very wide
-sense as any kind of processing required before raw data can be turned into a format useful for
-the true biological analysis, usually tables but also e.g. sequence files or phylogenies.
+project can be divided up into three phases: \index{annotation}"annotation",
+\index{analyses}analyses and preparation of \index{final figures}final figures. The quotes around
+annotation signifies that the term should be understood in a very wide sense as any kind of
+processing required before raw data can be turned into a format useful for the true biological
+analysis, usually tables but also e.g. sequence files or phylogenies.
 
 ![**Overall workflow in computational biology.** The yellow boxes indicate parts that are useful to
 keep under version control, e.g. Git. The manuscript is common to keep under a different kind of
@@ -33,9 +34,10 @@ complexity.](img/lucidmanager.20181211.SpreadsheetChaos.jpeg)
 
 (Figure from [The Lucid Manager Blog](https://lucidmanager.org/spreadsheets-for-data-science/).)
 
-The first and most important thing to do in a data analysis is to organize data. It is good practice
-to gather all the data into a single folder, henceforth called root directory. The root directory
-should be linked to all the other tools that will help in data management, like Screen, Git and Make.
+The first and most important thing to do in a data analysis is to \index{organize data}organize
+data. It is good practice to gather all the data into a single folder, henceforth called the
+\index{root directory}root directory. The root directory should be linked to all the other tools
+that will help in data management, like \index{Screen}Screen, \index{Git}Git and \index{Make}Make.
 
 ```{r include=FALSE}
 # vim:tw=100
