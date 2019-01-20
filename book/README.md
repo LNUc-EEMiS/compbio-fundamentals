@@ -39,6 +39,10 @@ nominative for nouns and infinitive for verbs. Also look at what is already used
 either by grepping for `\index` (`grep -o "\index{[^}]*}" *.Rmd`) or by building the book in PDF
 format (HTML does not produce an index).
 
+*Note:* Latex is sensitive to underscore characters. In most cases it works fine to have words with
+underscores in the text, but *not in index terms*. To create an index term for e.g. `.bash_profile`
+you have to escape the underscore: `\index{.bash_profile}`.
+
 ## Building the book
 
 The book can be built from inside RStudio by clicking "Build Book" in the "Build" pane in the upper
