@@ -88,14 +88,18 @@ on the Internet*.
 
 #### Running an SSH-agent {#ssh-agent}
 
-The SSH-agent is usually started automatically on a Linux machine, but requires (I believe) that you
-add the following to a file called `~/.ssh/config` (which might not yet exist). (This is a
-\index{text file}*text file*; see \@ref(text-editors) for how to work with text files.)
+The SSH-agent is usually started automatically on a Linux machine, but on OS X it requires (I
+believe) that you add the following to a file called `~/.ssh/config` (which might not yet exist).
+(This is a \index{text file}*text file*; see \@ref(text-editors) for how to work with text files.)
 
 ```
 Host *
     AddKeysToAgent yes
 ```
+
+(The `.ssh` directory should be writable only for the owner, but can be readable and executable for
+the group and the world (see \@ref(users-groups-permissions) below). Set permissions for the config
+file similarly, i.e. read and write for the owner, read for everybody else.)
 
 See [this
 page](https://www.reddit.com/r/osx/comments/52zn5r/difficulties_with_sshagent_in_macos_sierra/) if
@@ -155,24 +159,25 @@ of the two commands.
 
 ### The environment {#bash-environment}
 
-Your *environment* is a rather abstract concept. One could say that it encompasses all the settings
-you have made to make work effective. When you start computing in a UNIX environment, you're likely
-to just accept whatever default settings are there, but with time you might become more and more
-picky about settings and will start to change them and, when logging in to a new computer, you will
-try to as soon as possible get that set the way you want it.
+Your \index{environment}*environment* is a rather abstract concept. One could say that it
+encompasses all the settings you have made to make work effective. When you start computing in a
+UNIX environment, you're likely to just accept whatever default settings are there, but with time
+you might become more and more picky about settings and will start to change them and, when logging
+in to a new computer, you will try to as soon as possible get that set the way you want it.
 
 Your environment is configured through various files, some of a general character, others specific
 for a program or a set of programs. Many of these files have names that start with a `.` which, in
-most cases, make them *hidden* so they do not show up e.g. in normal directory listings. The purpose
-of hiding files is to make it a little bit more difficult to change things that might have negative
-effects if not done properly.
+most cases, make them \index{hidden files}*hidden* so they do not show up e.g. in normal directory
+listings. The purpose of hiding files is to make it a little bit more difficult to change things
+that might have negative effects if not done properly.
 
 #### Variables {#bash-variables}
 
-One key part of configuration is to set variables, in particular *environment variables*, that are
-read by different programs and affect how they work. Variables are set with an equal sign:
-`var=something`, sets the variable "var" to contain the text "something". The value is retrieved by
-putting a dollar before the variable name: `$var`, see examples below.
+One key part of configuration is to set \index{variable}variables, in particular 
+\index{environment variable}*environment variables*, that are read by different programs and affect
+how they work.  Variables are set with an equal sign: `var=something`, sets the variable "var" to
+contain the text "something". The value is retrieved by putting a dollar before the variable name:
+`$var`, see examples below.
 
 The difference between normal variables and *environment* variables is that the latter are more
 visible to other programs. This can be illustrated by running the following commands, which also
@@ -197,16 +202,16 @@ exit    # Exits the subshell
 echo $var
 ```
 
-Since a subshell is started every time you run a program, variables need to be exported if they are
-to be visible by the program. It is hence only *environment* variables that are visible to programs
-you start from the command line.
+Since a \index{subshell}subshell is started every time you run a program, variables need to be
+exported if they are to be visible by the program. It is hence only *environment* variables that are
+visible to programs you start from the command line.
 
-A classical configuration file consists of a number of definitions of environment variables (plus
-in some cases other kinds of mechanisms) and can be seen as an executable text file, a script. The
-problem with this is that a subshell is started for each new program run, and variables will be set
-in the subshell but *not in the current shell*. To run a configuration script in the current shell
-instead of in a subshell, you need to *source* it by preceding it with `source`. An example
-illustrates this:
+A classical configuration file consists of a number of definitions of environment variables (plus in
+some cases other kinds of mechanisms) and can be seen as an executable text file, a
+\index{script}script. The problem with this is that a subshell is started for each new program run,
+and variables will be set in the subshell but *not in the current shell*. To run a configuration
+script in the current shell instead of in a subshell, you need to \index{source}*source* it by
+preceding it with `source`. An example illustrates this:
 
 ```
 # Create a small config file
@@ -221,9 +226,9 @@ source /tmp/my_config
 echo $var
 ```
 
-Perhaps you noted in the example above that I used both single quotes `'` and double quotes `"`.
-They have almost the same meaning. Both types quotes text, the difference is that within double
-quotes, variables are extrapolated, but they are not in single quotes:
+Perhaps you noted in the example above that I used both single \index{quotes}quotes `'` and double
+quotes `"`.  They have almost the same meaning. Both types quotes text, the difference is that
+within double quotes, variables are extrapolated, but they are not in single quotes:
 
 ```
 var='Hello world'
@@ -233,19 +238,20 @@ echo '$var'     # Types out $var
 
 #### Configuration files {#bash-config-files}
 
-There are two main configuration files for Bash: `.bash_profile` and `.bashrc`. The former is
-sourced when you log in whereas the latter is sourced each time a subshell is started. This means
-that `.bashrc` is sourced for every program you run since programs are run in subshells.
+There are two main \index{configuration files}configuration files for Bash:
+\index{.bash\_profile}`.bash_profile` and \index{.bashrc}`.bashrc`. The former is sourced when you
+log in whereas the latter is sourced each time a subshell is started. This means that `.bashrc` is
+sourced for every program you run since programs are run in subshells.
 
-Of particular interest is the `PATH` environment variable. This contains a list of directories,
-separated by `:` characters, in which Bash will search for programs. When you call e.g. `grep`, Bash
-will look through the list of directories in your `PATH` for an executable file called "grep" and
-run that for you.
+Of particular interest is the \index{PATH environment variable}`PATH` environment variable. This
+contains a list of directories, separated by `:` characters, in which Bash will search for programs.
+When you call e.g. Grep, Bash will look through the list of directories in your `PATH` for an
+executable file called "grep" and run that for you.
 
 Since environment variables are visible in subshells, they need only be set when you log in and are
 hence best defined in `.bash_profile`. Other configurations are better placed in `.bashrc`. An
-example is `alias` definitions. Today, it is quite common that alias definitions are placed in a
-file of their own `.bash_aliases` which is sourced in `.bashrc`.
+example is \index{alias}`alias` definitions. Today, it is quite common that alias definitions are
+placed in a file of their own `.bash_aliases` which is sourced in `.bashrc`.
 
 When you first log on to a UNIX machine it is common that `.bash_profile` and `.bashrc` already
 exist, with some default content.
