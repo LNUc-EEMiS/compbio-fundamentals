@@ -1,5 +1,8 @@
 # Alphabetical list of computer terms {#computer-terms}
 
+- \index{algorithm}*Algorithm*: Instructions for a computation, i.e. instructions, usually
+  implemented in a computer program, that will take you from an input to an output.
+
 - *CLI* or *Command Line Interface*: A program that is written in a way to let you control it from
   the "command line", i.e. the *shell* in a UNIX computer.
 
@@ -8,6 +11,12 @@
   *permanent storage*, i.e. where files and programs are stored when not in use.
 
 - *GUI* or *Graphical User Interface*: A program that is written with a graphical interface.
+
+- \index{heuristic algorithm}*Heuristic algorithm*: An algorithm (see above) that does not promise
+  to give you the theoretically correct answer, but a good answer. Heuristics are used when a
+  problem is too complicated to solve exactly in reasonable time. A very well known heuristic
+  algorithm is the one implemented in the \index{BLAST}BLAST search and align program. Important
+  heuristic algorithms can also be found in e.g. OTU clustering, see \@ref(otu-clustering).
 
 - *Manual/Man page*: Classical help system in UNIX computers, see \@ref(cli-getting-help).
 
