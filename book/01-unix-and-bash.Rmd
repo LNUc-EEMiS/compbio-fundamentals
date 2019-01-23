@@ -1,21 +1,22 @@
 # Using UNIX-like computers and mastering the command shell {#unix-and-shell}
 
 Most programs in bioinformatics are written for UNIX-like operating systems like Linux. Moreover,
-they are usually controlled from the command line (CLI) and not from a graphical interface (GUI).
+they are usually controlled from the \index{command line}command line (\index{CLI}CLI) and not from
+a \index{graphical interface}graphical interface (\index{GUI}GUI).
 
-UNIX and it's derivatives have a long history as an operating system by programmers for programmers.
-This makes UNIX different from commercial operating systems and there is a clear philosophy behind
-many aspects of behavior of a computer running UNIX. That being said, a modern UNIX-like operating
-system like Linux is in many ways similar to e.g. Apple's OS X or Windows and is fully controllable
-via a graphical interface. However, behind the graphical interface the tools many long-time users
-have come to love still remain. Apple's OS X is in this way similar to e.g. Linux by being a UNIX at
-its core, with a proprietary graphical interface although in this case a commercial, non-free
+\index{UNIX}UNIX and it's derivatives have a long history as an operating system by programmers for
+programmers.  This makes UNIX different from commercial operating systems and there is a clear
+philosophy behind many aspects of behavior of a computer running UNIX. That being said, a modern
+UNIX-like operating system like Linux is in many ways similar to e.g. Apple's OS X or Windows and is
+fully controllable via a graphical interface. However, behind the graphical interface the tools many
+long-time users have come to love still remain. Apple's OS X is in this way similar to e.g. Linux by
+being a UNIX at its core, with a proprietary graphical interface which is a commercial, non-free
 program. 
 
 ## Interacting with UNIX-like operating systems from commercial operating systems {#interacting-with-unix}
 
 In scientific computing, the most common way to connect to a computing cluster running Linux, is to
-use Secure Shell (ssh). 
+use \index{SSH}Secure Shell (SSH). 
 
 ### Connecting from a UNIX-like computer (Linux or Mac OS X) {#connecting-from-unix}
 
@@ -32,30 +33,93 @@ And your local command-line session is exchanged for one at the cluster.
 
 It's a little bit more complicated with Windows computers, because there's no ssh program directly
 available. There are some options though. At UPPMAX they recommend the
-[MobaXterm](http://mobaxterm.mobatek.net/) program (see [UPPMAX
+\index{MobaXterm}[MobaXterm](http://mobaxterm.mobatek.net/) program (see [UPPMAX
 documentation](http://www.uppmax.uu.se/support/user-guides/guide--first-login-to-uppmax/)). Another
-popular program is [PuTTY](https://putty.org/).
+popular program is \index{PuTTY}[PuTTY](https://putty.org/).
 
-There are also bash implementations for Windows, e.g. [Cygwin](https://www.cygwin.com/) and the
-command line interface that comes with [Git for Windows](https://git-scm.com/download/win).
+There are also Bash implementations for Windows, e.g.
+\index{Cygwin}[Cygwin](https://www.cygwin.com/) and the command line interface that comes with
+\index{Git for Windows}[Git for Windows](https://git-scm.com/download/win).
 
 (I also came across a [blog post describing Windows 10's inbuilt Bash
 shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).)
 
-### Public key authentication {#public-key-authentication}
+### SSH public key authentication {#ssh-public-key-authentication}
+
+There are two ways of \index{SSH, authentication}authentication in SSH: the normal
+username/password and \index{public key authentication}public key authentication. The latter is
+using \index{public-key cryptography}[public-key
+cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), also known as
+\index{asymmetric cryptography}asymmetric cryptography. In public-key cryptography each user has a
+*pair* of keys, which each can be used to encrypt a message. If a message is encrypted by one of the
+keys, it can only be decrypted with the *other* key. The two keys are treated differently, so that
+one is kept secret (the \index{private key}*private* key) while the other can be publicly
+distributed (the \index{public key}*public* key). Anyone on the Internet can download a public key
+from another user, and use this to encrypt a message and send to the owner of the public key which
+is the only user that can decrypt it, using its private key.
+
+Besides being useful for encrypting messages, public-key cryptography can also be used to verify a
+user or computer is actually what it personates as. This relies on encrypting non-secret messages
+with the private key. If I would send a message containing, say, the current time and date,
+and send it to the user or computer, it could return the message encrypted with its *private* key.
+If the returned message is possible to decrypt with its *public* key yielding the original message,
+its proof that the message was in the hands of the user or computer and is hence proof of
+authenticity.
+
+This mechanism for authentication is what SSH uses in its public-key authentication mode. Many argue
+this is a safer mode of authentication, as long as users keep their private keys private and safe,
+but it also has other advantages primarily that you can save typing your password each time you log
+on to a computer. To keep the private key private it is important to protect it with a good
+\index{passphrase}*passphrase*, which is a normal, \index{symmetric cryptography}[symmetric
+cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), key, used to encrypt and
+decrypt the key. Each time you logon using public-key authentication, you will be asked to type in
+your passphrase to the key instead of the password to the computer. So what is gained by that?
+Nothing, unless you run an \index{SSH-agent}SSH-agent, which is a program that keeps your key in
+memory so you only need to type in your passphrase once after each boot. 
+
+To create a key-pair, you run:
+
+```
+ssh-keygen
+```
+
+You will be asked to provide a passphrase -- make sure it's *strong* and something you're *not using
+on the Internet*.
+
+#### Running an SSH-agent {#ssh-agent}
+
+The SSH-agent is usually started automatically on a Linux machine, but on OS X it requires (I
+believe) that you add the following to a file called `~/.ssh/config` (which might not yet exist).
+(This is a \index{text file}*text file*; see \@ref(text-editors) for how to work with text files.)
+
+```
+Host *
+    AddKeysToAgent yes
+```
+
+(The `.ssh` directory should be writable only for the owner, but can be readable and executable for
+the group and the world (see \@ref(users-groups-permissions) below). Set permissions for the config
+file similarly, i.e. read and write for the owner, read for everybody else.)
+
+See [this
+page](https://www.reddit.com/r/osx/comments/52zn5r/difficulties_with_sshagent_in_macos_sierra/) if
+you don't get it working right away.
+
+#### Running an SSH-agent on a Windows machine {#ssh-agent-windows}
 
 ## Using the Linux command line {#linux-cli}
 
-The Linux command line is a program called the *shell*, and exists in different versions. The most
-popular is probably `bash` (short for *B*ourne *a*gain *sh*ell) a derivative of the original *Bourne
-shell* `sh`. Together with *Korn shell*, `sh` and `bash` forms a family with similar syntax. A
-second family started with *C shell* `csh`, which aimed at being more similar in syntax to the *C*
-programming language. In this book, we're going to focus solely on `bash`.
+The Linux command line is a program called the \index{shell}*shell*, and exists in different
+versions. The most popular is probably \index{Bash}Bash (short for *B*ourne *a*gain *sh*ell) a
+derivative of the original \index{Bourne shell}*Bourne shell* Sh. Together with \index{Korn
+shell}*Korn shell*, Sh and Bash forms a family with similar syntax. A second family started with
+\index{C shell}*C shell* Csh, which aimed at being more similar in syntax to the *C* programming
+language. In this book, we're going to focus solely on Bash.
 
 The shell is both a way of interacting interactively with the computer and a programming language, a
-*scripting* language. When you use the shell interactively you execute commands and programs and a
-shell script is nothing else than a set of commands saved for later, though often generalized with
-variables etc. to be more useful.
+\index{scripting}\index{script}*scripting* language. When you use the shell interactively you
+execute commands and programs and a shell script is nothing else than a set of commands saved for
+later, though often generalized with variables etc. to be more useful.
 
 There are many free sources of information available, one of them the classic [Bash Guide for
 Beginners](http://www.tldp.org/LDP/Bash-Beginners-Guide/html/) [@garrels_bash_2008] from "The
@@ -64,55 +128,56 @@ Linux Documentation Project" (tldp).
 ### Getting help {#cli-getting-help}
 
 The classical way of program authors to provide help to users is via manual ("man") pages, readable
-with the `man` command. To read the man page for e.g. the find command you:
+with the \index{Man}Man command. To read the man page for e.g. the Find program you:
 
 ```
 man find
 ```
 
-The man command uses the `more` command to show the content page by page. Step through pages with
-the space key, search with `/` followed by a string and exit by pressing `q`.
+The man command uses the \index{More}More command to show the content page by page. Step through
+pages with the space key, search with `/` followed by a string and exit by pressing `q`.
 
 Today it's more common to integrate help in the program and make it available with a flag, usually
-`--help` or `-v`. In many cases, you get more than one page of output, so you might want to pipe the
-output to `more` to read page by page.
+`--help` or `-h`. In many cases, you get more than one page of output, so you might want to pipe the
+output to More to read page by page.
 
 ```
 wget --help|more
 ```
 
 For complex programs doing many different things it has become increasingly popular to modularise
-program invocation and help. A typical example is `git`, which has one overall help plus individual
-help for each type of thing you can do with the program.
+program invocation and help. A typical example is \index{Git}Git, which has one overall help plus
+individual help for each type of thing you can do with the program.
 
 ```
 git --help
 git clone --help
 ```
 
-In this particular example, you're actually taken to the manual page for `git clone`, in the latter
+In this particular example, you're actually taken to the manual page for `git clone` in the latter
 of the two commands.
 
 ### The environment {#bash-environment}
 
-Your *environment* is a rather abstract concept. One could say that it encompasses all the settings
-you have made to make work effective. When you start computing in a UNIX environment, you're likely
-to just accept whatever default settings are there, but with time you might become more and more
-picky about settings and will start to change them and, when logging in to a new computer, you will
-try to as soon as possible get that set the way you want it.
+Your \index{environment}*environment* is a rather abstract concept. One could say that it
+encompasses all the settings you have made to make work effective. When you start computing in a
+UNIX environment, you're likely to just accept whatever default settings are there, but with time
+you might become more and more picky about settings and will start to change them and, when logging
+in to a new computer, you will try to as soon as possible get that set the way you want it.
 
 Your environment is configured through various files, some of a general character, others specific
 for a program or a set of programs. Many of these files have names that start with a `.` which, in
-most cases, make them *hidden* so they do not show up e.g. in normal directory listings. The purpose
-of hiding files is to make it a little bit more difficult to change things that might have negative
-effects if not done properly.
+most cases, make them \index{hidden files}*hidden* so they do not show up e.g. in normal directory
+listings. The purpose of hiding files is to make it a little bit more difficult to change things
+that might have negative effects if not done properly.
 
 #### Variables {#bash-variables}
 
-One key part of configuration is to set variables, in particular *environment variables*, that are
-read by different programs and affect how they work. Variables are set with an equal sign:
-`var=something`, sets the variable "var" to contain the text "something". The value is retrieved by
-putting a dollar before the variable name: `$var`, see examples below.
+One key part of configuration is to set \index{variable}variables, in particular 
+\index{environment variable}*environment variables*, that are read by different programs and affect
+how they work.  Variables are set with an equal sign: `var=something`, sets the variable "var" to
+contain the text "something". The value is retrieved by putting a dollar before the variable name:
+`$var`, see examples below.
 
 The difference between normal variables and *environment* variables is that the latter are more
 visible to other programs. This can be illustrated by running the following commands, which also
@@ -137,16 +202,16 @@ exit    # Exits the subshell
 echo $var
 ```
 
-Since a subshell is started every time you run a program, variables need to be exported if they are
-to be visible by the program. It is hence only *environment* variables that are visible to programs
-you start from the command line.
+Since a \index{subshell}subshell is started every time you run a program, variables need to be
+exported if they are to be visible by the program. It is hence only *environment* variables that are
+visible to programs you start from the command line.
 
-A classical configuration file consists of a number of definitions of environment variables (plus
-in some cases other kinds of mechanisms) and can be seen as an executable text file, a script. The
-problem with this is that a subshell is started for each new program run, and variables will be set
-in the subshell but *not in the current shell*. To run a configuration script in the current shell
-instead of in a subshell, you need to *source* it by preceding it with `source`. An example
-illustrates this:
+A classical configuration file consists of a number of definitions of environment variables (plus in
+some cases other kinds of mechanisms) and can be seen as an executable text file, a
+\index{script}script. The problem with this is that a subshell is started for each new program run,
+and variables will be set in the subshell but *not in the current shell*. To run a configuration
+script in the current shell instead of in a subshell, you need to \index{source}*source* it by
+preceding it with `source`. An example illustrates this:
 
 ```
 # Create a small config file
@@ -161,9 +226,9 @@ source /tmp/my_config
 echo $var
 ```
 
-Perhaps you noted in the example above that I used both single quotes `'` and double quotes `"`.
-They have almost the same meaning. Both types quotes text, the difference is that within double
-quotes, variables are extrapolated, but they are not in single quotes:
+Perhaps you noted in the example above that I used both single \index{quotes}quotes `'` and double
+quotes `"`.  They have almost the same meaning. Both types quotes text, the difference is that
+within double quotes, variables are extrapolated, but they are not in single quotes:
 
 ```
 var='Hello world'
@@ -173,61 +238,64 @@ echo '$var'     # Types out $var
 
 #### Configuration files {#bash-config-files}
 
-There are two main configuration files for Bash: `.bash_profile` and `.bashrc`. The former is
-sourced when you log in whereas the latter is sourced each time a subshell is started. This means
-that `.bashrc` is sourced for every program you run since programs are run in subshells.
+There are two main \index{configuration files}configuration files for Bash:
+\index{.bash\_profile}`.bash_profile` and \index{.bashrc}`.bashrc`. The former is sourced when you
+log in whereas the latter is sourced each time a subshell is started. This means that `.bashrc` is
+sourced for every program you run since programs are run in subshells.
 
-Of particular interest is the `PATH` environment variable. This contains a list of directories,
-separated by `:` characters, in which Bash will search for programs. When you call e.g. `grep`, Bash
-will look through the list of directories in your `PATH` for an executable file called "grep" and
-run that for you.
+Of particular interest is the \index{PATH environment variable}`PATH` environment variable. This
+contains a list of directories, separated by `:` characters, in which Bash will search for programs.
+When you call e.g. Grep, Bash will look through the list of directories in your `PATH` for an
+executable file called "grep" and run that for you.
 
 Since environment variables are visible in subshells, they need only be set when you log in and are
 hence best defined in `.bash_profile`. Other configurations are better placed in `.bashrc`. An
-example is `alias` definitions. Today, it is quite common that alias definitions are placed in a
-file of their own `.bash_aliases` which is sourced in `.bashrc`.
+example is \index{alias}`alias` definitions. Today, it is quite common that alias definitions are
+placed in a file of their own `.bash_aliases` which is sourced in `.bashrc`.
 
 When you first log on to a UNIX machine it is common that `.bash_profile` and `.bashrc` already
 exist, with some default content.
 
 ### Pipelines {#pipelines}
 
-The word "pipeline" can mean slightly different things in computing. The most original meaning comes
-from the UNIX shell, where it means that you literally connect the output of one command as input to
-the next in a chain^[When the word "pipeline" is used in computational biology, it's usually used
-symbolically and means that in order to produce a certain output you need to run several programs in
-succession. A better term for this is *workflow*.]. 
+The word \index{pipeline}"pipeline" can mean slightly different things in computing. The most
+original meaning comes from the UNIX shell, where it means that you literally connect the output of
+one command as input to the next in a chain^[When the word "pipeline" is used in computational
+biology, it's usually used symbolically and means that in order to produce a certain output you need
+to run several programs in succession. A better term for this is \index{workflow}*workflow*.]. 
 
-To truly understand what's going on, you need to know about the three different channels that each
-UNIX command has: standard input (STDIN), standard output (STDOUT) and standard error (STDERR). By
-default, STDIN is connected to your keyboard and the other two to your screen. The difference
-between STDOUT and STDERR is that the latter is reserved for error messages from a program, whereas
-the former is used for expected output. The channels can be redirected to files which is done with
-`<` for STDIN, `>` for STDOUT and `2>` for STDERR. In principle, a command hence looks like this:
+To truly understand what's going on, you need to know about the three different "channels" that each
+UNIX command has: \index{standard input}\index{STDIN}standard input (STDIN), \index{standard
+output}\index{STDOUT}standard output (STDOUT) and \index{standard error}\index{STDERR}standard error
+(STDERR). By default, STDIN is connected to your keyboard and the other two to your screen. The
+difference between STDOUT and STDERR is that the latter is reserved for error messages from a
+program, whereas the former is used for expected output. The channels can be
+\index{redirection}redirected to files, which is done with `<` for STDIN, `>` for STDOUT and `2>`
+for STDERR. In principle, a command hence looks like this:
 
 ```
 cat < input_file > output_file 2> error_message_file
 ```
 
-The above reads `input_file` and sends that to `output_file`; if an error occurs, messages will be
-written to `error_message_file`. (The example is a bit constructed, because if you don't redirect
-STDIN, `cat` actually reads one or more files on the command line, e.g.: `cat file1 file2 file3 >
-concatenated_file`.)
+The above command reads `input_file` and sends that to `output_file`; if an error occurs, messages
+will be written to `error_message_file`. (The example is a bit constructed, because if you don't
+redirect STDIN, `cat` actually reads one or more files on the command line, e.g.: `cat file1 file2
+file3 > concatenated_file`.)
 
-The pipe character `|` connects STDOUT from one command, to STDIN for the next, which makes it
+The \index{pipe}pipe character \index{|}`|` connects STDOUT from one command, to STDIN for the next, which makes it
 possible to modify the output of one command and form a *pipeline*. A very common example is to
 place `more` as the last output of a command that produces a lot of output, so you can read the
-output line by line.
+output page by page.
 
 ```
 # Find all files ending with `.tsv` and check output page by page with `more`.
 find . -name "*.tsv" | more
 ```
 
-Pipelines can be arbitrarily long and often contain programs like `grep` (scans for text patterns),
-`sed` or `awk` (modifies text), `tail -f` (follow output when it's being produced). This is in line
-with the *UNIX philosophy* that programs should do one thing and do it well, leaving other things
-for other programs.
+Pipelines can be arbitrarily long and often contain programs like \index{Grep}grep (scans for text
+patterns), \index{Sed}Sed` or \index{AWK}AWK (modifies text), `tail -f` (follow output when it's
+being produced). This is in line with the \index{UNIX philosophy}*UNIX philosophy* that programs
+should do one thing and do it well, leaving other things for other programs.
 
 ### Job control {#job-control}
 
@@ -387,14 +455,14 @@ line as `a_symlink -> a_file`.
 
 ## Editing files {#text-editors}
 
-For almost any task you perform as a computational biologist, you need to edit *text files*. If
-you're new to command line computing, the concept of a text file might be a bit abstract -- are they
-Word documents? What's meant by *text file* in computing is not a file containing text, like word
-processor documents, but files containing *only* text, i.e. files that do not contain formatting
-information or any other fancy stuff -- with the exception of files like e.g. HTML where the
-formatting itself is written as plain text -- just the text characters themselves. The opposite to
-text files are *binary files*, files with information, like formatting, that requires a program for
-interpretation.
+For almost any task you perform as a computational biologist, you need to edit \index{text
+file}*text files*. If you're new to command line computing, the concept of a text file might be a
+bit abstract -- are they Word documents? What's meant by *text file* in computing is not a file
+containing text, like word processor documents, but files containing *only* text, i.e. files that do
+not contain formatting information or any other fancy stuff -- with the exception of files like e.g.
+HTML where the formatting itself is written as plain text -- just the text characters themselves.
+The opposite to text files are \index{binary file}*binary files*, files with information, like
+formatting, that requires a program for interpretation.
 
 Examples of text files you will be exposed to are all your raw data in *fasta* or *fastq* format,
 processed data in the form of *tab or comma separated tables* (in contrast to spreadsheet data,
@@ -410,9 +478,9 @@ Since you're going to work a lot with text files, I encourage you to *choose eit
 
 ### Nano {#nano}
 
-One of the most common examples of the intuitive, less powerful editors is Nano. You start Nano with
-the following command, which will let you work with `my_file` by replacing the command line with a
-view of the file:
+One of the most common examples of the intuitive, less powerful editors is \index{Nano}Nano. You
+start Nano with the following command, which will let you work with `my_file` by replacing the
+command line with a view of the file:
 
 ```
 nano my_file
@@ -422,13 +490,13 @@ As you can see, there's a line at the bottom giving you instructions for how to 
 the program etc. Besides that, editing a file is straightforward: you just use the arrow, PgUp and
 PgDown keys to move around and the type text, press delete or backspace to change things.
 
-### Vi/Vim {#vi}
+### Vi/Vim {#vim}
 
-Vim^[**V**i **im**proved. The name comes from the fact that Vim was born as a reimplementation of
-the classical, but non-free, UNIX text editor Vi (short for **vi**sual in contrast to the
-line-oriented editors, primarily Ed, that existed before it).] is a popular example of powerful text
-editors with quite a steep learning curve. Vim's power comes e.g. from the way you can navigate and
-modify the text by using regular expressions (see \@ref(regexps)).
+\index{Vim}Vim^[**V**i **im**proved. The name comes from the fact that Vim was born as a
+reimplementation of the classical, but non-free, UNIX text editor Vi (short for **vi**sual in
+contrast to the line-oriented editors, primarily Ed, that existed before it).] is a popular example
+of powerful text editors with quite a steep learning curve. Vim's power comes e.g. from the way you
+can navigate and modify the text by using regular expressions (see \@ref(regexps)).
 
 The primary reason for why Vim is difficult to begin with is that it has *two modes*: moving about
 or *command* mode and *insert* mode respectively. When you're in moving about mode the keys have
@@ -454,6 +522,11 @@ for how to work with Vim](https://www.linux.com/learn/vim-101-beginners-guide-vi
 ## Screen {#screen}
 
 ## Source control with Git {#git}
+
+TO BE DONE.
+
+[Link to nice blog post](https://nvie.com/posts/a-successful-git-branching-model/). (Not beginner
+stuff though.)
 
 ## Installing programs with Conda {#conda}
 

@@ -2,15 +2,16 @@
 
 ## Introduction
 
-Sequencing PCR products, amplicons, of a gene deemed as a good taxonomic marker is a very common
-technique in microbial ecology. For Bacteria and Archaea, the gene that is almost always used is the
-gene encoding the RNA molecule of the small subunit (SSU) of the ribosome, the 16S rRNA
-[@lane_rapid_1985]. For other organism groups, other molecules, such as the end of the SSU rRNA gene
-plus the following internal transcribed spacer (ITS), might be better choices.
+Sequencing \index{PCR}PCR products, \index{amplicons}amplicons, of a gene deemed as a good taxonomic
+marker is a very common technique in microbial ecology. For Bacteria and Archaea, the gene that is
+almost always used is the gene encoding the RNA molecule of the small subunit (\index{LSU}LSU) of
+the ribosome, the \index{16S rRNA}16S rRNA [@lane_rapid_1985]. For other organism groups, other
+molecules, such as the end of the SSU rRNA gene plus the following internal transcribed spacer
+(\index{ITS}ITS), might be better choices.
 
 The 16S gene has been selected as a taxonomical marker for several reasons:
 
-1. It is present in all cellular organisms (although it's called 18S in eukaryotes).
+1. It is present in all cellular organisms (although it's called \index{18S}18S in eukaryotes).
 
 2. It is believed to very rarely transfer horizontally between cells, which would entangle the
    relationships we rely on for taxonomy.
@@ -23,71 +24,76 @@ The 16S gene has been selected as a taxonomical marker for several reasons:
 
 There are computer programs that facilitates design of primers [e.g. @hugerth_degeprime_2014], but
 in practice a few region combinations with primers are used. In many Swedish research groups Anders
-Andersson's primers for the V3V4 (around 400-450 bp; suitable for Illumina MiSeq 2x300 bp) are used
-(see [lab protocol](https://github.com/EnvGen/LabProtocols)). Recently, the V4V5 region has been
+Andersson's primers for the \index{V3V4}V3V4 (around 400-450 bp; suitable for \index{Illumina
+MiSeq}\index{MiSeq}Illumina MiSeq 2x300 bp) are used (see [lab
+protocol](https://github.com/EnvGen/LabProtocols)). Recently, the \index{V4V5}V4V5 region has been
 proposed as a superior choice, in particular for its suitability for Archaea
 [@walters_improved_2016] [@parada_marine_2017].
 
 ### Contamination and other problems {#amplicon-contamination}
 
 In certain projects, usually those with very small amounts of DNA, we have observed problems with
-contamination of DNA from reagents used in the processing of DNA from filters
+\index{contamination}contamination of DNA from reagents used in the processing of DNA from filters
 [@salter_reagent_2014]. This is not unique for amplicon-based sequencing, but the amplification
 performed inflates the problem. To address this, one should routinely sequence samples of pure water
 that has gone through all the steps of the sample preparation process and subtract these sequences
 from analyses.
 
 @yeh_taxon_2017 recently published a report of a mysterious disappearance of certain taxa from a
-sequencing run. They were able to resolve this problem as they routinely added a sample of a mock
-community (just a defined mix of genomic DNA) to their sequencing runs.
+sequencing run. They were able to resolve this problem as they routinely added a sample of a
+\index{mock community}mock community (just a defined mix of genomic DNA) to their sequencing runs.
 
 ## Computational analysis of amplicon sequences {#amplicon-bioinformatics}
 
-Sequence reads are not perfect but contain errors. In the case of Illumina sequencing, the error
-rate is around 1% per base, but this varies substantially along the length of the read and 
-typically increases (i.e. quality goes down) by the end of the read. Just taking the raw sequencing
-reads and treating them as true would hence inflate your measurement of diversity in the sample.
-This problem has been addressed with clustering but correcting the reads has now become the method
-of choice. I will here describe both methods, but note that the OTU clustering method is described
-only for historical reasons and I do not recommend you to use it.
+Sequence reads are not perfect but contain errors. In the case of \index{Illumina}Illumina
+sequencing, the \index{error rate}error rate is around 1% per base, but this varies substantially
+along the length of the read and typically increases (i.e. quality goes down) by the end of the
+read. Just taking the raw sequencing reads and treating them as true would hence inflate your
+measurement of diversity in the sample.  This problem has been addressed with clustering but
+correcting the reads has now become the method of choice. I will here describe both methods, but
+note that the OTU clustering method is described only for historical reasons and I do not recommend
+you to use it.
 
 ### "OTU" clustering {#otu-clustering}
 
-"Operational taxonomic units" (OTUs) are replacements for species in many ecological studies where
-species cannot be clearly delineated. In the case of prokaryotes, it's not only difficult to
-delineate species [@koeppel_identifying_2008], we do not know what constitutes a species
-[@cohan_what_2002], [@straub_null_2017] or even if prokaryotic species exist [e.g.
-@caro-quintero_bacterial_2012]. However, a pragmatic species definition for Bacteria has long been
-set to 70% DNA-DNA hybridization (DDH) [@tindall_notes_2010] which corresponds to 95-96% average
-nucleotide identity [@konstantinidis_bacterial_2006] over the whole genome, or 98.65% 16S rRNA
-identity [@kim_towards_2014]. 
+\index{Operational taxonomic unit}"Operational taxonomic units" (\index{OTU}OTUs) are replacements
+for species in many ecological studies where \index{species delination}species cannot be clearly
+delineated. In the case of prokaryotes, it's not only difficult to delineate species
+[@koeppel_identifying_2008], we do not know what constitutes a species [@cohan_what_2002],
+[@straub_null_2017] or even if prokaryotic species exist [e.g.  @caro-quintero_bacterial_2012].
+However, a pragmatic species definition for Bacteria has long been set to 70% \index{DNA-DNA
+hybridization}DNA-DNA hybridization (DDH) [@tindall_notes_2010] which corresponds to 95-96%
+\index{nucleotide identity}average nucleotide identity [@konstantinidis_bacterial_2006] over the
+whole genome, or 98.65% 16S rRNA identity [@kim_towards_2014]. 
 
 To take care of sequencing errors and address the problem of species delineation, microbial
-ecologists have clustered sequences, based on similarity, into OTUs, with a cutoff of typically 97%
-identity to come close to species.
+ecologists have \index{clustering}\index{sequence clustering}clustered sequences, based on
+similarity, into OTUs, with a cutoff of typically 97% identity to come close to species.
 
 There are different clustering methods available, using different definitions of clusters.
-*Complete linkage clustering* is perhaps the one that comes closest to many people's intuition. A
-cluster in complete linkage cluster is a group of sequences where no pair are less than, say, 97%
-identical^[This definition of complete linkage clustering is a bit simplified, but for the purpose
-of clustering sequences, it captures the essence. See the [Wikipedia
-page](https://en.wikipedia.org/wiki/Complete-linkage_clustering) for a fuller explanation.]. Because
-of this definition, all sequences need to be compared with each other, which is time consuming if you
-have a lot of sequences as the number of comparisons, and hence run time grows as the square of the
-number of sequences^[If you study the full algorithm, you will find that it's scaling even worse, as
-the cube of the number of sequences.]. This characteristic makes complete linkage clustering, and
-its "siblings" *single linkage clustering* and *average linkage clustering* impractical for use with
-the amounts of sequences -- typically 10-20 million read pairs from one Illumina MiSeq run -- and
-faster, *heuristic*^["Heuristic" computer algorithms are (usually) fast ways of solving complicated
-problems, usually "known" to work but with no guarantee of reaching an optimal solution.] algorithms
-are required.
+\index{complete linkage clustering}*Complete linkage clustering* is perhaps the one that comes
+closest to many people's intuition. A cluster in complete linkage cluster is a group of sequences
+where no pair are less than, say, 97% identical^[This definition of complete linkage clustering is a
+bit simplified, but for the purpose of clustering sequences, it captures the essence. See the
+[Wikipedia page](https://en.wikipedia.org/wiki/Complete-linkage_clustering) for a fuller
+explanation.]. Because of this definition, all sequences need to be compared with each other, which
+is time consuming if you have a lot of sequences as the number of comparisons, and hence run time
+grows as the square of the number of sequences^[If you study the full algorithm, you will find that
+it's scaling even worse, as the cube of the number of sequences.]. This characteristic makes
+complete linkage clustering, and its "siblings" \index{single linkage clustering}*single linkage
+clustering* and \index{average linkage clustering}*average linkage clustering* impractical for use
+with the amounts of sequences -- typically 10-20 million read pairs from one Illumina MiSeq run --
+and faster, \index{heuristic}*heuristic*^["Heuristic" computer algorithms are (usually) fast ways of
+solving complicated problems, usually "known" to work but with no guarantee of reaching an optimal
+solution.] algorithms are required.
 
-One of the most commonly used heuristic algorithms for clustering sequences is the *greedy*^[A
-greedy algorithm heuristic, is one which only looks at the optimum, at a particular point in time,
-although at a later stage, this choice might prove sub optimal. See also the [Wikipedia
-page](https://en.wikipedia.org/wiki/Greedy_algorithm).] UPARSE algorithm [@edgar_uparse:_2013], part
-of the USEARCH package [@edgar_search_2010], but also in a free reimplentation as part of the
-VSEARCH package [@rognes_vsearch:_2016].
+One of the most commonly used heuristic algorithms for clustering sequences is the \index{greedy
+algorithm}*greedy*^[A greedy algorithm heuristic, is one which only looks at the optimum, at a
+particular point in time, although at a later stage, this choice might prove sub optimal. See also
+the [Wikipedia page](https://en.wikipedia.org/wiki/Greedy_algorithm).] \index{UPARSE}UPARSE
+algorithm [@edgar_uparse:_2013], part of the \index{USEARCH}USEARCH package [@edgar_search_2010],
+but also in a free reimplentation as part of the \index{VSEARCH}VSEARCH package
+[@rognes_vsearch:_2016].
 
 The [UPARSE web page](https://drive5.com/usearch/manual/uparseotu_algo.html) describes the algorithm
 well. In short, one starts with all sequences sorted in falling order of abundance, i.e. with the
@@ -106,12 +112,13 @@ Figure from the [UPARSE web page](https://drive5.com/usearch/manual/uparseotu_al
 
 The underlying assumption behind OTU clustering is that reads containing sequencing errors are going
 to be similar to the true sequence, but rarer. It has recently become clear, however, that this
-introduces both *false positives* in the form of OTUs that do not correspond to a true population
-and *false negatives* in the form of populations not represented among the OTUs. In addition, the
-abundances can be wrong due to assignment of reads to the wrong cluster. A new family of algorithms
-tries to remedy these problems by correcting sequences (DADA2; [@callahan_dada2:_2016]) or deleting
-erroneous sequences (Deblur; [@amir_deblur_2017]). (@nearing_denoising_2018 recently compared the
-two, plus some other alternatives.) This figure illustrates how DADA2 better estimates the true
+introduces both \index{false positive}*false positives* in the form of OTUs that do not correspond
+to a true population and \index{false negative}*false negatives* in the form of populations not
+represented among the OTUs. In addition, the abundances can be wrong due to assignment of reads to
+the wrong cluster. A new family of algorithms tries to remedy these problems by \index{sequence
+correction}correcting sequences (\index{DADA2}DADA2; [@callahan_dada2:_2016]) or deleting erroneous
+sequences (\index{Deblur}Deblur; [@amir_deblur_2017]). (@nearing_denoising_2018 recently compared
+the two, plus some other alternatives.) This figure illustrates how DADA2 better estimates the true
 sequences and their abundances.
 
 ![**DADA2 vs. OTU clustering.** **TP**: true positive, **FP**: false positive, **FN**: false
@@ -121,19 +128,20 @@ Figure from the [DADA2 web site](https://benjjneb.github.io/dada2/).
 
 DADA2 uses a statistical model of sequencing errors to estimate the likelihood that a given sequence
 arose from the same molecule as another, more abundant sequence. The model includes parameters that
-are common for all runs with a given methodology (currently Illumina and PacBio) with parameters
-estimated from the error profile of the current run. (It is recommended to run DADA2 on *all samples
-from a single sequencing run*, since they will all share the same error profile.) In the error
-correction step, the likelihoods are used to correct errors in less likely sequences so they are
-*placed* on more likely true sequences.  One ends up with a set of estimated true sequences, termed
-*amplicon sequence variants* (ASVs) (or *sub-OTUs*, though I prefer ASVs), tied to abundances for
-each in each sample.
+are common for all runs with a given methodology (currently \index{Illumina}Illumina and
+\index{PacBio}PacBio) with parameters estimated from the error profile of the current run. (It is
+recommended to run DADA2 on *all samples from a single sequencing run*, since they will all share
+the same error profile.) In the error correction step, the likelihoods are used to correct errors in
+less likely sequences so they are *placed* on more likely true sequences.  One ends up with a set of
+estimated true sequences, termed \index{amplicon sequence variant}*amplicon sequence variants*
+(\index{ASV}ASVs) (or \index{sub-OTU}*sub-OTUs*, though I prefer ASVs), tied to abundances for each
+in each sample.
 
-The algorithm is implemented in R, and complete workflows are documented at the [DADA2 web
+The algorithm is implemented in \index{R}R, and complete workflows are documented at the [DADA2 web
 site](https://benjjneb.github.io/dada2/tutorial.html). DADA2 is also implemented as a module in the
-[QIIME2 package](https://docs.qiime2.org). The latter is easier to use in a production setting, i.e.
-set up to be run regularly after receival of sequences, whereas the former is, maybe, more
-illustrative.
+\index{QIIME2}[QIIME2 package](https://docs.qiime2.org). The latter is easier to use in a production
+setting, i.e.  set up to be run regularly after receival of sequences, whereas the former is, maybe,
+more illustrative.
 
 Besides being more biologically correct, error correction algorithms address the problem of
 datasets, such as time series, that are continuously filled up with sequences from new sequencing
@@ -144,41 +152,43 @@ since correct sequences are rediscovered.
 
 #### Detecting and eliminating sequence chimeras {#amplicon-bimeras}
 
-During the PCR reaction, artifactual products formed from two different molecules -- *chimeras* or,
-in DADA2 parlance, *bimeras* -- can be formed. Both the UPARSE and the DADA2 workflows contain
-programs to deal with this problem. In the latter, the bimera check is run after the forward and
-reverse reads have been merged. Like in detection of erroneous sequences, bimera deletion is based
-on abundances. A bimeric sequence should be less abundant than either of two *parent* sequences,
-i.e. true sequences^[The *parent overabundance* is a parameter that can be set. The default of 1,
-i.e. parents are not required to be more abundant is, in my experience too harsh; I have good
-experiences with a setting of 8].
+During the PCR reaction, artifactual products formed from two different molecules --
+\index{chimera}*chimeras* or, in DADA2 parlance, \index{bimera}*bimeras* -- can be formed. Both the
+\index{UPARSE}UPARSE and the \index{DADA2}DADA2 workflows contain programs to deal with this
+problem. In the latter, the bimera check is run after the forward and reverse reads have been
+merged. Like in detection of erroneous sequences, bimera deletion is based on abundances. A bimeric
+sequence should be less abundant than either of two *parent* sequences, i.e. true sequences^[The
+*parent overabundance* is a parameter that can be set. The default of 1, i.e. parents are not
+required to be more abundant is, in my experience too harsh; I have good experiences with a setting
+of 8].
 
 #### DADA2 in practice with QIIME2
 
-### Assigning taxonomy to amplicon sequences {#amplicon-taxonomy}
+### Assigning \index{taxonomy assignment}taxonomy to amplicon sequences {#amplicon-taxonomy}
 
-The ASVs (or OTUs if you use clustering) that the above procedure describes is for many types of
-analyses, e.g. diversity measurements, quite sufficient but in many cases we're interested in having
-a taxonomical name assigned to each ASV. Usually this is done by comparing the representative
-sequence for each ASV with a database such as SILVA, RDP or Greengenes. Aligning several thousands
-of sequences to the databases takes a little while, and faster methods have been developed, in
-particular the "RDP classifier".
+The \index{ASV}ASVs (or \index{OTU}OTUs if you use clustering) that the above procedure describes is
+for many types of analyses, e.g. diversity measurements, quite sufficient but in many cases we're
+interested in having a taxonomical name assigned to each ASV. Usually this is done by comparing the
+representative sequence for each ASV with a database such as \index{SILVA}SILVA, \index{RDP}RDP or
+\index{Greengenes}Greengenes. Aligning several thousands of sequences to the databases takes a
+little while, and faster methods have been developed, in particular the "RDP classifier".
 
-#### The RDP classifier {#amplicon-rdp-classifier}
+#### The \index{RDP classifier}RDP classifier {#amplicon-rdp-classifier}
 
-The RDP classifier is based on *sequence signatures*, in this case frequencies of 8mers. In the
-paper describing the "RDP classifier", @wang_naive_2007, show that the frequency of 8mers^[An 8mer
-is a stretch of eight consecutive nucleotides. There are $4^8 = 65536$ different possible 8mers.]
-present in a sequence can be used to distinguish it from other sequences but also that closely
-related species have quite similar 8mer frequencies. This can be used to identify sequences. In
-practice, one has to *train* one's database of choice by building an index of 8mer frequencies
-before one can start identifying one's own sequences. This *training is very important*, since
-having an index built from incorrect sequences, i.e. not the target sequence, or another part of the
-sequence that is actually used, will lead to erroneous results.
+The RDP classifier is based on \index{sequence signature}*sequence signatures*, in this case
+frequencies of \index{8mer}8mers. In the paper describing the "RDP classifier", @wang_naive_2007,
+show that the frequency of 8mers^[An 8mer is a stretch of eight consecutive nucleotides. There are
+$4^8 = 65536$ different possible 8mers.] present in a sequence can be used to distinguish it from
+other sequences but also that closely related species have quite similar 8mer frequencies. This can
+be used to identify sequences. In practice, one has to *train* one's database of choice by building
+an index of 8mer frequencies before one can start identifying one's own sequences. This *training is
+very important*, since having an index built from incorrect sequences, i.e. not the target sequence,
+or another part of the sequence that is actually used, will lead to erroneous results.
 
-QIIME2 contains an implementation of the RDP classifier in the `classify-sklearn` module. Mothur
-also contains one. The DRP classifier in QIIME2 is an order of magnitude faster than aligning
-sequences with VSEARCH, also implemented in the `classify-sklearn` module.
+\index{QIIME2}QIIME2 contains an implementation of the RDP classifier in the
+\index{classify-sklearn}`classify-sklearn` module. \index{Mothur}Mothur also contains one. The RDP
+classifier in QIIME2 is an order of magnitude faster than aligning sequences with
+\index{VSEARCH}VSEARCH, also implemented in the `classify-sklearn` module.
 
 ```{r include=FALSE}
 # vim:tw=100

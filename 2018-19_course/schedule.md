@@ -12,11 +12,15 @@
 
 **Where:** Ma1061K (Magna)
 
+**What:** Handling amplicon sequences, text editing, regular expressions, Tidyverse
+
 ## Third instalment
 
 **When:** 2019-02-20
 
 **Where:** Vi2140K (Vita)
+
+**What:** Metagenomics methods, regular expressions, job control, Tidyverse
 
 ## Fourth instalment
 

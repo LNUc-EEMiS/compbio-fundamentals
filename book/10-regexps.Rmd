@@ -1,15 +1,17 @@
 # Regular expressions {#regexps}
 
-*Regular expressions*, *regexps* or *patterns*, are strings that describe classes of strings. E.g.
-the regexp "Nrd[A-Z]" describes, or *matches*, the strings "NrdA", "NrdB", "NrdC" or any other
-string that starts with "Nrd" and continues with a capital letter. Regexps are used to *search* for
-strings and in tools that *modify* strings. 
+\index{regular expression}*Regular expressions*, \index{regexp}*regexps* or
+\index{pattern}*patterns*, are strings that describe classes of strings. E.g.  the regexp "Nrd[A-Z]"
+describes, or *matches*, the strings "NrdA", "NrdB", "NrdC" or any other string that starts with
+"Nrd" and continues with a capital letter. Regexps are used to *search* for strings and in tools
+that *modify* strings. 
 
-There are two types of characters in regexps: regular characters and *metacharacters*. The former
-makes up the majority and just matches itself; examples include letters, numbers, space and most
-other characters. The latter, the metacharacters, are characters that matches something else than a
-literal character. Two very common examples are `.` and `*`. The `.` matches not a literal character
-but *any character*, whereas the `*` is a *multiplier* specifying that the character before it could
+There are two types of characters in regexps: regular characters and
+\index{metacharacter}*metacharacters*. The former makes up the majority and just matches itself;
+examples include letters, numbers, space and most other characters. The latter, the metacharacters,
+are characters that matches something else than a literal character. Two very common examples are
+`.` and `*`. The `.` matches not a \index{literal character}literal character but *any character*,
+whereas the `*` is a \index{multiplier}*multiplier* specifying that the character before it could
 occur any number of times, including zero. A `.*` pattern hence means "match anything, any number of
 times" (which is, of course, rather useless on its own, but is useful when mixed with other
 characters).
@@ -75,13 +77,13 @@ Below, a few tools that implement regexps are described.
 
 ## Grep {#grep}
 
-The Grep program^[Supposedly, "grep" stands for "**G**lobally search a **R**egular **E**xpression
-and **P**rint".] is a standard UNIX search tool commonly used on its own or in pipelines to search
-for *lines* in files that contain a regexp. That Grep searches for lines instead of only the search
-pattern -- unless you specify the `-o/--only-matching` option -- makes it a little bit different
-than most other tools since you do not have to specify a complete, line-matching, pattern, but just a
-piece that is sufficiently discriminating. Grep is a tool that is commonly used as a filter in
-pipelines see \@ref(pipelines) and the examples below.
+The \index{Grep}Grep program^[Supposedly, "grep" stands for "**G**lobally search a **R**egular
+**E**xpression and **P**rint".] is a standard UNIX search tool commonly used on its own or in
+pipelines to search for *lines* in files that contain a regexp. That Grep searches for lines instead
+of only the search pattern -- unless you specify the `-o/--only-matching` option -- makes it a
+little bit different than most other tools since you do not have to specify a complete,
+line-matching, pattern, but just a piece that is sufficiently discriminating. Grep is a tool that is
+commonly used as a filter in pipelines see \@ref(pipelines) and the examples below.
 
 ---------------------------------------------------------------------------------------------------
 Options                 Meaning                 
@@ -127,8 +129,8 @@ also an *extended regular expression* mode (ERE) which is available via the `-E`
 
 ## Sed {#sed}
 
-Sed^[Sed stands for **S**tream **ED**itor.] is a tool that uses regexps to modify text. The most
-common way to use the program is to specify a substitution command that looks like
+\index{Sed}Sed^[Sed stands for **S**tream **ED**itor.] is a tool that uses regexps to modify text.
+The most common way to use the program is to specify a substitution command that looks like
 `s/regexp/replacement/` which is like a search (regexp) and replace (replacement) command, but more
 powerful. In the replacement part, you can refer to the whole match (`&`) or parts of the match that
 were captured with parentheses (`\1`). After the last `/` you can add modifiers; the most commonly
@@ -149,27 +151,27 @@ sed "s/ \+/_/g" file > newfile
 sed -i "s/ \+/_/g" file > newfile
 ```
 
-More help can be found at the [GNU sed home page](http://www.gnu.org/software/sed/) or by searching
+More help can be found at the [GNU Sed home page](http://www.gnu.org/software/sed/) or by searching
 the Internet.
 
 ## AWK {#awk-regexps}
 
-AWK is a complete programming language with a feature complete regexp engine. Although not much used
-for script writing anymore, it is a popular tool in pipelines. Since its regexp engine is rarely
-seen in pipelines I'm skipping it here for now.
+\index{AWK}AWK is a complete programming language with a feature complete regexp engine. Although
+not much used for script writing anymore, it is a popular tool in pipelines. Since its regexp engine
+is rarely seen in pipelines I'm skipping it here for now.
 
 ## Perl {#perl-regexps}
 
-The Perl scripting language has meant more for the development of regexps than any other language
-with the invention of several new useful concepts like metacharacters for predefined character
-classes like numbers and whitespace. Since Perl unfortunately has lost most of its early user base
-in computational biology, I'm not going to describe it here.
+The \index{Perl}Perl scripting language has meant more for the development of regexps than any other
+language with the invention of several new useful concepts like metacharacters for predefined
+character classes like numbers and whitespace. Since Perl unfortunately has lost most of its early
+user base in computational biology, I'm not going to describe it here.
 
 ## R {#r-regexps}
 
-R has a very complete regexp engine. One primarily uses the `grep` family of functions for regexps
-in R: `grep` and `grepl` for matching, i.e. searching, `sub` and `gsub` for substituation (the
-former does *one* substituation, the latter global, i.e. as many substitutions as possible) and
+\index{R}R has a very complete regexp engine. One primarily uses the `grep` family of functions for
+regexps in R: `grep` and `grepl` for matching, i.e. searching, `sub` and `gsub` for substituation
+(the former does *one* substituation, the latter global, i.e. as many substitutions as possible) and
 `regexp`, `gregexp` and `regexec` for some other operations (see help for any of the mentioned
 functions).  There are also other functions that use regexps, e.g. the excellent `stringr` package
 (part of the Tidyverse).
@@ -177,7 +179,7 @@ functions).  There are also other functions that use regexps, e.g. the excellent
 One quirk with R is that escaping regexp characters needs *double `\` characters*, i.e. use `\\`
 whenever you would use `\`, see examples below.
 
-Some examples, in a Tidyverse setting:
+Some examples, in a \index{Tidyverse}Tidyverse setting:
 
 ```
 # Replace space with underscore characters:
@@ -197,6 +199,40 @@ data <- data %>%
     )
   )
 ```
+
+## Vim {#vim-regexps}
+
+One of the things that makes \index{Vim}Vim such a powerful \index{text editor}\index{editor}text
+editor is its use of regexps. You can *search* for regexps by pressing `/` (forward search) or `?`
+(backward), typing a regexp and pressing &lt;Enter&gt; (pressing `n` will repeat the search, i.e.
+search for the next occurrence; pressing `N` searches in the reverse direction).
+
+You can also modify text using regexps and the builtin in \index{Ed}Ed line editor which is accessed
+by pressing `:`. Ed is rather similar to \index{Sed}Sed (\@ref(sed)). Each command starts with a
+specification of which lines to operate on. `%` means the whole file, `1,10` lines 1-10, `.,+4` the
+current line plus four more. You can use regexps for this too. `g/Nrd[A-Z]/` will operate on all
+lines containing "Nrd[A-Z]", and `v/Nrd[A-Z]` on lines that do *not* contain "Nrd[A-Z]". After the
+"address", i.e. which lines to operate on, comes a command which often is a substitution in the same
+shape as Sed, i.e. `s/pattern/something/`, possibly with a modifier like `g` (global, i.e. all
+possible places) added `s/pattern/something/g`. A few example commands to try in Vim:
+
+```
+# On this line, and the two below, replace literal "global" with "local", but only once
+:.,+2s/global/local/
+# On all lines, replace all "Nrd[A-Z]" in all kinds of capitalizations with the 
+# correctly capitalized
+:%s/nrd\([a-z]\)/Nrd\U\1/ig
+```
+
+In the [intro guide to Vim](https://www.linux.com/learn/vim-101-beginners-guide-vim) I linked to in
+the Vim section (\@ref(vim)), there's a very short intro to the Ed commands. When you want to know
+more, Google or check the man page for Ed: `man ed`.
+
+## More and Less {#more-regexps}
+
+The \index{More}More and \index{Less}Less "pagers", i.e. programs that allow you to study a
+\index{text file}text file page by page, allow you to search for regexps similar to Vim, i.e. by
+first pressing `/` (forward search) or `?` (backward).
 
 ```{r include=FALSE}
 # vim:tw=100
