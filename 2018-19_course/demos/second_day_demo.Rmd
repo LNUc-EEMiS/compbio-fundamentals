@@ -1,0 +1,62 @@
+---
+title: "second_day_demo.Rmd"
+author: "Daniel Lundin"
+date: "1/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# When we knit, we want to see both code and output from R chunks
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load the tidyverse library, which will load a number of dependent libraries
+library(tidyverse)
+```
+
+```{r}
+# Read the ASV table and turn it long without zeroes
+asvs <- read_tsv(
+  '../../data/atacama-soils.asvtable.tsv',
+  col_types = cols(.default = col_double(), seqid = col_character())
+) %>%
+  gather(sample, count, 2:67) %>%
+  filter(count > 0)
+
+# Read the taxonomy table
+taxonomy <- read_tsv(
+  '../../data/taxonomy.tsv',
+  col_types = cols(
+    .default = col_character(), Confidence = col_double()
+  )
+) %>%
+  # Delete the D_0__ etc strings at the start of each taxon
+  mutate(
+    Taxon = gsub('D_[0-9]_+', '', Taxon)
+  ) %>%
+  # Rename Feature ID to seqid, the name in the ASV table
+  rename(
+    seqid = `Feature ID`,
+  ) %>%
+  # Separate th single taxonomy string into indvidiual taxa
+  separate(
+    Taxon, 
+    c('domain', 'phylum', 'class', 'order', 'family', 'genus', 'species'), 
+    sep = ';',
+    fill = 'right'
+  )
+```
+
+```{r}
+# Plot sums of phyla for each sample
+taxonomy %>% inner_join(asvs, by = 'seqid') %>%
+  group_by(phylum, sample) %>%
+  summarise(count = sum(count), n = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = sample, y = count, fill = phylum)) +
+  geom_col() +
+  coord_flip() 
+```
+
+
