@@ -20,7 +20,7 @@
 
 **Where:** Vi2140K (Vita)
 
-**What:** Metagenomics methods, regular expressions, job control, Tidyverse
+**What:** Taxonomy assignment of ASVs, regular expressions, job control, Tidyverse
 
 ## Fourth instalment
 
@@ -28,8 +28,12 @@
 
 **Where:**
 
+**What:** Similarity-based annotation, Tidyverse
+
 ## Fifth instalment
 
-**When:** 
+**When:** 2019-04-24
 
 **Where:**
+
+**What:** Tidyverse
