@@ -4,7 +4,7 @@ There's an excellent book describing the Tidyverse written by Hadley Wickham, th
 Tidyverse, together with Garrett Grolemund: [R for Data Science](https://r4ds.had.co.nz/)
 [@wickham_r_2017]. When you're done with that and want more, there is: [Advanced
 R](https://adv-r.hadley.nz/index.html) [@wickham_advanced_2019], also by Hadley Wickham.
-In addition, a must-read is: [Data Visualization A Practical Introduction](https://socviz.co/index.html#preface) by Kieran Healy.
+In addition, a must-read is: [Data Visualization A Practical Introduction](https://socviz.co/index.html#preface) by Kieran Healy from the Duke University.
 
 ## Good habits {#r-good-habits}
 
