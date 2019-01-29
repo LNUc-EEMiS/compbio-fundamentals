@@ -35,3 +35,7 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 *.dia.autosave
+
+# Ignore Mac OS X .DS_Store and ._ (AppleDouble) files
+.DS_Store
+._*
