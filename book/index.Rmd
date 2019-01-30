@@ -6,6 +6,7 @@ sited: "bookdown::bookdown_site"
 output: 
   bookdown::gitbook:
     lib_dir: "book_assets"
+    split_by: none
   bookdown::pdf_book:
     keep_tex: yes
     includes:
