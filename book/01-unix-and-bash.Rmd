@@ -299,7 +299,51 @@ should do one thing and do it well, leaving other things for other programs.
 
 ### Job control {#job-control}
 
-`&`, `bg`, `fg`, `jobs` and &lt;ctrl&gt;-Z.
+The first command you need to know in job control, is how to stop a running program: \index{ctrl-C}
+&lt;ctrl&gt;-C.
+
+When you run a program in a UNIX system, it can run in two modes: \index{foreground}*foreground* or
+\index{background}*background*. Foreground means that the program replaces the command prompt and
+you can't issue new commands until it finishes. In background mode, you get the command prompt back
+after the program starts, and can continue with other things while the program is running. The easy
+way to put a program in the background, is to add an \index{ampersand}*ampersand* \index{\&}`&` after
+the command when you start it.
+
+```
+gzip very_large_file.fastq &
+```
+
+If you forgot the ampersand when you started the program, you can still put it in the background.
+This involves two things: First you *stop* the program by pressing \index{ctrl-Z} &lt;ctrl&gt;-Z,
+which will put it in the background, but not running. You can now start it in the background with
+the \index{bg}`bg` command.
+
+```
+gzip very_large_file.fastq
+&lt;ctrl&gt;-Z
+bg
+```
+
+The above is a little simplified. There are actually three states you need to think about:
+foreground running, background running and stopped. Moreover, you can run more than one program and
+thus have a list of *jobs*. You can list all jobs with the \index{jobs}`jobs` command and control
+them with `fg`, `bg` and `kill`.
+
+```
+jobs
+[1]-  Stopped                 vim 00-data-organization.Rmd
+[2]+  Stopped                 sleep 5
+# Put the second job in the background running
+bg %2 # or: bg + or just bg, because it's marked with +
+# Kill it
+kill %2
+# Put the first job in the foreground
+fg -
+```
+
+In the list of jobs, each have a number and two are marked with "+" and "-". The "+"-marked is the
+default for `fg` and `bg`, so that `fg` or `bg` on their own work on that job. The "-"-marked can be
+referred to with e.g. `fg -`.
 
 ## Users, files, directories and file systems {#users-files-and-filesystems}
 
