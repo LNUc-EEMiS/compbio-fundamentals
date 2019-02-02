@@ -56,6 +56,18 @@ from an environmental sample of DNA, i.e. metagenomics or metatranscriptomics --
 annotations to attach to them. The principle that is most often used for annotation is
 \index{homology}*homology*, i.e. shared evolutionary descent between a set of sequences.
 
+## Searching for homologous sequences: Alignment tools
+
+### BLAST
+
+### Faster variants of BLAST: e.g. LAST and Diamond
+
+## Searching for homologous sequences: Profile-based alignment tools
+
+### HMMER
+
+### PSI-BLAST
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
