@@ -1,4 +1,60 @@
-# Notes on "annotation" of various biological data {#annotation}
+# Annotation of biological sequences {#annotation}
+
+The word \index{annotation}*annotation* in relation to biological sequences means someone have made
+a note about things like which organism the sequence comes from or its function in a wide sense. A
+typical example is when you look up a protein at \index{NCBI}NCBI or \index{Uniprot}Uniprot:
+
+```
+LOCUS       CAA83510                 295 aa            linear   BCT 26-JUL-2016
+DEFINITION  NifH [Nostoc sp. PCC 6720].
+ACCESSION   CAA83510
+VERSION     CAA83510.1
+DBSOURCE    embl accession Z31716.1
+KEYWORDS    .
+SOURCE      Nostoc sp. PCC 6720 (Anabaena cirularis CCAP 1402/1)
+  ORGANISM  Nostoc sp. PCC 6720
+            Bacteria; Cyanobacteria; Nostocales; Nostocaceae; Nostoc.
+REFERENCE   1  (residues 1 to 295)
+  AUTHORS   Mevarech,M., Rice,D. and Haselkorn,R.
+  TITLE     Nucleotide sequence of a cyanobacterial nifH gene coding for
+            nitrogenase reductase
+  JOURNAL   Proc. Natl. Acad. Sci. U.S.A. 77 (11), 6476-6480 (1980)
+   PUBMED   16592916
+
+[...]
+
+FEATURES             Location/Qualifiers
+     source          1..295
+                     /organism="Nostoc sp. PCC 6720"
+                     /strain="NOSTOC 6720"
+                     /db_xref="taxon:34077"
+                     /clone="pGEM CNO26"
+                     /clone_lib="lambda gt11- cno26"
+                     /germline
+                     /note="Nostoc PCC 6720 was previously known as
+                     Anabaenopsis circularis"
+     Protein         1..295
+                     /name="NifH"
+     Region          1..295
+                     /region_name="PRK13236"
+                     /note="nitrogenase reductase; Reviewed"
+                     /db_xref="CDD:237312"
+```
+
+How you get from a sequence to an annotated sequence depends on what you know beforehand. In the
+above example, the researchers knew they were working with sequences from a *Nostoc* sp. and did not
+need to do anything for the \index{taxonomic annotation}*taxonomic annotation*. The functional part
+of the annotation -- i.e. that it's a nitrogenase reductase, *nifH* gene -- was in this case also
+known prior to sequencing. This had been determined earlier by experimental annealing of the
+*Klebsiella* sp. *nifH* gene to a cloned DNA fragment from *Nostoc* sp.
+
+## Homology as an annotation tool
+
+The above example is nowadays rare and we often have the reverse situation: When sequences arrive we
+neither know from which organism they came from -- if the sequences don't come from an isolate but
+from an environmental sample of DNA, i.e. metagenomics or metatranscriptomics -- nor what functional
+annotations to attach to them. The principle that is most often used for annotation is
+\index{homology}*homology*, i.e. shared evolutionary descent between a set of sequences.
 
 ```{r include=FALSE}
 # vim:tw=100
