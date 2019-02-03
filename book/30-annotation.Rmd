@@ -56,6 +56,23 @@ from an environmental sample of DNA, i.e. metagenomics or metatranscriptomics --
 annotations to attach to them. The principle that is most often used for annotation is
 \index{homology}*homology*, i.e. shared evolutionary descent between a set of sequences.
 
+Homology has two important consequences for sequence annotation: 1) homologous sequences are more
+likely to have *similar function* and 2) the *sequences are likely to be more similar* to each other
+than could otherwise be expected. The similarity in function is what we're after and the sequence
+similarity is something we can put to use: If we have an unknown sequence, look for similar
+sequences and assume they have the same function.
+
+The above summarizes a lot of annotation efforts, but there are a couple of points that needs to be
+clarified. First of all, sequence similarity will in many cases *indicate* \index{evolutionary
+distance}evolutionary distance^[Sequence similarity is an *indication* of how closely related
+sequences are. To be more certain, you need to estimate a phylogenetic tree (see
+\@ref(phylogenetics).]. We can hence assume that the most similar sequences we find are the most
+closely related. This does not mean they are any more homologous than any other sequences, since
+*homology is an either or relationship*, sequences are either evolutionarily related or they are
+not! 
+
+* Orthology and paralogy
+
 ## Searching for homologous sequences: Alignment tools
 
 ### BLAST
