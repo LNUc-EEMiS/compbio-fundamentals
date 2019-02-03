@@ -167,9 +167,9 @@ in to a new computer, you will try to as soon as possible get that set the way y
 
 Your environment is configured through various files, some of a general character, others specific
 for a program or a set of programs. Many of these files have names that start with a `.` which, in
-most cases, make them \index{hidden files}*hidden* so they do not show up e.g. in normal directory
-listings. The purpose of hiding files is to make it a little bit more difficult to change things
-that might have negative effects if not done properly.
+most cases, make them \index{. at the start of file names}\index{hidden files}*hidden* so they do
+not show up e.g. in normal directory listings. The purpose of hiding files is to make it a little
+bit more difficult to change things that might have negative effects if not done properly.
 
 #### Variables {#bash-variables}
 
@@ -282,10 +282,10 @@ will be written to `error_message_file`. (The example is a bit constructed, beca
 redirect STDIN, `cat` actually reads one or more files on the command line, e.g.: `cat file1 file2
 file3 > concatenated_file`.)
 
-The \index{pipe}pipe character \index{|}`|` connects STDOUT from one command, to STDIN for the next, which makes it
-possible to modify the output of one command and form a *pipeline*. A very common example is to
-place `more` as the last output of a command that produces a lot of output, so you can read the
-output page by page.
+The \index{pipe}pipe character \index{|}`|` connects STDOUT from one command, to STDIN for the next,
+which makes it possible to modify the output of one command and form a *pipeline*. A very common
+example is to place `more` as the last output of a command that produces a lot of output, so you can
+read the output page by page.
 
 ```
 # Find all files ending with `.tsv` and check output page by page with `more`.
@@ -638,16 +638,16 @@ The all-purpose command for installing programs with conda is:
 conda install -c namechannel namepackage 
 ```
 
-where the -c flag specifies the channel (e.g. namechannel) that contains said package
-(e.g. namepackage). You can look for the channel that contains the package of interest in the [Anaconda Cloud](https://anaconda.org/).
-A [tutorial](https://conda.io/docs/user-guide/tutorials/index.html) about how to set Conda and run it has been made available online.
-Although conda works both with Python 2.7 and 3.6, only the version 3 is the one 
-that is being currently updated. Furthermore, programs like CheckM will support only particular
-versions of Python (e.g. 2.7 for CheckM), so sooner or later you might need to create a conda
-environment that stores a specific version of a software (e.g. Python).
-Suppose we have installed Miniconda3 and are interested in having both Python 2.7 and Python 3.6
-available in the same account. The following command line creates a conda environment named python2.7
-with Python version 2.7 installed in it:
+where the -c flag specifies the channel (e.g. namechannel) that contains said package (e.g.
+namepackage). You can look for the channel that contains the package of interest in the [Anaconda
+Cloud](https://anaconda.org/).  A [tutorial](https://conda.io/docs/user-guide/tutorials/index.html)
+about how to set Conda and run it has been made available online.  Although conda works both with
+Python 2.7 and 3.6, only the version 3 is the one that is being currently updated. Furthermore,
+programs like CheckM will support only particular versions of Python (e.g. 2.7 for CheckM), so
+sooner or later you might need to create a conda environment that stores a specific version of a
+software (e.g. Python).  Suppose we have installed Miniconda3 and are interested in having both
+Python 2.7 and Python 3.6 available in the same account. The following command line creates a conda
+environment named python2.7 with Python version 2.7 installed in it:
 
 ```
 conda create --name python2.7 python=2.7
@@ -669,7 +669,9 @@ conda list
 
 Note that conda will mark with an asterisk the currently active environment.
 
-A list of the most useful commands can be found in the [Conda cheatsheet](https://conda.io/docs/user-guide/cheatsheet.html).
+A list of the most useful commands can be found in the [Conda
+cheatsheet](https://conda.io/docs/user-guide/cheatsheet.html).
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
