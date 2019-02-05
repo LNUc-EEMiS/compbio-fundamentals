@@ -614,7 +614,7 @@ example, in order to get Miniconda3 for a LINUX environment of 64 bit, type:
 bash Miniconda3-latest-Linux-x86_64.sh 
 ``` 
 
-Even though the same process can be followed on **macOS** and it ships with 
+Even though the same process can be followed on Mac OS X and it ships with 
 **A**dvanced **P**ackaging **T**ool (APT) and it can be used to install packages, there is also a 
 risk of affecting system pointers and it is not always easy to undo actions. Third party package 
 managers can help here. Two of the more popular ones are [Homebrew](https://brew.sh/) and 

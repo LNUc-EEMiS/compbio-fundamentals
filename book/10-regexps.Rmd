@@ -151,7 +151,7 @@ sed "s/ \+/_/g" file > newfile
 sed -i "s/ \+/_/g" file > newfile
 ```
 
-Note that the last alternative does not work as intended with MacOS sed and must be modified:
+Note that the last alternative does not work as intended with Mac OS X Sed and must be modified:
 
 ```
 sed -i .bak "s/ \+/_/g" file
@@ -160,7 +160,7 @@ sed -i "" "s/ \+/_/g" file
 
 Where the (`-i`) defines extension to edit file in-place *and* saving a backup with the specified
 extension, in the first example (`.bak`) (file.bak). If you want to skip making a backup you must
-explicitly specify "no extention" by setting it to (`""`), otherwise an error is thrown:
+explicitly specify "no extension" by setting it to (`""`), otherwise an error is thrown:
 
 ```
 sed: 1: "file": extra characters at the end of d command
