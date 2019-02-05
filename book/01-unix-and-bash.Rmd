@@ -614,6 +614,20 @@ example, in order to get Miniconda3 for a LINUX environment of 64 bit, type:
 bash Miniconda3-latest-Linux-x86_64.sh 
 ``` 
 
+Even though the same process can be followed on **macOS** and it ships with 
+**A**dvanced **P**ackaging **T**ool (APT) and it can be used to install packages, there is also a 
+risk of affecting system pointers and it is not always easy to undo actions. Third party package 
+managers can help here. Two of the more popular ones are [Homebrew](https://brew.sh/) and 
+[MacPorts](https://www.macports.org/). Choosing one comes down to personal preference. MacPorts has 
+been the established standard for a long time and allows more user control- Because of this it also 
+demands more of the user as you are allowed to mess up system dependencies. Homebrew is quickly 
+becoming the new standard, regularly maintained and updated, simple to use and has more available 
+packages. It is sort of "contained" and it is harder to create conflicts with system defaults or 
+accidentally mess things up. This also leaves less room for user configuration and sometimes a 
+little ingenuity is needed to circumvent system defaults when this might be needed.
+
+TO DO/QUESTION: Should this be here, be moved or be a separate section?
+
 you can know if conda has been correctly installed, and the number of the conda version, by typing: 
 
 ``` 
