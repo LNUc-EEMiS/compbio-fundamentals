@@ -6,6 +6,15 @@
   (@illumina_understanding_2014)). Illumina is not more specific about the quality predictor values
   than saying "such as intensity profiles and signal-to-noise ratios".
 
+  The quality score (*Q-score*) is calculated like this, given the probability of error *P*: $$Q =
+  -10 log_10(P)$$
+
+  The Q-score is converted to an integer between 1 and 42, corresponding to probabilities of error
+  between 1 and 0.00006 and written in the \index{FASTQ format}FASTQ file using \index{Phred
+  score}"Phred+33" from `!` to `K`. See the Wikipedia pages for [Phred quality
+  score](https://en.wikipedia.org/wiki/Phred_quality_score) and the [FASTQ
+  format](https://en.wikipedia.org/wiki/FASTQ_format) for more information.
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
