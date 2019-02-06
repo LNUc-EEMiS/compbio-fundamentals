@@ -1,0 +1,11 @@
+# Sequencing and other methodology FAQ {#methodology-faq}
+
+- *How are Illumina quality scores calculated?* \index{Illumina quality scores}Illumina quality
+  scores are calculated based on a "set of quality predictor values" which are "updated when
+  characteristics of the sequencing platform change" (quotes from Illumina documentation
+  (@illumina_understanding_2014)). Illumina is not more specific about the quality predictor values
+  than saying "such as intensity profiles and signal-to-noise ratios".
+
+```{r include=FALSE}
+# vim:tw=100
+```
