@@ -20,7 +20,7 @@
 
 **Where:** Vi2140K (Vita)
 
-**What:** Taxonomy assignment of ASVs, regular expressions, job control, Tidyverse
+**What:** Taxonomy assignment of ASVs, compositional data, regular expressions, job control, Tidyverse
 
 ## Fourth instalment
 
