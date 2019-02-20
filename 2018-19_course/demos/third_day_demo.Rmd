@@ -1,0 +1,57 @@
+---
+title: "Third demo"
+author: "Daniel Lundin"
+date: "2/20/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r libs}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(breakaway)
+```
+
+```{r read-data}
+# Read the tab separated file of counts (wide format)
+counts <- read_tsv(
+  '../../data/atacama-soils.asvtable.tsv',
+  col_types = cols(.default = col_integer(), seqid = col_character())
+) %>%
+  # Turn it long
+  gather(sample, count, 2:67) %>%
+  # Get rid of zeroes
+  filter(count > 0)
+```
+
+```{r plot-seqdepth}
+# To get an idea of which samples to look at, let's plot the number of counts per
+# sample (a.k.a. sequencing depth per sample, library size).
+counts %>%
+  group_by(sample) %>%
+  summarise(count = sum(count)) %>%
+  ungroup() %>%
+  ggplot(aes(x = sample, y = count)) +
+  geom_point() +
+  coord_flip()
+```
+
+```{r calc-alpha-div}
+# Calculate estimated species richness for a single sample
+counts %>% filter(sample == 'YUN3856.3') %>%
+  # Create a "frequency count" table required by the Willis/Bunge methods
+  group_by(count) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  arrange(count) %>%
+  # Turn it into a data.frame, because tibbles didn't work
+  as.data.frame() %>%
+  # Calculate the richness
+  breakaway(print = FALSE, plot = FALSE, answers = TRUE)
+```
+
