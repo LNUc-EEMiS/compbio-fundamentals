@@ -26,7 +26,7 @@
 
 **When:** 2019-03-27
 
-**Where:**
+**Where:** Indigo_Vi1159
 
 **What:** Similarity-based annotation, Tidyverse
 
@@ -34,6 +34,6 @@
 
 **When:** 2019-04-24
 
-**Where:**
+**Where:** Vi2023
 
 **What:** Tidyverse
