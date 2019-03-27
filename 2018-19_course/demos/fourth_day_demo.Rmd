@@ -1,0 +1,47 @@
+---
+title: "Importing excel files"
+author: "Daniel Lundin"
+date: "3/27/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries}
+library(readxl)
+library(purrr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(kfigr)
+library(tibble)
+```
+```{r}
+data <- tibble(
+  fname = Sys.glob("fourth_day_demo/*.xlsx")
+) %>%
+  mutate(table = map(fname, read_excel)) %>%
+  unnest() %>%
+  mutate(
+    fname = basename(fname) %>% sub('.xlsx', '', .),
+    fname = ifelse(
+      fname == 'All_mesocosms_prestart',
+      'All_Q_t0_large',
+      fname
+    )
+  ) %>%
+  separate(fname, c('treatment', 'replicate', 'timepoint', 'filter'), sep = '_')
+```
+
+```{r}
+data %>% distinct(treatment, replicate, timepoint, filter, Metagenome_length) %>%
+  group_by(treatment, timepoint, filter) %>%
+  summarise(mean_metag_length = mean(Metagenome_length)) %>%
+  ungroup() %>%
+  ggplot(aes(x = treatment, y = mean_metag_length, colour = filter)) +
+  geom_point() +
+  facet_wrap(~timepoint)
+```
+
