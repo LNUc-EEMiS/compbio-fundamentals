@@ -18,30 +18,44 @@ library(ggplot2)
 library(kfigr)
 library(tibble)
 ```
-```{r}
+```{r read-data}
+# This block of code reads 25 different excel spreadsheets using the map function
+# from the purrr library. Try to run the code stepwise, checking the data table
+# after each statement, to see what each part of the code does.
+
+# Start by creating a tibble with a single column containing the name of input files
 data <- tibble(
   fname = Sys.glob("fourth_day_demo/*.xlsx")
 ) %>%
+  # Read the excel files. After this each excel file is embeed in a cell in the 
+  # table. The table is hence a "nested" table.
   mutate(table = map(fname, read_excel)) %>%
+  # Unnest the table to make it a more standard table
   unnest() %>%
+  # Parse out information from the filenames.
   mutate(
+    # Remove the directory part and the suffix
     fname = basename(fname) %>% sub('.xlsx', '', .),
+    # One file has a name that is not conforming to the other, so we change that
     fname = ifelse(
       fname == 'All_mesocosms_prestart',
       'All_Q_t0_large',
       fname
     )
   ) %>%
+  # Now we can separate the pieces of information from the file names
   separate(fname, c('treatment', 'replicate', 'timepoint', 'filter'), sep = '_')
 ```
 
-```{r}
+```{r plot-average-metag-length}
+# Do a simple plot of the mean length of each metagenome.
 data %>% distinct(treatment, replicate, timepoint, filter, Metagenome_length) %>%
   group_by(treatment, timepoint, filter) %>%
   summarise(mean_metag_length = mean(Metagenome_length)) %>%
   ungroup() %>%
   ggplot(aes(x = treatment, y = mean_metag_length, colour = filter)) +
   geom_point() +
-  facet_wrap(~timepoint)
+  facet_wrap(~timepoint, ncol = 1) +
+  coord_flip()
 ```
 
