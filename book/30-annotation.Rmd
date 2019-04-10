@@ -75,6 +75,9 @@ not!
 
 ## Searching for homologous sequences: Alignment tools
 
+Placeholder for content about \index{pairwise alignment}\index{sequence alignment} pairwise
+alignments.
+
 ### BLAST
 
 ### Faster variants of BLAST: e.g. LAST and Diamond
