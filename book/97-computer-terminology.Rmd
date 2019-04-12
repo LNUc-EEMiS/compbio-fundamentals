@@ -3,14 +3,22 @@
 - \index{algorithm}*Algorithm*: Instructions for a computation, i.e. instructions, usually
   implemented in a computer program, that will take you from an input to an output.
 
-- *CLI* or *Command Line Interface*: A program that is written in a way to let you control it from
-  the "command line", i.e. the *shell* in a UNIX computer.
+- \index{CLI}*CLI* or \index{command line interface}*Command Line Interface*: A program that is
+  written in a way to let you control it from the "command line", i.e. the *shell* in a UNIX
+  computer.
 
-- *Disk*: Although today, after the advent of solid state storage (SSD), not the only form of
-  *permanent* storage in a computer the term *disk* storage is usually used synonymous with
-  *permanent storage*, i.e. where files and programs are stored when not in use.
+- \index{disk}*Disk*: Although today, after the advent of solid state storage (SSD), not the only
+  form of *permanent* storage in a computer the term *disk* storage is usually used synonymous with
+  \index{permanent storage}*permanent storage*, i.e. where files and programs are stored when not in
+  use.
 
-- *GUI* or *Graphical User Interface*: A program that is written with a graphical interface.
+- \index{GUI}*GUI* or \index{graphical user interface}*Graphical User Interface*: A program that is
+  written with a graphical interface.
+
+- \index{greedy algorithm}*Greedy algorithm*: An algorithm (see above) that "doesn't look back" to
+  check if more optimal solutions could be found. Instead, it looks for what appears best at the
+  moment, and then continues. One example is the \index{neighbor joining}*neighbor joining* tree
+  building algorithm, another the \index{UCLUST}*UCLUST* clustering algorithm.
 
 - \index{heuristic algorithm}*Heuristic algorithm*: An algorithm (see above) that does not promise
   to give you the theoretically correct answer, but a good answer. Heuristics are used when a
@@ -18,28 +26,29 @@
   algorithm is the one implemented in the \index{BLAST}BLAST search and align program. Important
   heuristic algorithms can also be found in e.g. OTU clustering, see \@ref(otu-clustering).
 
-- *Manual/Man page*: Classical help system in UNIX computers, see \@ref(cli-getting-help).
+- \index{manual page}*Manual/Man page*: Classical help system in UNIX computers, see
+  \@ref(cli-getting-help).
 
-- *Memory*: **R**andom **A**ccess **M**emory (RAM), or *memory* in short, is the working memory for
-  the computer. Any program you start will be placed in memory together with any data it is using.
-  Having too little memory is a common reason why computers feels slow. Using fewer programs is a
-  way of dealing with that.
+- \index{memory}*Memory*: **R**andom **A**ccess **M**emory (\index{RAM}RAM), or *memory* in short,
+  is the working memory for the computer. Any program you start will be placed in memory together
+  with any data it is using.  Having too little memory is a common reason why computers feels slow.
+  Using fewer programs is a way of dealing with that.
 
-- *Regular expression*: A string that describes other strings; used as a search tool. See
-  \@ref(regexps).
+- \index{regular expression}*Regular expression*: A string that describes other strings; used as a
+  search tool. See \@ref(regexps).
 
-- *Script*/*scripting language*: A *scripting language* is a programming language that is not
-  compiled, i.e. you don't have to process your code with any tool before running it. Today,
-  scripting languages, such as *R* and *Python*, are very popular particularly in computational
-  sciences. Another scripting language that is commonly seen is *Bash* or other *shell* scripting
-  languages. Scripts written in Bash are examples of how the program you're using when interacting
-  with the computer -- the shell -- can be used to automate tasks. In essence, writing a shell
-  script is just collecting a number of commands you regularly issue at the command prompt to
-  perform some task, together with some program logic in the form of *if else* or *while* clauses
-  plus variables to make the script more general.
+- \index{script}*Script*/\index{scripting language}*scripting language*: A *scripting language* is a
+  programming language that is not compiled, i.e. you don't have to process your code with any tool
+  before running it. Today, scripting languages, such as *R* and *Python*, are very popular
+  particularly in computational sciences. Another scripting language that is commonly seen is *Bash*
+  or other *shell* scripting languages. Scripts written in Bash are examples of how the program
+  you're using when interacting with the computer -- the shell -- can be used to automate tasks. In
+  essence, writing a shell script is just collecting a number of commands you regularly issue at the
+  command prompt to perform some task, together with some program logic in the form of *if else* or
+  *while* clauses plus variables to make the script more general.
 
-- *Shell*: A terminal, or *command line* program to control the computer. The most common example
-  today is Bash. See \@ref(linux-cli).
+- \index{shell}*Shell*: A terminal, or *command line* program to control the computer. The most
+  common example today is Bash. See \@ref(linux-cli).
 
 ```{r include=FALSE}
 # vim:tw=100

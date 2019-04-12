@@ -36,13 +36,39 @@ B._subtilis_NrdE                GVVGVMKLLD NAFRYADQMG -QRQGSGAVY LSVFHPDITD FLDT
 ```
 
 It is often better to look at sequence alignments in specialized programs, e.g.
-[Seaview](http://doua.prabi.fr/software/seaview), [ClustalX](http://www.clustal.org/) or
-[JalView](http://www.jalview.org/).
+[Seaview](http://doua.prabi.fr/software/seaview) [@gouy_seaview_2010],
+[ClustalX](http://www.clustal.org/) [@thompson_multiple_2003] or [JalView](http://www.jalview.org/)
+[@clamp_jalview_2004] (avoid the alignment program, ClustalW, in ClustalX; there are better
+alternatives today).
 
 ![*View of a multiple sequence alignment in Seaview*. Programs that display and lets you work with
 multiple sequence alignments colours amino acids so it's easier to see *conservative substitutions*,
 i.e. substitutions between biochemically similar amino acids.](img/seaview_screenshot.png)
 
+When you run a phylogenetic tree building software it will consider each column as a separate
+character with different *states* in each sequence. This information will then be used to estimate
+the phylogeny.
+
+## Different types of tree building algorithms
+
+There are essentially three types of algorithms used to estimate a phylogeny from a set of aligned
+sequences:
+
+1. Distance-based
+
+   Distance-based methods calculate a pairwise distance between all sequences in the alignment, and
+   then uses the distances to group sequences separated by short distances nearby each other in the
+   tree. The most widely used algorithm in this class is \index{neighbor joining}*neighbor joining*
+   -- affectionately known as *NJ* -- which is a fast \index{heuristic algorithm}*heuristic*,
+   \index{greedy algorithm}*greedy* algorithm (see appendix \@ref(computer-terms), Computer terms)
+   [@saitou_neighbor-joining_1987].  There are also \index{exact algorithm}exact algorithms that
+   guarantee to find the shortest tree, i.e. the tree with the shortest possible sum of branch
+   lengths where branch lengths are proportional to distances. An example of an exact algorithms is
+   FastME (ME is short for *Minimum Evolution*) [@lefort_fastme_2015].
+
+2. Parsimony
+
+3. Probabilistic
 
 ```{r include=FALSE}
 # vim:tw=100
