@@ -71,11 +71,67 @@ closely related. This does not mean they are any more homologous than any other 
 *homology is an either or relationship*, sequences are either evolutionarily related or they are
 not! 
 
-* Orthology and paralogy
+### Orthology and paralogy
+
+Sequences can be evolutionarily related in different ways. One often differentiates between genes
+related by speciation -- i.e. a gene in a shared ancestor that now is present in two or more species
+-- and those that related by duplication -- i.e. two or more copies of the same gene in a single
+species. The former is called \index{orthology}*orthology* and the latter
+\index{paralogy}*paralogy*. Gene duplication where one copy is not immediately lost is often
+associated with divergence of one of the copies so that it takes a new function. In many, but
+certainly not all, cases, a paralogous pair of sequences can hence not be assumed to have code for
+proteins with the same function, whereas an ortholgous pair often is. Further complications arise
+due to the possibility that one copy of a paralogous pair is lost in one species but not in another.
+What was once a shared paralogous pair between two species, would now look like a duplication that
+occurred after the divergence of the two species.
+
+To fully understand the relationship between gene copies one has to make phylogenetic analyses,
+possibly followed by biochemical experiments. In practice, when working with many sequences, one
+often assumes that the more similar two sequences are, the more likely they are to share function.
 
 ## Searching for homologous sequences: Alignment tools
 
+Shared ancestry often manifests itself in similarity between sequences, and searching for homologs
+hence usually means searching for similar sequences. More specifically, we want to find sequences
+that can be aligned to each other so that each position in one sequence is lined up with the
+corresponding position in the other. In such an arrangment of two or more homologous sequences, each
+position can be seen as homologous, i.e. being derived from some ancestral state via mutations and
+selection.
+
+As hinted at above, there is no criterion for determining if aligned sequences truly are homologous,
+one can only rely on judgement. Judgement can be helped by different types of scores however, the
+most common being the proportion of identical or similar amino acids or nucleotides in an alignment,
+it's overall score -- often called *bitscore* -- and a probability for an alignment to have arisen by
+chance alone -- the E value (actually not a probability but an expect value). E values are small for
+good alignments, whereas the other measurements are high.
+
+### Amino acid scoring matrices
+
+The bitscore is calculated as a sum of log scores for each position. The log scores are values that
+somehow indicate how probable a certain substitution is. These were originally based on theoretical
+calculations so that biochemically similar amino acids got high scores and less similar ones low
+scores. The most commonly used scoring scheme today -- the BLOSUM family [@henikoff_amino_1992] --
+is instead based on blocks of ungapped real alignments. In these, the
+frequency of different substitutions can be observed, and scores are based on these. BLOSUM scores
+come in different shapes which are based on degree of divergence, under the assumption that more
+divergent sequences might show different patterns of substitutions than more similar sequences do.
+The number after BLOSUM, e.g. 62, specifies that sequences more identical than 62% were clustered
+and represented by a single sequence. Substitutions between more similar sequences are thus hidden
+from the analysis leading to the scores. Smaller numbers hence represent substitutions occuring in
+more divergent sequences. BLOSUM 62 is the default in e.g. BLAST.
+
 ### BLAST
+
+When one searches a database for homologues for a query sequence, one essentially has to align the
+query to all sequences in the database and make a judgement of homology for the alignments. This has
+long been an impossible task for global sequence databases and \index{heuristic}heuristic algorithms
+(see \@ref{computer-terms}) have been developed. Most famous of these -- and the most cited paper in
+biology -- is BLAST [@altschul_gapped_1997]: Basic Local Alignment and Search Tool. Simplified,
+BLAST works in two steps: 1) After dividing up the query sequence into *words* (3 amino acids or 11
+nucleotides by default), it looks up each word in an index consisting of all words from the
+sequences in the database. A very short alignment is formed by a hit in the index. 2) It will then
+expand the short alignment in both directions and will report a match if the expanded alignment
+reaches a score that is higher than a cutoff defined by the user.
 
 ### Faster variants of BLAST: e.g. LAST and Diamond
 
