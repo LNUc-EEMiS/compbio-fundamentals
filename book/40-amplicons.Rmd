@@ -83,7 +83,7 @@ it's scaling even worse, as the cube of the number of sequences.]. This characte
 complete linkage clustering, and its "siblings" \index{single linkage clustering}*single linkage
 clustering* and \index{average linkage clustering}*average linkage clustering* impractical for use
 with the amounts of sequences -- typically 10-20 million read pairs from one Illumina MiSeq run --
-and faster, \index{heuristic}*heuristic*^["Heuristic" computer algorithms are (usually) fast ways of
+and faster, \index{heuristic algorithm}*heuristic*^["Heuristic" computer algorithms are (usually) fast ways of
 solving complicated problems, usually "known" to work but with no guarantee of reaching an optimal
 solution.] algorithms are required.
 

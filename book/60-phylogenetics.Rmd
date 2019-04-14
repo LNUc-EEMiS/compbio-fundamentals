@@ -1,5 +1,75 @@
 # Introduction to phylogenetics {#phylogenetics}
 
+Most of the topics in this book are just introduced, and when you start using the tools you will
+have to study the original literature. This is true to a probably greater extent for phylogenetics
+which is a truly vast area of computational methodology. It is also one which has for long been
+fraught by strongly held opinions bordering on methodological wars. In this chapter I will try to
+give an overview of available tools and methods, together with some advice on how to address typical
+situations and problems. I will try to be neutral, but at times my own opinions might shine through,
+since I actually want to convey some personal expericences of mine in the hope they might be useful
+to you.
+
+## \index{multiple sequence alignment}Multiple sequence \index{alignment}alignments, homology and trees {#multiple-sequence-alignment}
+
+Today, the most common starting point to estimate a phylogenetic tree are nucleotide or protein
+sequences. Moreover, the sequences are aligned so that corresponding positions are placed at the
+same relative positions. The idea behind aligning sequences like this is that we can capture
+nucleotides or amino acids that are \index{homology}*homologous*, i.e. are derived from the same
+nucleotide or amino acid state in a common ancestral sequence. This is similar to the alignments
+that were discussed in the chapter about annotation (chapter \@ref(annotation)), but whereas they
+were *pairwise*, the alignments you use for estimating trees are *multiple*, i.e. contain more than
+two sequences.
+
+An alignment of a few rather similar protein sequences can look like this (in *phylip* format):
+
+```
+9   49
+S._cerevisiae_NrdAe             GLIPMIRVFN NTARYVDQGG NKRPGAFALF LEPWHADIFD FVDIRKTHG
+E._coli_KTE27_NrdAg             GCIPFYKHFQ TAVKSCSQGG -VRGGAATLF YPMWHLEVES LLVLKNNRG
+Clostridium_acetobutylicum_ATC  GVVPWVKLFN DTAIAVDQLG -VRNGSVAVW LDAWHKDLPE FMQLRTNNG
+T._denticola_NrdAh              GIIRWIKLAN DTAVAVDQLG -VRQGSVAVY LDVWHKDIPE FLQLRTNNG
+A._baumannii_NrdAi              GAREVIDDFF TAASKISQGG -NRRGSFAAY LDIEHDDFYE CLDSLRTHS
+Streptomyces_sp._NrdAn          GIVPFLKTLD ASVAAVNQGG -RRKGAAAVY LETWHADIEE FLELRDNTG
+Delftia_sp._NrdAz               GVVPFLKVVN DTAVAVNQGG -KRKGAVCTY LETWHLDIEE FLELRKNTG
+S._aureus_NrdE                  GVLPIAKSLE GGFSYADQLG -QRPGAGAVY LNIFHYDVEE FLDTKKVNA
+B._subtilis_NrdE                GVVGVMKLLD NAFRYADQMG -QRQGSGAVY LSVFHPDITD FLDTKKISA
+```
+
+It is often better to look at sequence alignments in specialized programs, e.g.
+[Seaview](http://doua.prabi.fr/software/seaview) [@gouy_seaview_2010],
+[ClustalX](http://www.clustal.org/) [@thompson_multiple_2003] or [JalView](http://www.jalview.org/)
+[@clamp_jalview_2004] (avoid the alignment program, ClustalW, in ClustalX; there are better
+alternatives today).
+
+![*View of a multiple sequence alignment in Seaview*. Programs that display and lets you work with
+multiple sequence alignments colours amino acids so it's easier to see *conservative substitutions*,
+i.e. substitutions between biochemically similar amino acids.](img/seaview_screenshot.png)
+
+When you run a phylogenetic tree building software it will consider each column as a separate
+character with different *states* in each sequence. This information will then be used to estimate
+the phylogeny.
+
+## Different types of tree building algorithms
+
+There are essentially three types of algorithms used to estimate a phylogeny from a set of aligned
+sequences:
+
+1. Distance-based
+
+   Distance-based methods calculate a pairwise distance between all sequences in the alignment, and
+   then uses the distances to group sequences separated by short distances nearby each other in the
+   tree. The most widely used algorithm in this class is \index{neighbor joining}*neighbor joining*
+   -- affectionately known as *NJ* -- which is a fast \index{heuristic algorithm}*heuristic*,
+   \index{greedy algorithm}*greedy* algorithm (see appendix \@ref(computer-terms), Computer terms)
+   [@saitou_neighbor-joining_1987].  There are also \index{exact algorithm}exact algorithms that
+   guarantee to find the shortest tree, i.e. the tree with the shortest possible sum of branch
+   lengths where branch lengths are proportional to distances. An example of an exact algorithms is
+   FastME (ME is short for *Minimum Evolution*) [@lefort_fastme_2015].
+
+2. Parsimony
+
+3. Probabilistic
+
 ```{r include=FALSE}
 # vim:tw=100
 ```

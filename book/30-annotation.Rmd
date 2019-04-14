@@ -91,6 +91,7 @@ often assumes that the more similar two sequences are, the more likely they are 
 
 ## Searching for homologous sequences: Alignment tools
 
+<<<<<<< HEAD
 Shared ancestry often manifests itself in similarity between sequences, and searching for homologs
 hence usually means searching for similar sequences. More specifically, we want to find sequences
 that can be aligned to each other so that each position in one sequence is lined up with the
@@ -119,6 +120,10 @@ The number after BLOSUM, e.g. 62, specifies that sequences more identical than 6
 and represented by a single sequence. Substitutions between more similar sequences are thus hidden
 from the analysis leading to the scores. Smaller numbers hence represent substitutions occuring in
 more divergent sequences. BLOSUM 62 is the default in e.g. BLAST.
+
+Placeholder for content about \index{pairwise alignment}\index{sequence alignment} pairwise
+alignments.
+
 
 ### BLAST
 
