@@ -1,0 +1,40 @@
+---
+title: "Fundamentals of computational biology, fifth instalment"
+author: "daniel.lundin@lnu.se"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output:
+  pdf_document:
+    fig_caption: yes
+    fig_height: 9
+    fig_width: 8
+    number_sections: yes
+    toc: yes
+  html_document:
+    toc: yes
+---
+
+```{r setup, echo=F, cache = FALSE}
+knitr::opts_chunk$set(echo=F, fig.path='figures/', cache = TRUE)
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r libraries, message=F, cache = FALSE}
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(kfigr))
+suppressPackageStartupMessages(library(knitr))
+```
+
+```{r constants}
+```
+
+```{r read-data}
+```
+
+# Joins!
+
+inner, left, right, outer(?)
+
+semi and anti!
