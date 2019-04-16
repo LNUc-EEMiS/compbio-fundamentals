@@ -61,14 +61,38 @@ sequences:
    tree. The most widely used algorithm in this class is \index{neighbor joining}*neighbor joining*
    -- affectionately known as *NJ* -- which is a fast \index{heuristic algorithm}*heuristic*,
    \index{greedy algorithm}*greedy* algorithm (see appendix \@ref(computer-terms), Computer terms)
-   [@saitou_neighbor-joining_1987].  There are also \index{exact algorithm}exact algorithms that
-   guarantee to find the shortest tree, i.e. the tree with the shortest possible sum of branch
-   lengths where branch lengths are proportional to distances. An example of an exact algorithms is
-   FastME (ME is short for *Minimum Evolution*) [@lefort_fastme_2015].
+   [@saitou_neighbor-joining_1987].  There are also non-greedy algorithms that aims to find the
+   shortest tree, i.e. the tree with the shortest possible sum of branch lengths where branch
+   lengths are proportional to distances. An example of a non-greedy algorithm is FastME (ME is
+   short for *Minimum Evolution*) [@lefort_fastme_2015].
 
 2. Parsimony
 
+   \index{parsimony}*Parsimony* in phylogenetics builds on the famous philosophical principle known
+   as *Occam's razor* which contends that "simpler solutions are more likely to be correct than
+   complex ones" ([quote from Wikipedia](https://en.wikipedia.org/wiki/Occam%27s_razor)). This is
+   interpreted in phylogenetics as "find the tree that minimizes the number of changes of state".
+   States were, before sequences were available, morphological character states. A tree of
+   vertebrates would hence suggest three origins of powered flight (birds, bats and pterosaurs) --
+   three transitions of state in the forelimbs from legs to wings --
+   considering presence or absence of wings, birth of live offspring, the shape of the pelvis and a
+   few other characters. In sequence based parsimony, state transitions are transitions between the
+   different nucleotides or amino acids. 
+
 3. Probabilistic
+   
+   NNN
+
+### Exploring tree space
+
+The parsimony and probabilistic phylogenetic algorithms look for the optimal tree, which requires
+that all possible trees are checked. Since this is a very large number for any reasonable number of
+sequences (there are, e.g., $10^{76}$ possible rooted trees with 50 species/sequences), any
+algorithm will hence have to be \index{heuristic algorithm}heuristic. They are, as far as I know,
+never *greedy* like the most common distance based methods. Instead, parsimony algorithms rely on
+different ways of *exploring tree space* and calculating parsimony scores on each. If you're
+interested in how this is done, I can suggest e.g. Joseph Felsenstein's seminal book *Inferring
+phylogenies* @felsenstein_inferring_2004.
 
 ```{r include=FALSE}
 # vim:tw=100
