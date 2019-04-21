@@ -34,6 +34,6 @@
 
 **When:** 2019-04-24
 
-**Where:** Vi2023
+**Where:** Vi2012
 
 **What:** Tidyverse
