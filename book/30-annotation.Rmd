@@ -71,7 +71,7 @@ closely related. This does not mean they are any more homologous than any other 
 *homology is an either or relationship*, sequences are either evolutionarily related or they are
 not! 
 
-### Orthology and paralogy
+### Orthology and paralogy{#orthology-paralogy}
 
 Sequences can be evolutionarily related in different ways. One often differentiates between genes
 related by speciation -- i.e. a gene in a shared ancestor that now is present in two or more species
@@ -89,9 +89,8 @@ To fully understand the relationship between gene copies one has to make phyloge
 possibly followed by biochemical experiments. In practice, when working with many sequences, one
 often assumes that the more similar two sequences are, the more likely they are to share function.
 
-## Searching for homologous sequences: Alignment tools
+## Searching for homologous sequences: Alignment tools{#alignment-search-tools}
 
-<<<<<<< HEAD
 Shared ancestry often manifests itself in similarity between sequences, and searching for homologs
 hence usually means searching for similar sequences. More specifically, we want to find sequences
 that can be aligned to each other so that each position in one sequence is lined up with the
@@ -106,7 +105,7 @@ it's overall score -- often called *bitscore* -- and a probability for an alignm
 chance alone -- the E value (actually not a probability but an expect value). E values are small for
 good alignments, whereas the other measurements are high.
 
-### Amino acid scoring matrices
+### Amino acid scoring matrices{#amino-acid-scoring-matrices}
 
 The bitscore is calculated as a sum of log scores for each position. The log scores are values that
 somehow indicate how probable a certain substitution is. These were originally based on theoretical
@@ -125,7 +124,7 @@ Placeholder for content about \index{pairwise alignment}\index{sequence alignmen
 alignments.
 
 
-### BLAST
+### BLAST{#blast}
 
 When one searches a database for homologues for a query sequence, one essentially has to align the
 query to all sequences in the database and make a judgement of homology for the alignments. This has
@@ -140,11 +139,11 @@ reaches a score that is higher than a cutoff defined by the user.
 
 ### Faster variants of BLAST: e.g. LAST and Diamond
 
-## Searching for homologous sequences: Profile-based alignment tools
+## Searching for homologous sequences: Profile-based alignment tools{#profile-search-tools}
 
-### HMMER
+### HMMER{#hmmer}
 
-### PSI-BLAST
+### PSI-BLAST{#psi-blast}
 
 ```{r include=FALSE}
 # vim:tw=100

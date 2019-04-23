@@ -49,7 +49,7 @@ When you run a phylogenetic tree building software it will consider each column 
 character with different *states* in each sequence. This information will then be used to estimate
 the phylogeny.
 
-## Different types of tree building algorithms
+## \index{phylogenetic algorithms}Different types of tree building algorithms {#phylogenetic-algorithms}
 
 There are essentially three types of algorithms used to estimate a phylogeny from a set of aligned
 sequences:
@@ -81,7 +81,19 @@ sequences:
 
 3. Probabilistic
    
-   NNN
+   Probabilistic phylogenetic methods are based on a statistical model of sequence evolution. They
+   come in two important "flavours": \index{maximum likelihood phylogenetics}*maximum likelihood*
+   (ML) and \index{Bayesian phylogenetics}Bayesian. In simplified terms, maximum likelihood
+   algorithms tries to find the tree that makes the input data, i.e. the alignment, most probable
+   given all other model parameters. Bayesian methods instead searches for the phylogeny that has
+   the highest \index{posterior probability}*posterior probability* given the data and parameters.
+
+   The current ML algorithms (e.g. PhyML [@guindon_estimating_2009], RAxML [@stamatakis_raxml_2014]
+   and FastTree [@price_fasttree_2010]) are many times faster, and can hence deal with much larger
+   alignments than Bayesian algorithms (e.g. MrBayes [@ronquist_mrbayes_2003], BEAST
+   [@bouckaert_beast_2019] and PhyloBayes [@lartillot_phylobayes_2009]). There are, however, special
+   applications which Bayesian methods are better suited to (e.g. moleculcar clocks and parameter
+   rich models) and some would argue that they also better deal with problematic data.
 
 ### Exploring tree space
 
@@ -93,6 +105,94 @@ never *greedy* like the most common distance based methods. Instead, parsimony a
 different ways of *exploring tree space* and calculating parsimony scores on each. If you're
 interested in how this is done, I can suggest e.g. Joseph Felsenstein's seminal book *Inferring
 phylogenies* @felsenstein_inferring_2004.
+
+## A workflow for protein phylogenetics {#protein-phylogenetics-wf}
+
+The above aims to provide a gentle introduction to concepts and tools in phylogenetics. This section
+instead aims to outline a workflow for estimation of phylogenies for individual proteins. The
+typical case where you would run this is when you want to find out which sequences are orthologs and
+paralogs in a set of likely homologs. As described in the section about orthology and paralogy
+(\@ref(orthology-paralogy)), this can be very important as support for claiming that a protein found
+in your organism is doing the same as a specific protein in another organism. This is not the same
+as finding the most similar sequence. Instead, it is relatively common that similarity does not
+confer the signal of evolutionary relatedness that's required to establish orthology.
+
+1. Collect sequences
+
+   To establish evolutionary relationships among members of protein families, it is critical to
+   collect sequences that well represent the family. If branches of the real evolutionary tree are
+   not represented with sequences, your tree will likely be misleading. The key tools here are
+   profile search tools like HMMER [@eddy_accelerated_2011] (see \@ref(profile-search-tools)) as
+   they are the most sensitive and precise tools we have for alignment searches.
+
+   a. Find an HMM profile
+
+   b. Build and HMM profile
+
+   c. Refine your HMM profile
+
+2. Cluster sequences
+
+   For many protein families there are too many sequences available for aligning, estimating a
+   phylogeny and analysing. It can hence be important to reduce the number of sequences, but doing
+   this in a way that keeps the sequence collection representative for the protein family. I do this
+   by clustering the sequences based on pairwise sequence similarity using USEARCH
+   [@edgar_search_2010]. I run the program with a number of different similarity cutoffs until I get
+   a reasonable number of sequences. What is "reasonable" depends on the situation -- a larger protein
+   family will of course need more sequences than a smaller, longer proteins contain more
+   information than shorter and would require more sequences, more divergent families will also
+   require more sequences -- but a few hundred sequences are relatively easy to deal with, whereas
+   more than 500 can be difficult to e.g. visualize.
+
+3. Align sequences and delete problematic sequences
+
+   When you have a number of sequences you belive well describe your protein family, an iterative
+   work starts where you align all sequences, check the alignment, delete sequences that are
+   suspicious by e.g. lacking certain parts, such as catalytic residues, that the other have or
+   having long insertions^[ Deleting problematic sequences is a difficult task and you risk losing
+   sequences that represent important evolutionary events. This is particularly true for sequences
+   that are only found in parts of the tree of life that is underrepresented by sequenced genomes.
+   Moreover, you risk only describing what you already knew and become blind for true and novel
+   sequences.], and then realign. Also, keep an eye on differences in domain content between
+   different members of the family. This is visible by relatively long insertions in one group of
+   proteins compared to the other, and can be problematic^[If you're working with a protein family
+   that contains multiple domains in a way you think might be problematic, find someone experienced
+   to discuss with.]. You continue this process until you're sure you have a good selection of
+   sequences.
+
+   The tools I use for this part is the Clustal Omega alignment program
+   [@sievers_clustal_omega_2014] (fast and good; don't use ClustalW), the Seaview alignment viewer
+   [@gouy_seaview_2010] together with Vim, my text editor (see @ref(text-editors)).
+
+4. Check "treelikeness" and conflicts in the aligned sequences
+
+   Several evolutionary events can create sequences that are not well described by a
+   \index{bifurcating tree}bifurcating tree^[A *bifurcating tree* is a tree where each internal node
+   has one ingoing and two outgoing edges, usually representing speciation of an ancestral species
+   into two derived species. This is likely the most common type of speciation, but not necessarily
+   the only. Most (all?) programs that estimate phylogenies only produce bifurcating trees.]. If the
+   tree describes species, the most common such events are \index{hybridization}hybridization and
+   \index{horizontal gene transfer}horizontal gene transfer (HGT) that will create different
+   evolutionary histories for different genes and proteins in a genome. On the scale of individual
+   genes or proteins, the corresponding process is \index{recombination}recombination within a gene,
+   by which the parts of a gene will come from different parent genes and you will hence have a gene
+   or protein sequence with different evolutionary histories. Recombination leading to swapping of
+   parts of genes between each other will not be visible in a bifurcating tree -- except by reduced
+   support values, which can have many other reasons. 
+   
+   To describe these processes, \index{phylogenetic network}phylogenetic networks -- graphs where
+   processes such as hybridization and horizontal gene transfer can be described for species and
+   recombination for individual sequences -- are required. Tools that infer phylogenetic networks
+   largely fall into two categories, those aiming to describe actual evolutionary events like
+   hybridization and those that only aim to show conflicts in the data. BOOKMARK.
+
+5. Finalize alignment
+
+6. Select reliable positions in the alignment
+
+7. Estimate phylogenetic tree
+
+## \index{phylogenetic-placement}Phylogenetic placement of many short sequences {#phylogenetic-placement}
 
 ```{r include=FALSE}
 # vim:tw=100
