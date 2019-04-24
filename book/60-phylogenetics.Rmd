@@ -184,11 +184,30 @@ confer the signal of evolutionary relatedness that's required to establish ortho
    processes such as hybridization and horizontal gene transfer can be described for species and
    recombination for individual sequences -- are required. Tools that infer phylogenetic networks
    largely fall into two categories, those aiming to describe actual evolutionary events like
-   hybridization and those that only aim to show conflicts in the data. BOOKMARK.
+   hybridization and those that only aim to show conflicts in the data. The SplitsTree program
+   [@huson_application_2006] can be used to study NeighborNet [@bryant_neighbor-net_2004]
+   representations of alignments to find conflicts (as well as a number of other phylogenetic
+   networks).
+
+   ![A NeighborNet network showing conflicting signals in the data. The red and blue line partition
+   the network in two contradictory "splits". Figure from
+   [@morrison_introduction_2011].](img/morrison_2011_fig3.21.edit.png)
+
+   After you have studied the network, it's quite common that you have to go back to removing
+   sequences or even redoing the selection of starting sequences.
 
 5. Finalize alignment
 
+   When you're finally happy with the alignment, you can at this point choose to realign with an
+   alignment program that you trust more, but may be slower. Personally, I like *Probcons*
+   [@do_probcons_2005]. If your proteins are not very divergent, Clustal Omega is fine.
+
 6. Select reliable positions in the alignment
+
+   In most cases, not all positions of the alignment can be trusted, and there are algorithms that
+   look for reliably aligned positions. I use the BMGE algorithm [@criscuolo_bmge_2010], which uses
+   amino acid scoring matrices from the BLOSUM series (see \@ref(amino-acid-scoring-matrices)) to
+   identify reliable positions.
 
 7. Estimate phylogenetic tree
 
