@@ -36,7 +36,7 @@
 
 **Where:** Vi2012
 
-**What:** Tidyverse
+**What:** Phylogenetics, Tidyverse
 
 ## Sixth instalment
 
