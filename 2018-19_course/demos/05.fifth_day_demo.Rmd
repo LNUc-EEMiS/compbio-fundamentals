@@ -14,7 +14,7 @@ output:
 ---
 
 ```{r setup, echo=F, cache = FALSE}
-knitr::opts_chunk$set(echo=F, fig.path='figures/', cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.path = 'figures/', cache = TRUE)
 ggplot2::theme_set(ggplot2::theme_bw())
 ```
 
@@ -31,10 +31,108 @@ suppressPackageStartupMessages(library(knitr))
 ```
 
 ```{r read-data}
+# Read the ASV table and turn it long without zeroes
+asvs <- read_tsv(
+  '../../data/atacama-soils.asvtable.tsv',
+  col_types = cols(.default = col_double(), seqid = col_character())
+) %>%
+  gather(sample, count, 2:67) %>%
+  filter(count > 0)
+
+# Read the taxonomy table
+taxonomy <- read_tsv(
+  '../../data/taxonomy.tsv',
+  col_types = cols(
+    .default = col_character(), Confidence = col_double()
+  )
+) %>%
+  # Delete the D_0__ etc strings at the start of each taxon
+  mutate(
+    Taxon = gsub('D_[0-9]_+', '', Taxon)
+  ) %>%
+  # Rename Feature ID to seqid, the name in the ASV table
+  rename(
+    seqid = `Feature ID`,
+  ) %>%
+  # Separate th single taxonomy string into indvidiual taxa
+  separate(
+    Taxon, 
+    c('domain', 'phylum', 'class', 'order', 'family', 'genus', 'species'), 
+    sep = ';',
+    fill = 'right'
+  )
 ```
 
-# Joins!
+# Joins
 
-inner, left, right, outer(?)
+Joining data from several tables is a fundamental operation in most analyses. In the Tidyverse, joins are performed
+with the functions: `inner_join()`, `left_join()`, `right_join()` and `outer_join()`, that share the basic syntax
+(see the builtin help or the relavant chapter in "R for data science"). In base R, the corresponding function is
+`merge()`. As usual the Tidyverse functions are clearer and have fewer surprises.
 
-semi and anti!
+All joins require at least one common variable to match data from two tables on. The difference between the four 
+types is that an `inner_join()` will only return rows that were found in *both tables*, a `left_join()` will return
+all rows from the first mentioned, *left* table but only the matching rows from the right table, a `right_join()` 
+does the opposite to a `left_join()` and an `outer_join()` returns all rows from both tables. Most commonly used are
+the `inner_join()` and the `left_join()`.
+
+## "Natural join"
+
+A natural join is a join that uses all shared variables between the two tables to join with. It does not require that
+you specify by variables, but it's recommended.
+
+```{r}
+asvs %>% inner_join(taxonomy)
+```
+
+To get rid of the warning message -- 'Joining, by = "seqid"' -- you can specify that with `by`:
+
+```{r}
+asvs %>% inner_join(taxonomy, by = 'seqid')
+```
+
+If your key colums do not have the same name, you specify the join condition with `by` like this:
+
+```{r}
+# To create an example: Copy the taxonomy table but change the name of the seqid column to s, so that we can't do 
+# a natural join
+t <- taxonomy %>% rename(s = seqid)
+
+# Now, you need to specify a by in the join
+asvs %>% inner_join(t, by = c('seqid' = 's'))
+```
+
+If the *content* of the key columns are not exactly identical, you must reformat them so they're comparable:
+
+```{r}
+# To create an example: Modify the s column so it's not exactly the same but in a way that can be traced back
+t <- t %>% mutate(s = sprintf("seqid:%s", s))
+
+# A join now doesn't return anything, because there are no shared keys *contentwise*
+asvs %>% inner_join(t, by = c('seqid' = 's'))
+
+# You need to get rid of the "seqid:" before you can do the join
+asvs %>% inner_join(t %>% mutate(s = sub('seqid:', '', s)), by = c('seqid' = 's'))
+```
+
+## `semi_join()` and `anti_join()`
+
+`semi_join()` and `anti_join()` are tools when you want to use information in another table to filter a table
+*without* adding the information from the second table to the first.
+
+```{r}
+# Returning only the Cyanobacteria
+asvs %>% semi_join(taxonomy %>% filter(phylum == 'Cyanobacteria'), by = 'seqid')
+
+# Returning everything except the Cyanobacteria with anti_join
+asvs %>% anti_join(taxonomy %>% filter(phylum == 'Cyanobacteria'), by = 'seqid')
+```
+
+When you want to specify more than one phylum in the above example, use the `%in%` function:
+
+```{r}
+# Returning the Cyanobacteria and Firmicutes
+asvs %>% semi_join(taxonomy %>% filter(phylum %in% c('Cyanobacteria', 'Firmicutes')), by = 'seqid')
+```
+
+

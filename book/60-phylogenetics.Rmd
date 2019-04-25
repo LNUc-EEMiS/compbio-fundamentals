@@ -211,8 +211,21 @@ confer the signal of evolutionary relatedness that's required to establish ortho
 
 7. Estimate phylogenetic tree
 
-## \index{phylogenetic-placement}Phylogenetic placement of many short sequences {#phylogenetic-placement}
+## \index{phylogenetic placement}Phylogenetic placement of many short sequences {#phylogenetic-placement}
 
+In microbial ecology it's common that we only have fragments of genes, most commonly an amplicon
+from a segment of a phylogenetic marker such as the 16S gene (see \@ref(amplicon-sequences)).
+Building full phylogenies from fragments is usually not reliable and a better option is to place the
+fragments in an already established reference phylogeny that was built from full length sequences.
+Taking our cherished V3V4 16S amplicons as an example, it is better to find a phylogeny made from
+known full length 16S sequences together with the alignmnent and place your amplicons in this. In
+practice this is done by first aligning the fragments to the alignment used for the reference tree,
+and then run a phylogenetic placement algorithm that takes both the new alignment and the reference
+phylogeny as input. The most commonly used phylogenetic placement algorithm is probably
+\index{pplacer}pplacer [@matsen_pplacer_2010] but also \index{RAxML}RAxML [@stamatakis_raxml_2014]
+can be used.
+
+QIIME2!
 ```{r include=FALSE}
 # vim:tw=100
 ```
