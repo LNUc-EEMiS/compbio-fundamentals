@@ -36,4 +36,12 @@
 
 **Where:** Vi2012
 
-**What:** Tidyverse
+**What:** Phylogenetics, Tidyverse
+
+## Sixth instalment
+
+**When:** 2019-05-22
+
+**Where:** ?
+
+**What:** Group discussions plus *Phyloseq* seminar
