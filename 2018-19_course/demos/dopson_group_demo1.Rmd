@@ -1,0 +1,28 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+asvs <- read_tsv('../../data/atacama-soils.asvtable.tsv', col_types = cols(.default = col_integer(), seqid = col_character())) %>%
+  gather(sample, count, 2:ncol(.)) %>% filter(count > 0) %>%
+  group_by(sample) %>% mutate(relab = count/sum(count)) %>% filter(n() > 10) %>% ungroup()
+taxonomy <- read_tsv('../../data/taxonomy.tsv', col_types = cols(`Feature ID` = col_character(), Taxon = col_character(), Confidence = col_double())) %>%
+  mutate(Taxon = gsub('D_[0-9]__', '', Taxon)) %>%
+  separate(Taxon, c('domain', 'phylum', 'class', 'order', 'family', 'genus', 'species'), sep = ';', fill = 'right') %>%
+  rename(seqid = `Feature ID`)
+```
+
+```{r}
+asvs %>%
+  left_join(taxonomy, by = 'seqid') %>%
+  group_by(sample, family) %>% summarise(relab = sum(relab)) %>% ungroup() %>%
+  spread(sample, relab, fill = 0) %>%
+  write_tsv('/tmp/x.tsv')
+```
+
+
