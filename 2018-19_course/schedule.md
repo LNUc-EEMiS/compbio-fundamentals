@@ -46,7 +46,7 @@
 
 **What:** Metagenomics and metatranscriptomics, part 1
 
-## Sixth instalment
+## Seventh instalment
 
 **When:** 2019-10-09
 
