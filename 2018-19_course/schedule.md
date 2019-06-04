@@ -40,8 +40,16 @@
 
 ## Sixth instalment
 
-**When:** 2019-05-22
+**When:** 2019-08-21
 
 **Where:** ?
 
-**What:** Group discussions plus *Phyloseq* seminar
+**What:** Metagenomics and metatranscriptomics, part 1
+
+## Sixth instalment
+
+**When:** 2019-10-09
+
+**Where:** ?
+
+**What:** Metagenomics and metatranscriptomics, part 2
