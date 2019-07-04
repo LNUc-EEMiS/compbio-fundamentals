@@ -17,6 +17,36 @@ taxonomy <- read_tsv('../../data/taxonomy.tsv', col_types = cols(`Feature ID` = 
   rename(seqid = `Feature ID`)
 ```
 
+```{r assign-top10-phyla-to-taxonomy}
+# Start by finding the top 11 phyla *on average* over the samples
+t <- asvs %>%
+  inner_join(taxonomy, by = 'seqid') %>%
+  group_by(phylum, sample) %>%
+  # Calculate the relative abundance of each phylum in each sample
+  summarise(relab = sum(relab)) %>%
+  # Calculate the *mean* relative abundance of each phylum over the samples
+  summarise(mean_relab = sum(relab)) %>%
+  ungroup() %>%
+  # Filter out non-assigned phyla
+  filter(!is.na(phylum)) %>%
+  # Select the top 11
+  top_n(11, mean_relab)
+
+# Add this information to the taxonomy table as the column topphylum
+taxonomy <- taxonomy %>%
+  # Join in the top 10 table. *Important* with left join, otherwise you loose rows in the
+  # taxonomy table that do not appear in the top 11 table.
+  left_join(
+    t %>% 
+      # Duplicate the phylum column, with the old name and as "topphylum"
+      transmute(phylum, topphylum = phylum),
+    by = 'phylum'
+  ) %>%
+  # Set topphylum to 'Other' for those that were not among the top 11
+  replace_na(list('topphylum' = 'Other'))
+```
+
+
 ```{r}
 asvs %>%
   left_join(taxonomy, by = 'seqid') %>%
@@ -24,5 +54,19 @@ asvs %>%
   spread(sample, relab, fill = 0) %>%
   write_tsv('/tmp/x.tsv')
 ```
+
+```{r plot-top-phyla}
+asvs %>%
+  inner_join(taxonomy, by = 'seqid') %>%
+  group_by(topphylum, sample) %>% summarise(relab = sum(relab)) %>% ungroup() %>%
+  ggplot(aes(x = sample, y = relab, fill = topphylum)) +
+  geom_col() +
+  scale_fill_brewer('Phylum', palette = 'Paired') +
+  coord_flip() +
+  theme(
+    legend.position = 'bottom'
+  )
+```
+
 
 
