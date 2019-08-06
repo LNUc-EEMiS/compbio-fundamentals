@@ -1,0 +1,75 @@
+---
+title: "Centered log ratio analysis of 16S data"
+author: "daniel.lundin@lnu.se"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output:
+  pdf_document:
+    fig_caption: yes
+    fig_height: 9
+    fig_width: 8
+    number_sections: yes
+    toc: yes
+  html_document:
+    toc: yes
+---
+
+```{r setup, echo=F, cache = FALSE}
+knitr::opts_chunk$set(echo=F, fig.path='figures/', cache = TRUE)
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r libraries, message=F, cache = FALSE}
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(kfigr))
+suppressPackageStartupMessages(library(knitr))
+```
+
+```{r constants}
+```
+
+```{r read-data}
+# Read the ASV table and turn it long without zeroes
+asvs <- read_tsv(
+  '../../data/atacama-soils.asvtable.tsv',
+  col_types = cols(.default = col_double(), seqid = col_character())
+) %>%
+  gather(sample, count, 2:67) %>%
+  filter(count > 0)
+
+# Read the taxonomy table
+taxonomy <- read_tsv(
+  '../../data/taxonomy.tsv',
+  col_types = cols(
+    .default = col_character(), Confidence = col_double()
+  )
+) %>%
+  # Delete the D_0__ etc strings at the start of each taxon
+  mutate(
+    Taxon = gsub('D_[0-9]_+', '', Taxon)
+  ) %>%
+  # Rename Feature ID to seqid, the name in the ASV table
+  rename(
+    seqid = `Feature ID`,
+  ) %>%
+  # Separate th single taxonomy string into indvidiual taxa
+  separate(
+    Taxon, 
+    c('domain', 'phylum', 'class', 'order', 'family', 'genus', 'species'), 
+    sep = ';',
+    fill = 'right'
+  )
+
+# Read the sample data ("metadata")
+samples <- read_tsv(
+  '../../data/sample_metadata.tsv',
+  col_types = cols(
+    .default = col_double(),
+    SampleID = col_character(), BarcodeSequence = col_character(), LinkerPrimerSequence = col_character(),
+    ExtractGroupNo = col_character(), TransectName = col_character(), SiteName = col_character(),
+    Vegetation = col_character(), Description = col_character()
+  )
+)
+```
