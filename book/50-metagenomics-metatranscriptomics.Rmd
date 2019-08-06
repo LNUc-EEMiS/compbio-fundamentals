@@ -1,5 +1,30 @@
 # Introduction to metagenomics and metatranscriptomics {#metag-metat}
 
+The "meta" in metagenomics and metatranscriptomics is best understood as referring to communities,
+i.e. genomics or transcriptomics applied to DNA and RNA respectively from whole communities of
+microbes. Taking all DNA or RNA and just sequencing it leads to some challenges in analysis and how
+you tackle these challenges depends on what you're after: taxonomic or functional community
+composition, metabolic capacity of individual members of the community, responses to perturbations
+of the environment etc. Choosing one line of analysis over another will usually mean that you close
+some doors to other possibilities, so it is important to understand what each methodological choice
+will mean.
+
+## Read-based annotation
+
+### Read recruitment {#read-recruitment}
+
+### Important tools: fast alignment programs
+
+## Assembly-based annotation
+
+### Assembly
+
+### Binning: metagenome assembled genomes -- MAGs or "bins" {#MAGs}
+
+#### Popular binning methods {#binning-methods}
+
+#### CheckM: Check completeness and contamination of MAGs
+
 ```{r include=FALSE}
 # vim:tw=100
 ```
