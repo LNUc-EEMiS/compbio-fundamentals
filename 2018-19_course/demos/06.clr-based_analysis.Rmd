@@ -25,6 +25,10 @@ suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(kfigr))
 suppressPackageStartupMessages(library(knitr))
+
+# Packages needed to calculate clr
+library(zCompositions)
+library(CoDaSeq)
 ```
 
 ```{r constants}
@@ -37,7 +41,10 @@ asvs <- read_tsv(
   col_types = cols(.default = col_double(), seqid = col_character())
 ) %>%
   gather(sample, count, 2:67) %>%
-  filter(count > 0)
+  # Take away rows with zero count
+  filter(count > 0) %>%
+  # Take away samples with less than 500 observations
+  group_by(sample) %>% filter(sum(count) >= 500) %>% ungroup()
 
 # Read the taxonomy table
 taxonomy <- read_tsv(
@@ -72,4 +79,27 @@ samples <- read_tsv(
     Vegetation = col_character(), Description = col_character()
   )
 )
+```
+
+```{r calc-clr}
+# This adds a clr column to the asvs table.
+# Note that the assignment to "asvs" is last and uses the -> assignment operator.
+# Since all combinations of sample and seqid will now get a value, clr, the number of rows increases quite a lot.
+asvs %>%
+  # Make the table wide with samples as columns
+  spread(sample, count, fill = 0) %>%
+  # Move the seqid to rowname; this requires a data.frame()
+  data.frame() %>% tibble::column_to_rownames('seqid') %>%
+  # Replace zeroes with probabilities (pseudocounts) (I needed a slightly lower delta than default not to get negative values)
+  cmultRepl(method = 'CZM', delta = 0.5, output = 'p-counts') %>%
+  # Calculate the CLR
+  codaSeq.clr(samples.by.row = FALSE) %>%
+  data.frame() %>%
+  tibble::rownames_to_column('sample') %>%
+  gather(seqid, clr, 2:ncol(.)) %>%
+  # Get rid of 'X' that sometimes precedes the seqid and join back with original table
+  mutate(seqid = sub('^X', '', seqid)) %>%
+  left_join(asvs, by = c('sample', 'seqid')) %>%
+  # Set count to 0 if it's NA
+  replace_na(list(count = 0)) -> asvs
 ```
