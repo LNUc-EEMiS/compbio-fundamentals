@@ -81,6 +81,28 @@ samples <- read_tsv(
 )
 ```
 
+*C*entered *L*og *R*atios (clrs) are calculated as the ratio between a count and the geometric mean of counts in the sample:
+
+$$
+clr_s = \frac{c_s}{\sqrt[n]{\prod_{i = 1}^{n} c_i}}
+$$
+
+Where $n$ is the number of samples, $cls_s$ is the centered log ratio and $c_s$ the count respectively for sample $s$.
+
+The product in the denominator will be zero if there's a single zero, i.e. unobserved taxon (ASV) in a sample. The root
+will then be zero and since division by zero is undefined, the clr will be too. Since a typical biological sequencing data
+set always contains a lot of zeroes, clrs will typically be undefined for all samples. To use clr, the zeroes therefore
+need to be removed or replaced with something else.
+
+The zeroes are artefacts of sequencing depth, and not evidence for the absence of a population in a sample. Methods that
+deal with zeroes can hence be based on estimation of the true count (<1) of a population or similar. The `cmultRepl()`
+function in the `zCompositions` package...
+
+Terms:
+
+* *left-censored*: a data point is below a certain value. In our case this means below detection limit given the sequencing
+depth for the sample in question.
+
 ```{r calc-clr}
 # This adds a clr column to the asvs table.
 # Note that the assignment to "asvs" is last and uses the -> assignment operator.
@@ -103,3 +125,21 @@ asvs %>%
   # Set count to 0 if it's NA
   replace_na(list(count = 0)) -> asvs
 ```
+
+Centered log ratios do not sum to the same sum for all samples `r figr('clrsum-plot', T, type = 'Figure')`, they are hence
+not good replacements for relative abundances.
+
+```{r clrsum-plot, fig.height=6, fig.cap = 'Per sample sums of centered log ratios.'}
+asvs %>%
+  group_by(sample) %>% summarise(clrsum = sum(clr)) %>% ungroup() %>%
+  ggplot(aes(x = sample, y = clrsum)) +
+  geom_point() +
+  coord_flip()
+```
+
+```{r}
+asvs %>%
+  group_by(sample) %>% mutate(relclr = clr/sum(clr)) %>% ungroup()
+```
+
+
