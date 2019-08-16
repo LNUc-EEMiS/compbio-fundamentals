@@ -81,22 +81,30 @@ samples <- read_tsv(
 )
 ```
 
-*C*entered *L*og *R*atios (clrs) are calculated as the ratio between a count and the geometric mean of counts in the sample:
+# Centered Log Ratios
+
+*C*entered *L*og *R*atios (clrs) are calculated as log of the ratio between a count and the geometric mean of counts in 
+the sample:
 
 $$
-clr_s = \frac{c_s}{\sqrt[n]{\prod_{i = 1}^{n} c_i}}
+clr_s = \log{\frac{c_s}{\sqrt[n]{\prod_{i = 1}^{n} c_i}}}
 $$
 
 Where $n$ is the number of samples, $cls_s$ is the centered log ratio and $c_s$ the count respectively for sample $s$.
 
-The product in the denominator will be zero if there's a single zero, i.e. unobserved taxon (ASV) in a sample. The root
+## Dealing with zeroes
+
+The scary thing in the denominator, the geometric mean of the sample, i.e. root of the product of all counts in the sample,
+will be zero if there's a single  zero, i.e. unobserved taxon (ASV), in a sample. The root
 will then be zero and since division by zero is undefined, the clr will be too. Since a typical biological sequencing data
 set always contains a lot of zeroes, clrs will typically be undefined for all samples. To use clr, the zeroes therefore
 need to be removed or replaced with something else.
 
-The zeroes are artefacts of sequencing depth, and not evidence for the absence of a population in a sample. Methods that
+The zeroes are artefacts of sequencing depth, and *not evidence for the absence of a population* in a sample. Methods that
 deal with zeroes can hence be based on estimation of the true count (<1) of a population or similar. The `cmultRepl()`
-function in the `zCompositions` package...
+function in the `zCompositions` package can help us replace the zeroes with very small *pseudocounts* ("p-counts").
+
+*** > Read the Palarea-Albaladejo 2013 paper! <
 
 Terms:
 
@@ -126,8 +134,11 @@ asvs %>%
   replace_na(list(count = 0)) -> asvs
 ```
 
-Centered log ratios do not sum to the same sum for all samples `r figr('clrsum-plot', T, type = 'Figure')`, they are hence
-not good replacements for relative abundances.
+## Some characteristics of clrs
+
+Centered log ratios do not sum to the same sum for all samples -- in fact, they sum to many orders of magnitude different
+values `r figr('clrsum-plot', T, type = 'Figure')` -- and they are often
+negative (beacuse one takes the log). They are hence not good replacements for relative abundances in e.g. heatmaps.
 
 ```{r clrsum-plot, fig.height=6, fig.cap = 'Per sample sums of centered log ratios.'}
 asvs %>%
