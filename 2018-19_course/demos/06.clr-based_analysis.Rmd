@@ -175,6 +175,9 @@ pick out the necessary parts to make a PCA *biplot* of samples and ASVs.
 ```{r pca-biplot}
 pca.samples <- pca$CA$u %>% data.frame() %>% tibble::rownames_to_column('sample')
 pca.asvs    <- pca$CA$v %>% data.frame() %>% tibble::rownames_to_column('asv')
+pca.eigs    <- pca$CA$eig %>% data.frame() %>% tibble::rownames_to_column('asv') %>%
+  rename(eigval = 2) %>%
+  mutate(propexpl = eigval/sum(eigval))
 
 # We use the pca.samples table as the "main" table when calling ggplot.
 # Let's first join it with the samples table so we can use some metadata
@@ -186,6 +189,32 @@ pca.samples %>%
     geom_point(data = pca.asvs, size = 0.1) +
     # Points for samples, coloured by humidity
     geom_point(aes(colour = AverageSoilRelativeHumidity)) +
-    scale_colour_viridis_c('Average humidity')
+    scale_colour_viridis_c('Average humidity') +
+    xlab(sprintf("PC1 (%2.1f%% explained)", pca.eigs[1,3] * 100)) +
+    ylab(sprintf("PC2 (%2.1f%% explained)", pca.eigs[2,3] * 100)) 
+
+```
+
+```{r}
+asvs %>% 
+  # Standard Vegan transformation: Turn table with with samples as *rows*
+  dplyr::select(sample, seqid, clr) %>%
+  spread(seqid, clr) %>%
+  # Turn into a numeric matrix
+  tibble::column_to_rownames('sample') %>% as.matrix() %>%
+  # And call Vegan's rda function that will just do pca unless you give it a 
+  # a second argument (constraining matrix)
+  vegan::rda(
+    samples %>% 
+      semi_join(asvs, by = c('SampleID' = 'sample')) %>%
+      dplyr::select(
+        SampleID, 
+        AmpliconConcentration, 
+        AverageSoilRelativeHumidity, 
+        AverageSoilTemperature, 
+        PercentCover
+      ) %>%
+      tibble::column_to_rownames('SampleID') #%>% as.matrix()
+  ) -> rda
 ```
 
