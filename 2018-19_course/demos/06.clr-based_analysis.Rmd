@@ -201,7 +201,7 @@ asvs %>% dplyr::select(sample, seqid, clr) %>%
   spread(seqid, clr) %>% tibble::column_to_rownames('sample') -> asv_matrix
 
 rda(
-  asv_matrix ~ AverageSoilRelativeHumidity + AverageSoilTemperature,
+  asv_matrix ~ AverageSoilRelativeHumidity + AverageSoilTemperature + Vegetation,
   data = samples %>%
     semi_join(asvs, by = c('SampleID' = 'sample')) %>%
     replace_na(list('AverageSoilRelativeHumidity' = 0.5, 'AverageSoilTemperature' = 20)) %>%
@@ -209,10 +209,9 @@ rda(
 ) -> rda
 ```
 
-```{r}
+```{r rda-triplot}
 p <- c(rda$CCA$eig, rda$CA$eig)/sum(c(rda$CCA$eig, rda$CA$eig))
-a <- rda$CCA$biplot %>% data.frame() %>% tibble::rownames_to_column('factor') %>%
-  mutate(xs = 0, ys = 0)
+a <- rda$CCA$biplot %>% data.frame() %>% tibble::rownames_to_column('factor')
 
 rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
   inner_join(samples, by = c('sample' = 'SampleID')) %>%
@@ -221,6 +220,12 @@ rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
     scale_colour_viridis_c('Rel. humidity') +
     xlab(sprintf("RDA1 (%2.1f%% explained)", p[[1]] * 100)) +
     ylab(sprintf("RDA2 (%2.1f%% explained)", p[[2]] * 100)) +
-    geom_segment(data = a, mapping = aes(xend = RDA1, yend = RDA2), x = 0, y = 0)
+    geom_segment(data = a, mapping = aes(xend = RDA1/4, yend = RDA2/4), x = 0, y = 0, arrow = arrow()) +
+    geom_text(data = a, mapping = aes(x = RDA1/8, y = RDA2/8, label = factor), size = 4)
+```
+
+```{r rda-anova}
+# One can perform ANOVAs on the resulting model
+rda.anova <- anova(rda)
 ```
 
