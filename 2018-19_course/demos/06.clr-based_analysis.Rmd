@@ -14,7 +14,7 @@ output:
 ---
 
 ```{r setup, echo=F, cache = FALSE}
-knitr::opts_chunk$set(echo=F, fig.path='figures/', cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.path = 'figures/', cache = TRUE)
 ggplot2::theme_set(ggplot2::theme_bw())
 ```
 
@@ -34,6 +34,38 @@ library(CoDaSeq)
 ```{r constants}
 ```
 
+# Background: Centered Log Ratios
+
+*C*entered *L*og *R*atios (CLRs) are calculated as log of the ratio between a count and the
+geometric mean of counts in the sample:
+
+$$
+clr_s = \log{\frac{c_s}{\sqrt[n]{\prod_{i = 1}^{n} c_i}}}
+$$
+
+Where $n$ is the number of samples, $cls_s$ is the centered log ratio and $c_s$ the count
+respectively for sample $s$.
+
+## Dealing with zeroes
+
+The scary thing in the denominator, the geometric mean of the sample, i.e. root of the product of
+all counts in the sample, will be zero if there's a single  zero, i.e. unobserved taxon (ASV), in a
+sample. The root will then be zero and since division by zero is undefined, the clr will be too.
+Since a typical biological sequencing data set always contains a lot of zeroes, clrs will typically
+be undefined for all samples. To use clr, the zeroes therefore need to be removed or replaced with
+something else.
+
+The zeroes are artefacts of sequencing depth, and *not evidence for the absence of a population* in
+a sample. Methods that deal with zeroes can hence be based on estimation of the true count (<1) of a
+population or similar. The `cmultRepl()` function in the `zCompositions` package can help us replace
+the zeroes with very small *pseudocounts* ("p-counts").
+
+# Workflow
+
+## Read data files
+
+We start by reading in the data files: ASVs (counts), sample data ("metadata") and the taxonomy.
+
 ```{r read-data}
 # Read the ASV table and turn it long without zeroes
 asvs <- read_tsv(
@@ -51,7 +83,7 @@ taxonomy <- read_tsv(
   '../../data/taxonomy.tsv',
   col_types = cols(
     .default = col_character(), Confidence = col_double()
-  )
+  ) 
 ) %>%
   # Delete the D_0__ etc strings at the start of each taxon
   mutate(
@@ -78,49 +110,29 @@ samples <- read_tsv(
     ExtractGroupNo = col_character(), TransectName = col_character(), SiteName = col_character(),
     Vegetation = col_character(), Description = col_character()
   )
-)
+) %>%
+  rename(sample = SampleID) %>%
+  # Subset the table to only contain the samples that are in the asvs table (which was subset
+  # to only contain samples > 500 observations).
+  semi_join(asvs, by = 'sample')
 ```
 
-# Centered Log Ratios
+## Calculate CLR
 
-*C*entered *L*og *R*atios (clrs) are calculated as log of the ratio between a count and the geometric mean of counts in 
-the sample:
-
-$$
-clr_s = \log{\frac{c_s}{\sqrt[n]{\prod_{i = 1}^{n} c_i}}}
-$$
-
-Where $n$ is the number of samples, $cls_s$ is the centered log ratio and $c_s$ the count respectively for sample $s$.
-
-## Dealing with zeroes
-
-The scary thing in the denominator, the geometric mean of the sample, i.e. root of the product of all counts in the sample,
-will be zero if there's a single  zero, i.e. unobserved taxon (ASV), in a sample. The root
-will then be zero and since division by zero is undefined, the clr will be too. Since a typical biological sequencing data
-set always contains a lot of zeroes, clrs will typically be undefined for all samples. To use clr, the zeroes therefore
-need to be removed or replaced with something else.
-
-The zeroes are artefacts of sequencing depth, and *not evidence for the absence of a population* in a sample. Methods that
-deal with zeroes can hence be based on estimation of the true count (<1) of a population or similar. The `cmultRepl()`
-function in the `zCompositions` package can help us replace the zeroes with very small *pseudocounts* ("p-counts").
-
-*** > Read the Palarea-Albaladejo 2013 paper! <
-
-Terms:
-
-* *left-censored*: a data point is below a certain value. In our case this means below detection limit given the sequencing
-depth for the sample in question.
+We want to have a new column called `clr` in the asvs table.
 
 ```{r calc-clr}
-# This adds a clr column to the asvs table.
-# Note that the assignment to "asvs" is last and uses the -> assignment operator.
-# Since all combinations of sample and seqid will now get a value, clr, the number of rows increases quite a lot.
+# This *adds a clr column* to the asvs table.
+# Note that the assignment to "asvs" is last and uses the -> assignment operator.  
+# Since all combinations of sample and seqid will now get a value, clr, the number of rows
+# increases quite a lot.
 asvs %>%
   # Make the table wide with samples as columns
   spread(sample, count, fill = 0) %>%
   # Move the seqid to rowname; this requires a data.frame()
   data.frame() %>% tibble::column_to_rownames('seqid') %>%
-  # Replace zeroes with probabilities (pseudocounts) (I needed a slightly lower delta than default not to get negative values)
+  # Replace zeroes with probabilities (pseudocounts) (I needed a slightly lower delta than default
+  # not to get negative values)
   cmultRepl(method = 'CZM', delta = 0.5, output = 'p-counts') %>%
   # Calculate the CLR
   codaSeq.clr(samples.by.row = FALSE) %>%
@@ -136,9 +148,10 @@ asvs %>%
 
 ## Some characteristics of clrs
 
-Centered log ratios do not sum to the same sum for all samples -- in fact, they sum to many orders of magnitude different
-values `r figr('clrsum-plot', T, type = 'Figure')` -- and they are often
-negative (beacuse one takes the log). They are hence not good replacements for relative abundances in e.g. heatmaps.
+Centered log ratios do not sum to the same sum for all samples -- in fact, they sum to many orders
+of magnitude different values `r figr('clrsum-plot', T, type = 'Figure')` -- and they are often
+negative (beacuse one takes the log). They are hence not good replacements for relative abundances
+in e.g. heatmaps.
 
 ```{r clrsum-plot, fig.height=6, fig.cap = 'Per sample sums of centered log ratios.'}
 asvs %>%
@@ -148,14 +161,15 @@ asvs %>%
   coord_flip()
 ```
 
-# Redundancy analysis
+## Redundancy analysis
 
-Redundancy analysis (RDA) is an ordination method that can be constrained by sample metadata or not. In the latter case, it is
-identical to principle component analysis (PCA). The fact that we with clrs have data that is behaving nicely in statistical
-terms, allowing e.g. euclidian distances to be measured, makes it possible for us to us this very powerful methodology.
+Redundancy analysis (RDA) is an ordination method that can be constrained by sample metadata or not.
+In the latter case, it is identical to principle component analysis (PCA). The fact that we with
+clrs have data that is behaving nicely in statistical terms, allowing e.g. euclidian distances to be
+measured, makes it possible for us to us this very powerful methodology.
 
-We start by looking at how PCA works, i.e. only studying the distribution of samples and taxa, using the Vegan package's
-`rda` function.
+We start by looking at how PCA works, i.e. only studying the distribution of samples and taxa, using
+the Vegan package's `rda` function.
 
 ```{r calc-pca}
 asvs %>% 
@@ -169,13 +183,14 @@ asvs %>%
   vegan::rda() -> pca
 ```
 
-What's returned by the `rda` funtion is a list object that can be plotted with the base `plot` function, but we can also
-pick out the necessary parts to make a PCA *biplot* of samples and ASVs.
+What's returned by the `rda` funtion is a list object that can be plotted with the base `plot`
+function, but we can also pick out the necessary parts to make a PCA *biplot* of samples and ASVs
+using `ggplot2`.
 
-```{r pca-biplot}
+```{r pca-biplot, fig.height = 6}
 pca.samples <- pca$CA$u %>% data.frame() %>% tibble::rownames_to_column('sample')
 pca.asvs    <- pca$CA$v %>% data.frame() %>% tibble::rownames_to_column('asv')
-pca.eigs    <- pca$CA$eig %>% data.frame() %>% tibble::rownames_to_column('asv') %>%
+pca.eigs    <- pca$CA$eig %>% data.frame() %>% tibble::rownames_to_column('pc') %>%
   rename(eigval = 2) %>%
   mutate(propexpl = eigval/sum(eigval))
 
@@ -183,7 +198,7 @@ pca.eigs    <- pca$CA$eig %>% data.frame() %>% tibble::rownames_to_column('asv')
 # Let's first join it with the samples table so we can use some metadata
 # for colouring.
 pca.samples %>%
-  inner_join(samples, by = c('sample' = 'SampleID')) %>%
+  inner_join(samples, by = 'sample') %>%
   ggplot(aes(x = PC1, y = PC2)) +
     # Plot the ASVs *behind* the samples, i.e. first
     geom_point(data = pca.asvs, size = 0.1) +
@@ -191,30 +206,39 @@ pca.samples %>%
     geom_point(aes(colour = AverageSoilRelativeHumidity)) +
     scale_colour_viridis_c('Average humidity') +
     xlab(sprintf("PC1 (%2.1f%% explained)", pca.eigs[1,3] * 100)) +
-    ylab(sprintf("PC2 (%2.1f%% explained)", pca.eigs[2,3] * 100+)) 
-
+    ylab(sprintf("PC2 (%2.1f%% explained)", pca.eigs[2,3] * 100)) 
 ```
+
+## Proper RDA with sample data
+
+Below, I'm selecting three variables from the metadata, average soil relative humidity, average soil
+temperature (both continuous) and vegetation (categorical, i.e. yes or no).
 
 ```{r calc-rda-2vars}
 # Create a matrix object; we need it named, can't generate one on "the fly"
 asvs %>% dplyr::select(sample, seqid, clr) %>%
   spread(seqid, clr) %>% tibble::column_to_rownames('sample') -> asv_matrix
 
-rda(
+# Here's the call to the rda function with a formula as the first argument,
+vegan::rda(
   asv_matrix ~ AverageSoilRelativeHumidity + AverageSoilTemperature + Vegetation,
   data = samples %>%
-    semi_join(asvs, by = c('SampleID' = 'sample')) %>%
+    semi_join(asvs, by = 'sample') %>%
     replace_na(list('AverageSoilRelativeHumidity' = 0.5, 'AverageSoilTemperature' = 20)) %>%
-    tibble::column_to_rownames('SampleID')
+    tibble::column_to_rownames('sample')
 ) -> rda
 ```
 
-```{r rda-triplot}
+The results of an RDA analysis can be plotted as a *triplot* with arrows pointing in the direction
+of the environmental parameters. (Usually categorical variables are plotted as points and not as
+arrows.)
+
+```{r rda-triplot, fig.height = 6}
 p <- c(rda$CCA$eig, rda$CA$eig)/sum(c(rda$CCA$eig, rda$CA$eig))
 a <- rda$CCA$biplot %>% data.frame() %>% tibble::rownames_to_column('factor')
 
 rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
-  inner_join(samples, by = c('sample' = 'SampleID')) %>%
+  inner_join(samples, by = 'sample') %>%
   ggplot(aes(x = RDA1, y = RDA2)) +
     geom_point(aes(colour = AverageSoilRelativeHumidity)) +
     scale_colour_viridis_c('Rel. humidity') +
@@ -223,9 +247,3 @@ rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
     geom_segment(data = a, mapping = aes(xend = RDA1/4, yend = RDA2/4), x = 0, y = 0, arrow = arrow()) +
     geom_text(data = a, mapping = aes(x = RDA1/8, y = RDA2/8, label = factor), size = 4)
 ```
-
-```{r rda-anova}
-# One can perform ANOVAs on the resulting model
-rda.anova <- anova(rda)
-```
-
