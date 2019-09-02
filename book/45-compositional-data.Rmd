@@ -1,0 +1,13 @@
+# Compositional data analysis -- working with counts
+
+WORK IN PROGRESS!
+
+## Key papers
+
+[@mcmurdie_waste_2014]
+
+[@gloor_microbiome_2017]
+
+```{r include=FALSE}
+# vim:tw=100
+```

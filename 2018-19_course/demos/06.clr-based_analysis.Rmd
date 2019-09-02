@@ -11,6 +11,7 @@ output:
     toc: yes
   html_document:
     toc: yes
+bibliography: [../../book/eemis-compbio.bib]
 ---
 
 ```{r setup, echo=F, cache = FALSE}
@@ -18,32 +19,45 @@ knitr::opts_chunk$set(echo = TRUE, fig.path = 'figures/', cache = TRUE)
 ggplot2::theme_set(ggplot2::theme_bw())
 ```
 
-```{r libraries, message=F, cache = FALSE}
-suppressPackageStartupMessages(library(readr))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(tidyr))
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(kfigr))
-suppressPackageStartupMessages(library(knitr))
-
-# Packages needed to calculate clr
-library(zCompositions)
-library(CoDaSeq)
-```
-
-```{r constants}
-```
-
 # Background: Centered Log Ratios
 
-*C*entered *L*og *R*atios (CLRs) are calculated as log of the ratio between a count and the
-geometric mean of counts in the sample:
+Recently, the best practices for analyses of count data -- e.g. sequencing data from 16S amplicons,
+metagenomes or metatranscriptomes -- has been debated [@mcmurdie_waste_2014]. The fact that
+sequencing depth, i.e. the number of sequences per sample, is not related to the size of the sampled
+community but largely an effect of random processes suggests that the absence of a sequence, ASV or
+taxon is a sample is not evidence for the true absence of this population. Instead, the population
+was below the detection limit of the sequencing of this particular sample. The proper type of
+statistical tools for this kind of data -- count data with a detection limit -- are called
+"compositional". 
+
+One of the suggested approaches for dealing with compositional data is to convert counts to
+*C*entered *L*og *R*atios (CLRs) [@gloor_microbiome_2017]. CLRs have a normal distribution,
+suggesting we can use them in many statistical tests and procedures that requires normally
+distributed data, like principal component analysis (PCA). With the older approaches -- relative
+abundances or subsampled ("rarefied") data -- we had to resort to methods that were more robust to
+non-normally distributed data but in many cases not as powerful. One particular aspect of CLRs is
+that it's correct to calculate *euclidian distances* from them, a requirement for instance in PCA.
+The euclidian distance replaces other measurements of $beta$-diversity like Bray-Curtis or Unifrac.
+
+CLRs emphasize *variance* and not abundance, so that samples that differ by the rare, variable part
+of the community will separate better than those differing by smaller amounts of the more abundant
+populations.
+
+CLRs are useful when you work with comparisons between samples or taxa, or with correlation
+analyses, but they are *not applicable to calculations of $alpha$-diversity* nor in visualizations
+of taxon abundances. Some work has been done in utilizing the power of the collected data also for
+$alpha$-diversity [e.g.  @willis_rarefaction_2017], but I will not go into that here.
+
+## Calculation of centered log ratios
+
+CLRs are calculated as the logarithm of the ratio between a count and the geometric mean of counts
+in the sample:
 
 $$
 clr_s = \log{\frac{c_s}{\sqrt[n]{\prod_{i = 1}^{n} c_i}}}
 $$
 
-Where $n$ is the number of samples, $cls_s$ is the centered log ratio and $c_s$ the count
+Where $n$ is the number of samples, $cls_s$ the centered log ratio and $c_s$ the count
 respectively for sample $s$.
 
 ## Dealing with zeroes
@@ -60,7 +74,49 @@ a sample. Methods that deal with zeroes can hence be based on estimation of the 
 population or similar. The `cmultRepl()` function in the `zCompositions` package can help us replace
 the zeroes with very small *pseudocounts* ("p-counts").
 
+# Necessary libraries
+
+Besides the Tidyverse libraries, you will need
+[zCompositions](https://cran.r-project.org/web/packages/zCompositions/index.html) and
+[CoDaSeq](https://github.com/ggloor/CoDaSeq). The former is available on CRAN and hence easy to
+install, while the latter is only available through GitHub, which means it should be installed using
+`devtools::install_github()`. It also requires
+[ALDEx2](https://bioconductor.org/packages/release/bioc/html/ALDEx2.html) which is a Bioconductor
+package.
+
+## Installation
+
+```
+# Install zCompositions from CRAN
+install.packages('zCompositions')
+
+# ALDEx2 from Bioconductor
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("ALDEx2")
+
+# and CoDaSeq from GitHub
+install.packages('devtools')
+devtools::install_github('ggloor/CoDaSeq/CoDaSeq')
+```
+
 # Workflow
+
+## Load required libraries
+
+```{r libraries, message=F, cache = FALSE}
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(kfigr))
+suppressPackageStartupMessages(library(knitr))
+
+# Packages needed to calculate clr
+library(zCompositions)
+library(CoDaSeq)
+```
 
 ## Read data files
 
@@ -75,7 +131,8 @@ asvs <- read_tsv(
   gather(sample, count, 2:67) %>%
   # Take away rows with zero count
   filter(count > 0) %>%
-  # Take away samples with less than 500 observations
+  # Take away samples with less than 500 observations (this is an arbitrary choice 
+  # to get rid of samples with very low sequencing depth).
   group_by(sample) %>% filter(sum(count) >= 500) %>% ungroup()
 
 # Read the taxonomy table
@@ -106,14 +163,15 @@ samples <- read_tsv(
   '../../data/sample_metadata.tsv',
   col_types = cols(
     .default = col_double(),
-    SampleID = col_character(), BarcodeSequence = col_character(), LinkerPrimerSequence = col_character(),
-    ExtractGroupNo = col_character(), TransectName = col_character(), SiteName = col_character(),
+    SampleID = col_character(), BarcodeSequence = col_character(), 
+    LinkerPrimerSequence = col_character(), ExtractGroupNo = col_character(), 
+    TransectName = col_character(), SiteName = col_character(),
     Vegetation = col_character(), Description = col_character()
   )
 ) %>%
   rename(sample = SampleID) %>%
-  # Subset the table to only contain the samples that are in the asvs table (which was subset
-  # to only contain samples > 500 observations).
+  # Subset the table to only contain the samples that are in the asvs table (which was 
+  # subset to only contain samples > 500 observations).
   semi_join(asvs, by = 'sample')
 ```
 
@@ -144,21 +202,6 @@ asvs %>%
   left_join(asvs, by = c('sample', 'seqid')) %>%
   # Set count to 0 if it's NA
   replace_na(list(count = 0)) -> asvs
-```
-
-## Some characteristics of clrs
-
-Centered log ratios do not sum to the same sum for all samples -- in fact, they sum to many orders
-of magnitude different values `r figr('clrsum-plot', T, type = 'Figure')` -- and they are often
-negative (beacuse one takes the log). They are hence not good replacements for relative abundances
-in e.g. heatmaps.
-
-```{r clrsum-plot, fig.height=6, fig.cap = 'Per sample sums of centered log ratios.'}
-asvs %>%
-  group_by(sample) %>% summarise(clrsum = sum(clr)) %>% ungroup() %>%
-  ggplot(aes(x = sample, y = clrsum)) +
-  geom_point() +
-  coord_flip()
 ```
 
 ## Redundancy analysis
@@ -247,3 +290,6 @@ rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
     geom_segment(data = a, mapping = aes(xend = RDA1/4, yend = RDA2/4), x = 0, y = 0, arrow = arrow()) +
     geom_text(data = a, mapping = aes(x = RDA1/8, y = RDA2/8, label = factor), size = 4)
 ```
+
+# References
+
