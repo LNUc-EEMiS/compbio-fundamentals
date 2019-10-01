@@ -1,0 +1,39 @@
+---
+title: "Set analysis"
+author: "Daniel Lundin"
+date: "10/1/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries}
+library(tidyverse)
+library(ggupset)
+library(kfigr)
+```
+
+
+```{r read-data}
+trsps <- read_csv2('c_transp.csv', col_types = cols(transp = col_character(), .default = col_integer()))
+```
+
+We checked the occurrence of transporters (`r figr('plot-upset', T, type = 'Figure')`).
+
+```{r plot-upset, fig.widht = 8, fig.cap = 'Combinations of transporters found in four Cyanobacteria.'}
+trsps %>% 
+  gather(species, n, 2:5) %>% 
+  filter(n > 0) %>% 
+  select(-n) %>% 
+  group_by(transp) %>% 
+  summarise(combination = list(species)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = combination, fill = transp)) + 
+  geom_bar() + 
+  scale_x_upset() + 
+  scale_fill_brewer('Transporter', palette = 'Paired') +
+  xlab('Species combination') + ylab('Count')
+```
+

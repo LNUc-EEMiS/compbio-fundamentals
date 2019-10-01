@@ -1,0 +1,11 @@
+﻿transp;Anabaena;CalSC01;RintRC01;RintHH01
+ABC bicarbonate transporter;1;0;0;0
+SbtA;1;1;0;0
+BicA;1;1;1;0
+NDH-1 type of CO2 uptake complex;1;1;1;1
+Gls;1;1;1;1
+MFS symporter;1;1;1;0
+InvA;1;1;1;0
+InvB;1;1;1;1
+TRAP ;1;1;1;1
+Cation/solute symporter;0;1;1;1
