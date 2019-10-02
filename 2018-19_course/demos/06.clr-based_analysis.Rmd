@@ -41,7 +41,8 @@ The euclidian distance replaces other measurements of $beta$-diversity like Bray
 
 CLRs emphasize *variance* and not abundance, so that samples that differ by the rare, variable part
 of the community will separate better than those differing by smaller amounts of the more abundant
-populations.
+populations. If you want to focus on the influence of the most abundant populations instead of the
+most variable, there are other measurements to use, e.g. the Hellinger distance.
 
 CLRs are useful when you work with comparisons between samples or taxa, or with correlation
 analyses, but they are *not applicable to calculations of $alpha$-diversity* nor in visualizations
@@ -59,6 +60,11 @@ $$
 
 Where $n$ is the number of samples, $cls_s$ the centered log ratio and $c_s$ the count
 respectively for sample $s$.
+
+## The Aitchison distance
+
+If one takes the euclidian distance between samples based on the CLR, one gets what is also called
+the "Aitchison distance", see e.g. [@gloor_microbiome_2017].
 
 ## Dealing with zeroes
 
@@ -230,7 +236,7 @@ What's returned by the `rda` funtion is a list object that can be plotted with t
 function, but we can also pick out the necessary parts to make a PCA *biplot* of samples and ASVs
 using `ggplot2`.
 
-```{r pca-biplot, fig.height = 6}
+```{r pca-biplot, fig.height = 6, fig.cap = 'PCA of the samples. Coloured circles are the samples, and black dots the ASVs positions in the PCA coordinate system.'}
 pca.samples <- pca$CA$u %>% data.frame() %>% tibble::rownames_to_column('sample')
 pca.asvs    <- pca$CA$v %>% data.frame() %>% tibble::rownames_to_column('asv')
 pca.eigs    <- pca$CA$eig %>% data.frame() %>% tibble::rownames_to_column('pc') %>%
@@ -273,11 +279,18 @@ vegan::rda(
 ```
 
 The results of an RDA analysis can be plotted as a *triplot* with arrows pointing in the direction
-of the environmental parameters. (Usually categorical variables are plotted as points and not as
-arrows.)
+of the environmental parameters (`r figr('rda-triplot', T, type = 'Figure')`). (Usually categorical
+variables are plotted as points and not as arrows as in my figure.)
 
-```{r rda-triplot, fig.height = 6}
+```{r rda-triplot, fig.height = 6, fig.cap = 'Redundancy analysis (RDA). Samples are plotted together with vectors indicating the influence of the three factors included in the analysis. *Note 1*: Many samples got the same coordinates, and are hence plotted on top of each other. *Note 2*: that the lengths of the factor vectors were divided by four to fit inside the plot. They should hence only be interpreted as directions.'}
+# I need to collect some temporary data sets for the plot
+
+# This one will contain the proportions explained which we get by dividing the
+# eigenvalue of each component with the sum of eigenvalues for all components.
 p <- c(rda$CCA$eig, rda$CA$eig)/sum(c(rda$CCA$eig, rda$CA$eig))
+
+# This one is collecting the coordinates for arrows that will depict how the 
+# factors in our model point in the coordinate
 a <- rda$CCA$biplot %>% data.frame() %>% tibble::rownames_to_column('factor')
 
 rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
@@ -287,8 +300,18 @@ rda$CCA$u %>% data.frame() %>% tibble::rownames_to_column('sample') %>%
     scale_colour_viridis_c('Rel. humidity') +
     xlab(sprintf("RDA1 (%2.1f%% explained)", p[[1]] * 100)) +
     ylab(sprintf("RDA2 (%2.1f%% explained)", p[[2]] * 100)) +
-    geom_segment(data = a, mapping = aes(xend = RDA1/4, yend = RDA2/4), x = 0, y = 0, arrow = arrow()) +
-    geom_text(data = a, mapping = aes(x = RDA1/8, y = RDA2/8, label = factor), size = 4)
+    # I'm dividing the RDA1 and RDA2 values by four, since they are too long in
+    # comparison with the coordinates for the data points (perhaps not advisable
+    # in real life...)
+    geom_segment(
+      data = a, mapping = aes(xend = RDA1/4, yend = RDA2/4), 
+      x = 0, y = 0, arrow = arrow()
+    ) +
+    # Print the names of factors halfway along the arrows
+    geom_text(
+      data = a, mapping = aes(x = RDA1/8, y = RDA2/8, label = factor), 
+      size = 4
+    )
 ```
 
 # References
