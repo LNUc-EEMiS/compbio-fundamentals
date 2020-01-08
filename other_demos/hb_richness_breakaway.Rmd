@@ -1,0 +1,68 @@
+---
+title: "Estimation of richness using the `breakaway` package"
+author: "daniel.lundin@lnu.se"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output:
+  pdf_document:
+    fig_caption: yes
+    fig_height: 9
+    fig_width: 8
+    number_sections: yes
+    toc: yes
+  html_document:
+    toc: yes
+---
+
+```{r setup, echo=F, cache = FALSE}
+knitr::opts_chunk$set(echo=F, fig.path='figures/', cache = TRUE)
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r libraries, message=F, cache = FALSE}
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(breakaway))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tibble)) # column_to_rownames() and reverse functions
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(purrr))  # map() function
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(kfigr))
+suppressPackageStartupMessages(library(knitr))
+```
+
+```{r constants}
+```
+
+```{r read-data}
+counts <- read_tsv(
+  "hb_richness_breakaway.asvtable.tsv",
+  col_types = cols(.default = col_character(), count = col_integer())
+)
+```
+
+```{r apply-breakaway-and-plot}
+counts %>% spread(sample, count, fill = 0) %>%
+  data.frame() %>%        # tibbles will stop supporting rownames
+  column_to_rownames('seqname') %>%
+  breakaway() -> bd
+
+# The list object returned by breakaway ("bd" above) is tricky (for me) to convert to a table...
+tibble(
+  # Names of entries in the list are sample names
+  sample = names(bd), 
+  # The map function in purrr allows us to pull the estimates and errors respectively once we have the names
+  estimate = map(sample, function(s) { bd[[s]]$estimate }),
+  error = map(sample, function(s) { bd[[s]]$error }),
+  cilow = map(sample, function(s) { bd[[s]]$ci[1] }), # Lower bound of confidence interval
+  cihigh = map(sample, function(s) { bd[[s]]$ci[2] }) # Higher bound
+) %>% 
+  unnest(c(estimate, error, cilow, cihigh)) %>%
+  ggplot(aes(x = sample, y = estimate)) +
+  geom_point() +
+  #geom_errorbar(aes(ymin = estimate - error, ymax = estimate + error))
+  geom_errorbar(aes(ymin = cilow, ymax = cihigh)) +
+  scale_y_log10() +
+  coord_flip() +
+  xlab('sample') + ylab('Estimated richness with confidence interval')
+```
+
