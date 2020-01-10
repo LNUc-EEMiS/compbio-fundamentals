@@ -14,7 +14,7 @@ output:
 ---
 
 ```{r setup, echo=F, cache = FALSE}
-knitr::opts_chunk$set(echo=F, fig.path='figures/', cache = TRUE)
+knitr::opts_chunk$set(echo=TRUE, fig.path='figures/', cache = TRUE)
 ggplot2::theme_set(ggplot2::theme_bw())
 ```
 
@@ -44,25 +44,13 @@ counts <- read_tsv(
 counts %>% spread(sample, count, fill = 0) %>%
   data.frame() %>%        # tibbles will stop supporting rownames
   column_to_rownames('seqname') %>%
-  breakaway() -> bd
-
-# The list object returned by breakaway ("bd" above) is tricky (for me) to convert to a table...
-tibble(
-  # Names of entries in the list are sample names
-  sample = names(bd), 
-  # The map function in purrr allows us to pull the estimates and errors respectively once we have the names
-  estimate = map(sample, function(s) { bd[[s]]$estimate }),
-  error = map(sample, function(s) { bd[[s]]$error }),
-  cilow = map(sample, function(s) { bd[[s]]$ci[1] }), # Lower bound of confidence interval
-  cihigh = map(sample, function(s) { bd[[s]]$ci[2] }) # Higher bound
-) %>% 
-  unnest(c(estimate, error, cilow, cihigh)) %>%
-  ggplot(aes(x = sample, y = estimate)) +
+  breakaway() %>%
+  summary() %>%
+  ggplot(aes(x = sample_names, y = estimate)) +
   geom_point() +
-  #geom_errorbar(aes(ymin = estimate - error, ymax = estimate + error))
-  geom_errorbar(aes(ymin = cilow, ymax = cihigh)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper)) +
   scale_y_log10() +
   coord_flip() +
-  xlab('sample') + ylab('Estimated richness with confidence interval')
+  xlab('Sample') + ylab('Estimated richness with confidence interval')
 ```
 
